@@ -1,0 +1,51 @@
+<!-- Formulario horizontal -->
+<div *ngIf = "columnasEtiqueta; else verticalForm">
+    <div class="form-group row">
+        <!-- Etiqueta campo Obligatorio -->
+        <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="esCampoObligatorio">{{ textoEtiquetaObligatorio }}
+            <span class="text-danger">*</span>
+        </label>
+        <!-- Etiqueta campo No Obligatorio -->
+        <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="!esCampoObligatorio">{{ textoEtiqueta }}</label>    
+        <div class="col-md-{{columnasModelo}}">
+            <div class="btn-toolbar">            
+                <input class="form-control d-none" [minDate]="fechaMin" [maxDate]="fechaMax"  [(ngModel)]="valorComponte" ngbDatepicker="" #d="ngbDatepicker">            
+                <div class="btn-group btn-block">
+                    <!-- Boton para mostrar abrir datepicker y mostrar la fecha -->
+                    <button type="button" class="btn btn-outline-primary text-left" (click)="d.toggle()">
+                        <em class="fas fa-calendar mr-2"></em>
+                        <span *ngIf="fechaComponente">{{fechaComponente}}</span>
+                        <span *ngIf="!fechaComponente">{{textoPlaceholder}}</span>
+                    </button>
+                    <!-- Boton para limpiar la fecha seleccionada -->
+                    <button type="button" class="btn btn-outline-secondary" *ngIf="fechaComponente" (click)="limpiar()">
+                        <em class="fas fa-eraser"></em>
+                    </button>
+                </div>
+              </div>        
+        </div>
+    </div>    
+</div>
+<!-- Formulario vertical -->
+<ng-template #verticalForm>
+    <div class = "form-group">
+        <label>{{ textoEtiqueta }}</label>
+        <div>
+            <div class="btn-toolbar">            
+                <input class="form-control d-none" [minDate]="fechaMin" [maxDate]="fechaMax"  [(ngModel)]="valorComponte" ngbDatepicker="" #d="ngbDatepicker">            
+                <div class="btn-group btn-block">
+                    <!-- Boton para mostrar abrir datepicker y mostrar la fecha -->
+                    <button type="button" class="btn btn-outline-primary text-left" (click)="d.toggle()">
+                        <em class="fas fa-calendar mr-2"></em>
+                        <span *ngIf="fechaComponente">{{fechaComponente}}</span>
+                        <span *ngIf="!fechaComponente">{{textoPlaceholder}}</span>
+                    </button>
+                    <!-- Boton para limpiar la fecha seleccionada -->
+                    <button type="button" class="btn btn-outline-secondary" *ngIf="fechaComponente" (click)="limpiar()">
+                        <em class="fas fa-eraser"></em>
+                    </button>
+                </div>
+              </div>        
+        </div>        
+    </div>
+</ng-template>

@@ -1,0 +1,18 @@
+<div class = "form-group row">
+    <!-- Campo Obligatorio -->
+    <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="campoObligatorio">{{ textoEtiquetaObligatorio }}
+    <span class="text-danger">*</span>
+    </label>
+    <!-- Campo No Obligatorio -->
+    <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="!campoObligatorio">{{ textoEtiqueta }}</label>
+    <div class = "col-md-{{ columnasModelo }}">
+        <!-- tipo texto -->
+        <div *ngIf = "tipo === 'text'; else tipoTextArea">            
+            <div class = "input-read-only text-secondary border-bottom"> {{ textoValor }}</div>
+        </div>
+        <!-- tipo text area -->
+        <ng-template #tipoTextArea>
+            <textarea rows="3" cols="3" class="form-control" disabled="">{{ textoValor }}</textarea>
+        </ng-template>
+    </div>
+</div>

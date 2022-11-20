@@ -1,0 +1,12 @@
+<div class="modal-footer bg-white d-flex justify-content-between align-items-center pt-2">
+  <button type="button" class="btn btn-link" (click)="cerrarModal()"> Cerrar</button>
+  <div *ngIf = "cantidadPasos">
+      <button *ngIf="numeroPaso >= 2 && regresarPaso" type="button" class="btn btn-outline-secondary mr-2" (click)="regresarPaso()">
+        <em class="fas fa-arrow-left mr-2"></em>Anterior
+    </button>
+    <button  type="button" class="btn bg-degree" (click)="avanzarPaso()">
+        <div *ngIf="mostrarBotonSiguiente()"><em class="fas fa-arrow-right mr-2"></em>Siguiente</div>
+        <div *ngIf="!mostrarBotonSiguiente()"><em class="fas fa-check mr-2"></em>Aceptar</div>
+    </button>
+  </div>
+</div>

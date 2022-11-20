@@ -1,0 +1,73 @@
+<div class="row bg-degree align-items-end page-title-single">
+</div>
+<div class="row d-flex justify-content-center pt-2 pb-2  m-0 bg-degree">
+    <div class="{{columnasOpciones}} mt-2">
+        <div class="row card ml-2">
+            <div class="card-header bg-degree">
+                <h4>Tipo de lugar de tu interés</h4>
+            </div>
+            <div class="card-body">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="d-flex justify-content-center align-items-center btn btn-outline-degree" (click)="filtrar(1)">
+                      <input type="radio" name="options" id="option1" autocomplete="off" >
+                      <i class="fas fa-warehouse mr-2"></i> Zonas Francas
+                    </label>
+                    <label class="d-flex justify-content-center align-items-center btn btn-outline-degree ml-2" (click)="filtrar(2)" style="width: 150px;">
+                      <input type="radio" name="options" id="option2" autocomplete="off" checked>
+                      <i class="fas fa-industry mr-2"></i>ZDEEP
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row card ml-2" *ngIf="listadoDepartamentos.length">
+            <div class="card-header bg-degree">
+                <h5>Ubicaciones por departamento</h5>
+            </div>
+            <div class="card-body text-blue" style="max-height: 300px; overflow: auto;">
+                <div *ngFor="let ubicacion of listadoDepartamentos" class="d-flex justify-content-between">
+                    <h5>
+                        {{ubicacion.departamento}}
+                    </h5>
+                    <a class="text-left">
+                        <span class="badge badge-success mr-2">{{ubicacion.numeroUbicaciones}}</span>
+                        <span class="mr-2">Ubicaciones</span>
+                        <button class="btn btn-link" (click)="verParques(ubicacion.departamento)">Ver</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="{{columnasMapa}} d-flex justify-content-center" style="overflow-x: auto; height: 800px; padding-top: 50px;">
+        <app-mapa [ubicacionesDepartamentos] = "listadoDepartamentos"
+                  (departamentoSeleccionado)="verParques($event)"></app-mapa>
+    </div>
+    <div class="{{columnasOpciones}} text-blue">
+        <div class="card row m-1" *ngIf="ubicacionDepartamento">
+            <div class="card-header bg-degree d-flex justify-content-between align-items-center">
+                <h5 class="font-weight-bold" id="tituloUbicaciones">Departamento de {{ubicacionDepartamento}}</h5>
+            </div>
+            <div class="card-body" style="max-height: 500px; overflow:auto;" id="divListado">
+                <div class=" pb-2 mb-2 border-bottom" style="font-size: 12px !important;" *ngFor="let ubicacion of listadoUbicaciones">
+                    <div class="d-flex justify-content-between">
+                        <h5>{{ ubicacion.nombre }}</h5>
+                        <button type="button" class="btn border-0 text-danger btn-sm" title="Ver ubicación" (click)="mostrarUbicacion(ubicacion)" >
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                        </button>
+                    </div>
+                    <strong>Tipo de industria: </strong><span>{{ ubicacion.tipoIndustria }}</span>
+                    <br><strong>Teléfono: </strong><span> {{ ubicacion.telefonoContacto }} </span>
+                    <br>
+                    <div class="d-flex justify-content-between">
+                        <span style="text-shadow: 0 0 30px #fff;" *ngIf="ubicacion.pagina">
+                            <strong>Página: </strong> <a style="color: #007bff;" target="_blank" href="{{ubicacion.pagina}}">{{ ubicacion.nombre }}</a>
+                        </span>
+                        <a class="btn btn-link btn-sm m-0 p-0" style="font-size: 14px;" (click)="mostrarInformacionUbicacion(ubicacion)">
+                            <i class="fas fa-eye mr-2"></i>Más información
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

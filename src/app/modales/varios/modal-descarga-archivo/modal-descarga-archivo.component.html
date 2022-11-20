@@ -1,0 +1,74 @@
+<app-modal-header titulo  = "Completa tus datos para descargar el archivo"
+                  [cerrarModal]  = "cerrarModal">
+</app-modal-header>
+<div class="modal-body" style="max-height: 500px; overflow-y:auto;">
+    <form>
+        <app-output output-label-value   = "NIT"
+                    output-model-value   = "{{ informacionFormulario.nit }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Nombre de la empresa"
+                    output-model-value   = "{{ informacionFormulario.nombreEmpresa }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Entidad Administradora"
+                    output-model-value   = "{{ informacionFormulario.entidadAdministradora }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Correo"
+                    output-model-value   = "{{ informacionFormulario.correoNotificacion }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Dirección"
+                    output-model-value   = "{{ informacionFormulario.direccion }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Zona"
+                    output-model-value   = "{{ informacionFormulario.zona }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Municipio"
+                    output-model-value   = "{{ informacionFormulario.municipio }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Departamento"
+                    output-model-value   = "{{ informacionFormulario.departamento }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Código postal"
+                    output-model-value   = "{{ informacionFormulario.codigoPostal }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+        <app-output output-label-value   = "Teléfono"
+                    output-model-value   = "{{ informacionFormulario.telefono }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+    </form>
+</div>
+<!-- Modal footer -->
+<app-modal-footer [avanzarPaso]  = "avanzarPaso"
+                  [regresarPaso] = "regresarPaso"
+                  [numeroPaso]   = "numeroPaso"
+                  [cerrarModal]  = "cerrarModal" 
+                  cantidadPasos  = "1">
+</app-modal-footer>

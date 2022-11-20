@@ -1,0 +1,34 @@
+<!-- Formulario horizontal -->
+<div *ngIf = "columnasEtiqueta; else verticalForm">  
+    <div class = "form-group row">
+      <!-- Etiqueta campo Obligatorio -->
+      <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="esCampoObligatorio">{{ textoEtiquetaObligatorio }}
+        <span class="text-danger">*</span>
+      </label>
+      <!-- Etiqueta campo No Obligatorio -->
+      <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="!esCampoObligatorio">{{ textoEtiqueta }}</label>    
+      <div class = "col-md-{{ columnasModelo }}">
+        <input class = "form-control"
+               type = "{{tipo}}"
+               placeholder = "{{ textoPlaceholder }}"
+               [value]     = "valorComponente"
+               (input)     = "onInput($event.target)"
+               [attr.maxlength] = "longitudMaxima"/>
+        <span class="form-text text-muted" *ngIf="esTextoAyuda">{{ textoAyuda }}</span>
+      </div>
+    </div>
+  </div>
+  <!-- Formulario vertical -->
+  <ng-template #verticalForm>
+    <div class = "form-group">
+      <label>{{ textoEtiqueta }}</label>  
+      <input class = "form-control"
+             type = "{{tipo}}"
+             placeholder = "{{ textoPlaceholder }}"
+             [value]     = "valorComponente"
+             (input)     = "onInput($event.target)"           
+             [attr.maxlength]  = "longitudMaxima"/>
+      <span class="form-text text-muted" *ngIf="esTextoAyuda">{{ textoAyuda }}</span>
+    </div>
+  </ng-template>
+  

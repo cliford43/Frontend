@@ -1,0 +1,18 @@
+<app-modal-header [titulo]  = "ubicacion.nombre"
+                  [cerrarModal]  = "cerrarModal">
+</app-modal-header>
+<div class="modal-body" style="max-height: 500px; overflow-y:auto;">
+    <form>
+        <app-output *ngFor="let campo of etiquetas"
+                    output-label-value   = "{{campo.etiqueta}}"
+                    output-model-value   = "{{ ubicacion[campo.campo] }}"
+                    output-type          = "text"
+                    output-label-columns = "5"
+                    output-model-columns = "7">
+        </app-output>
+    </form>
+</div>
+<!-- Modal footer -->
+<app-modal-footer [cerrarModal]  = "cerrarModal" 
+                  [cantidadPasos]  = "0">
+</app-modal-footer>

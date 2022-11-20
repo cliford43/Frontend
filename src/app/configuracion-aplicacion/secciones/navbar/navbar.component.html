@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-transparent fixed-top pt-0" #mainNav>
+    <span class="navbar-text pl-1">
+		<img class="img-responsive" src="assets/images/esp/LogoVUI_Esp.png" class="logo-desktop" #logoNav/>
+	</span>	
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<i class="fas fa-bars"></i>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ms-auto my-2 my-lg-0 ">
+			<li class="nav-item"><a class="nav-link text-white "  (click)="cargando('')">Inicio</a></li>
+			<li class="nav-item dropdown ">
+				<a class="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Invierte en Guatemala
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="border-radius: 20px!important;">
+					<a class="dropdown-item">Información Sectorial</a>
+					<a class="dropdown-item" (click)="cargando('casosExito')">Casos de Éxito</a>
+					<a class="dropdown-item">Plan Guatemala No Se Detiene</a>
+					<a class="dropdown-item">Portafolio de Proyectos</a>
+					<a class="dropdown-item" (click)="cargando('parquesIndustriales')">Parques Industriales</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle text-white" id="navIdioma" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Trámites en linea
+				</a>
+				<div class="dropdown-menu dropright text-center" aria-labelledby="navIdioma" style="border-radius: 20px!important; min-width: 200px;">
+					<a class="nav-link dropdown-toggle text-white" id="navDisercomi" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Zonas Francas
+					</a>
+					<div class="dropdown-menu align-items-center" aria-labelledby="navDisercomi" style="border-radius: 20px!important; height: 50px;">
+						<a class="dropdown-item" (click)="cargando('tramitesDisercomi')" style="margin-top: -10px;">DISERCOMI</a>
+					</div>
+				</div>
+			</li>
+			<li class="nav-item"><a class="nav-link text-white " (click)="cargando('iniciarOperaciones')">Iniciar Operaciones</a></li>
+			<li class="nav-item"><a class="nav-link text-white " (click)="cargando('quienesSomos')">¿Quiénes Somos?</a></li>
+			<li class="nav-item"><a class="nav-link text-white " (click)="cargando('contactenos')">Contáctenos</a></li>
+			<li class="nav-item"><a class="nav-link text-white " (click)="cargando()">Biblioteca Virtual</a></li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle text-white" id="navIdioma" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Español
+				</a>
+				<div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="navIdioma" style="border-radius: 20px!important;">
+					<a class="dropdown-item">English</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</nav>

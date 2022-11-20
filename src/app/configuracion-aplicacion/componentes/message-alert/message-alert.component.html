@@ -1,0 +1,32 @@
+<div class="swal2-container swal2-top swal2-fade swal2-shown" style="overflow-y: auto;" *ngIf="msgAlertSrv.showMessage">
+  <!-- Html Alerta-->
+  <div class="alert alert-{{msgAlertSrv.cssClassAlert}} bg-white alert-styled-left alert-arrow-left alert-dismissible ">
+    <!-- Boton cerrar-->
+    <button type="button" class="close" (click)="msgAlertSrv.dismissAlert()"> <span>×</span> </button>
+    <!-- Titulo-->
+    <h6 class="alert-heading font-weight-bold mb-1">{{ msgAlertSrv.title }}</h6>
+    <!-- Mensaje-->
+    <div class="mb-2"> {{ msgAlertSrv.message }} </div>
+    <div class="table-responsive" *ngIf="msgAlertSrv.errorList">
+      <table class="table table-xs" *ngIf="msgAlertSrv.errorList.length">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Campo</th>
+            <th>Dato</th>
+            <th>Error</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of msgAlertSrv.errorList; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.parametro }}</td>
+            <td>{{ item.valor }}</td>
+            <td>{{ item.descripcion }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    
+  </div>

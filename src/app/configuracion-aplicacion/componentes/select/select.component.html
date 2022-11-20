@@ -1,0 +1,35 @@
+<!-- Formulario horizontal -->
+<div *ngIf = "columnasEtiqueta; else verticalForm" [formGroup]="formularioGrupo">
+  <div class = "form-group row">
+    <!-- Campo Obligatorio -->
+    <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="esCampoObligatorio">{{ textoEtiquetaObligatorio }}
+      <span class="text-danger">*</span>
+    </label>
+    <!-- Campo No Obligatorio -->
+    <label class = "col-form-label col-md-{{ columnasEtiqueta }}" *ngIf="!esCampoObligatorio">{{ textoEtiqueta }}</label>
+    <div class = "col-md-{{ columnasModelo }}">
+      <ng-select [items]            = "listaValores"
+                 [bindLabel]        = "atributoDescripcion"
+                 [bindValue]        = "atributoValor"
+                 (change)           = "elementoSeleccionado($event)"
+                 placeholder        = "{{ textoPlaceholder }}"  
+                 [formControlName]  = "formularioControl"
+                 [dropdownPosition] = "ubicacion">
+      </ng-select>
+    </div>
+  </div>
+</div>
+<!-- Formulario vertical -->
+<ng-template #verticalForm [formGroup]="formularioGrupo">
+<div class = "form-group">
+  <label>{{ textoEtiqueta }}</label>    
+    <ng-select [items]            = "listaValores"
+               [bindLabel]        = "atributoDescripcion"
+               [bindValue]        = "atributoValor"                 
+               (change)           = "elementoSeleccionado($event)"
+               placeholder        = "{{ textoPlaceholder }}"  
+               [formControlName]  = "formularioControl"
+               [dropdownPosition] = "ubicacion">
+    </ng-select>
+</div>  
+</ng-template>
