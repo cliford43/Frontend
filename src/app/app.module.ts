@@ -47,6 +47,8 @@ import { ParquesIndustrialesComponent } from './vistas/parques-industriales/parq
 import { ModalMostrarUbicacionComponent } from './modales/parquesIndustriales/modal-mostrar-ubicacion/modal-mostrar-ubicacion.component';
 import { ModalInformacionUbicacionComponent } from './modales/parquesIndustriales/modal-informacion-ubicacion/modal-informacion-ubicacion.component';
 import { InformacionDepartamentosComponent } from './vistas/informacion-departamentos/informacion-departamentos.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 
 registerLocaleData(localerGt, 'es-GT');
 @NgModule({
@@ -97,6 +99,7 @@ registerLocaleData(localerGt, 'es-GT');
     NgSelectModule,
    
   ],
+  schemas: [ NO_ERRORS_SCHEMA],
   providers: [
     { provide: LOCALE_ID, useValue: 'es-GT' },
     { provide: HTTP_INTERCEPTORS,      useClass: InterceptorHeaderService,  multi: true },

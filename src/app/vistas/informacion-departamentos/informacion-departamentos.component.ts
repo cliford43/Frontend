@@ -5,12 +5,20 @@ import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import { isPlatformBrowser } from '@angular/common';
 import * as am5percent from "@amcharts/amcharts5/percent";
+import { HttpClient } from "@angular/common/http";
+import { Deptos } from "./depto";
+import { Munis } from "./depto";
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 
 //import * as d3 from 'd3';
+
 @Component({
   selector: 'app-informacion-departamentos',
   templateUrl: './informacion-departamentos.component.html',
-  styleUrls: []
+  styleUrls: [],
+  
 })
 export class InformacionDepartamentosComponent implements OnInit {
   element = false;
@@ -26,28 +34,26 @@ export class InformacionDepartamentosComponent implements OnInit {
   mujeresInicio=0;
   porcentajeMujeres=0;
   private root!: am5.Root;
-
+  departamentos: Deptos[] = [];
+  municipios: Munis[] = [];
   
-  public departamentos: Array<{id: number, nombre: string,anio:number,poblacionTotal:number,hombreTotal:number,mujerTotal:number, descripcion: string}> = [
-    { id: 1, nombre: "Alta Verapaz",anio:2022, poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765, descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:" },
-    { id: 2, nombre: "Escuintla" ,anio:2022 ,poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765,descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:"  },
-    { id: 3, nombre: "Guatemala" ,anio:2022,poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765, descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:"  },
-    { id: 4, nombre: "Izabal" ,anio:2022,poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765, descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:"  },
-    { id: 5, nombre: "Quetzaltenango" ,anio:2022,poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765, descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:"  },
-    { id: 6, nombre: "Retalhuleu" ,anio:2022,poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765, descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:"  },
-    { id: 7, nombre: "San Marcos" ,anio:2022,poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765, descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:" },
-    { id: 8, nombre: "Santa Rosa",anio:2022 , poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765,descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:" },
-    { id: 9, nombre: "Zacapa" ,anio:2022, poblacionTotal:1355134,hombreTotal:678369,mujerTotal:676765,descripcion:"El departamento de Alta Verapaz se encuentra ubicado al norte del país. El territorio es reconocido por su producción de café, cardamomo y cacao de alta calidad. Cuenta con una extensión territorial de 8,686 km cuadrados. La cabecera departamental es el municipio de Cobán, y se conforma por 17 municipios, siendo estos:" },
-  ];
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute ) { 
+  
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute, private http: HttpClient ) { 
     this.activatedRoute.params.subscribe(params => {
-      let depto = params['id'];
-      if(depto==0){
+      let deptoId = params['id'];
+     
         this.element = false;
-      }else{
+      
         this.element = true;
-        this.nombreDepartamento = this.departamentos[depto-1].nombre;
-        this.descripcionDepartamento = this.departamentos[depto-1].descripcion;
+        
+        this.departamentos.forEach(elemento => this.asignar(deptoId,elemento['idDepartamento'],elemento['nomDepartamento']));
+        
+        this.getMunis(deptoId).subscribe(munis => this.municipios = munis);
+        console.log("MUNICIPIOS:");
+        console.log(this.municipios);
+        
+        //this.nombreDepartamento = this.departamentos[1].nombre;
+     /*   this.descripcionDepartamento = this.departamentos[depto-1].descripcion;
         this.anioDepartamento = this.departamentos[depto-1].anio;
         this.poblacionTotal=this.departamentos[depto-1].poblacionTotal;
         this.poblacionInicio= this.poblacionTotal-(this.poblacionTotal*0.05);
@@ -62,14 +68,39 @@ export class InformacionDepartamentosComponent implements OnInit {
         this.porcentajeMujeres=parseFloat(tempPorM);
         
         console.log(this.porcentajeMujeres+"-----"+this.departamentos[depto-1].id+"-----"+this.departamentos[depto-1].nombre);
-      }
+        */
+      
     
       
       });
-    
+      const temporal =this.getDeptos();
 
+
+
+     // this.departamentos.push({ id: temporalidDepartamento, nombre: temporal.nomDepartamento });
+    this.getDeptos().subscribe(deptos => this.departamentos = deptos);
+  }
+  asignar(idBusca: number,idIter: number,nombreDepto: string){
+
+    if(idBusca==idIter){
+      this.nombreDepartamento=nombreDepto;
+    }
   }
 
+  getDeptos(): Observable<Deptos[]> {
+    return this.http.get<Deptos[]>("http://localhost:8082/vui-api/departamentos"); 
+  }
+  getMunis(idDepto: number): Observable<Munis[]> {
+    console.log(idDepto);
+    return this.http.get<Munis[]>("http://localhost:8082/vui-api/municipios?idDepartamento="+(idDepto-1));
+  }
+/*  getDeptos() {
+    this.http.get<Deptos>("http://localhost:8082/vui-api/deptosbenjamin").subscribe(data => {
+      dat.foreach(
+        address => this.addresses.push(address)
+      )
+    });
+  }*/
   browserOnly(f: () => void) {
     if (isPlatformBrowser(this.platformId)) {
       this.zone.runOutsideAngular(() => {
@@ -296,5 +327,6 @@ series2.appear(1000, 100);
       }
     });
   }
+
 
 }
