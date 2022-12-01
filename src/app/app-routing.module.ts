@@ -23,7 +23,7 @@ const routes: Routes = [
   { path : 'casosExito', component : CasosExitoComponent, canActivate:[GuardAuth]},
   { path : 'parquesIndustriales', component : ParquesIndustrialesComponent, canActivate:[GuardAuth]},
   { path : 'error', component : ErrorPageComponent},
-  { path : 'informacionDepartamentos/:id', component : InformacionDepartamentosComponent, canActivate:[GuardAuth]},
+  { path : 'informacionDepartamentos', component : InformacionDepartamentosComponent, canActivate:[GuardAuth]},
   
 ];
 

@@ -136,9 +136,9 @@ var datosDeptos = {
 
 window.onload = function (argument) {
 	//		Mensaje bienvenida que aparecera en el párrafo cuando carge todo
-	document.querySelector( ".infoDepto p" ).innerHTML = "Para ver una pequeña descripción de cada departamento de Guatemala bastara con que posiciones o te posisiones sobre cualquier departamento :).";
+	//document.querySelector( ".infoDepto p" ).innerHTML = "Para ver una pequeña descripción de cada departamento de Guatemala bastara con que posiciones o te posisiones sobre cualquier departamento :).";
 	//colorInfo ( document.querySelector( ".infoDepto" ), "#2980b9", "#3498db" );
-
+	$(".infoDepto2").hide();
 }
 
 //		Función para hacer que cambie de color la información de cada departamento
@@ -162,7 +162,7 @@ function colorInfo ( etiquetaDescr, color1, color2 ) {
 //		Función para mostrar la información de cada departamento cuando esten sobre el
 
 function infoDepartamento ( data ) {
-	
+	$(".infoDepto2").show();
 	var departamento = data.id;
 	//	Cada vez que este sobre un depto lo dejo marcado pero antes pinto todo del mismo color
 	/*colorInicial( document.querySelectorAll( ".deptoGuate svg path" ) );
@@ -176,11 +176,16 @@ function infoDepartamento ( data ) {
 	//colocando el nombre del departamento
 	console.log("ID del departamento: "+datosDeptos[departamento][0].idDepartamento);
 	buscarMunicipios(datosDeptos[departamento][0].idDepartamento); 
+
+	buscarIndicadores(datosDeptos[departamento][0].idDepartamento); 
 	
 	//console.log(departamento);
 	//console.log(datosDeptos[departamento]);
 	var nombre = JSON.stringify( datosDeptos[departamento][0].nombreDepto ).toString().toUpperCase();
-	document.querySelector( ".infoDepto h2" ).innerHTML = nombre;
+	var temp2="Perfil Departamento: "+nombre;
+	document.querySelector( ".infoDepto h2" ).innerHTML = temp2
+	document.querySelector( ".nombreDep" ).innerHTML = nombre;
+	
 	
 	//colocando la descripción del departamento
 	var descripcion = JSON.stringify( datosDeptos[departamento][0].descripcion ).toString();
@@ -234,6 +239,28 @@ function buscarMunicipios(depto){
 					}
 				});
 }
+
+function buscarIndicadores(depto){
+	console.log('DEPARTAMENTO A BUSCAR: '+depto);
+	var tempMunis = "";
+	
+	var url = 'http://localhost:8082/vui-api/indicadores?idDepartamento='+depto;
+	var postForm = {
+					'depto': ''
+				};
+				$.ajax({
+					type: 'GET',
+					url: url,
+					data: postForm,
+					dataType: 'json',
+					success: function(data) {
+						console.log("RETORNO DE INDICADORES");
+						console.log(data);
+					
+						
+					}
+				});
+}
 //		Función para limpiar los valores de la descripción del departamento, etiquetaDescr = etiqueta descripción
 function limpiaValores ( etiquetaDescr ) {
 	if ( etiquetaDescr.length === null ) {
@@ -250,50 +277,3 @@ function colorInicial ( etiquetaDescr ) {
 	}
 }
 
-
-$(document).ready(function() {
-  var form_count = 1,
-	previous_form, next_form, total_forms;
-  total_forms = $("fieldset").length;
-  $(".next-form").click(function() {
-	previous_form = $(this).parent();
-	next_form = $(this).parent().next();
-	next_form.show();
-	previous_form.hide();
-	setProgressBarValue(++form_count);
-  });
-  $(".previous-form").click(function() {
-	previous_form = $(this).parent();
-	next_form = $(this).parent().prev();
-	next_form.show();
-	previous_form.hide();
-	setProgressBarValue(--form_count);
-  });
-  setProgressBarValue(form_count);
-
-  function setProgressBarValue(value) {
-	var percent = parseFloat(100 / total_forms) * value;
-	percent = percent.toFixed();
-	$(".progress-bar").css("width", percent + "%").html(percent + "%");
-  }
-  // Handle form submit and validation
-  $("#register_form").submit(function(event) {
-	var error_message = '';
-	if (!$("#email").val()) {
-	  error_message += "Please Fill Email Address";
-	}
-	if (!$("#password").val()) {
-	  error_message += " < br > Please Fill Password ";
-	}
-	if (!$("#mobile").val()) {
-	  error_message += " < br > Please Fill Mobile Number ";
-	}
-	// Display error if any else submit form
-	if (error_message) {
-	  $('.alert-success').removeClass('hide').html(error_message);
-	  return false;
-	} else {
-	  return true;
-	}
-  });
-});

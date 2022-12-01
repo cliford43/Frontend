@@ -40,15 +40,15 @@ export class InformacionDepartamentosComponent implements OnInit {
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute, private http: HttpClient ) { 
     this.activatedRoute.params.subscribe(params => {
-      let deptoId = params['id'];
+     // let deptoId = params['id'];
      
         this.element = false;
       
         this.element = true;
         
-        this.departamentos.forEach(elemento => this.asignar(deptoId,elemento['idDepartamento'],elemento['nomDepartamento']));
+      //  this.departamentos.forEach(elemento => this.asignar(deptoId,elemento['idDepartamento'],elemento['nomDepartamento']));
         
-        this.getMunis(deptoId).subscribe(munis => this.municipios = munis);
+     //   this.getMunis(deptoId).subscribe(munis => this.municipios = munis);
         console.log("MUNICIPIOS:");
         console.log(this.municipios);
         
@@ -73,12 +73,12 @@ export class InformacionDepartamentosComponent implements OnInit {
     
       
       });
-      const temporal =this.getDeptos();
+   //   const temporal =this.getDeptos();
 
 
 
      // this.departamentos.push({ id: temporalidDepartamento, nombre: temporal.nomDepartamento });
-    this.getDeptos().subscribe(deptos => this.departamentos = deptos);
+ //   this.getDeptos().subscribe(deptos => this.departamentos = deptos);
   }
   asignar(idBusca: number,idIter: number,nombreDepto: string){
 
@@ -87,13 +87,13 @@ export class InformacionDepartamentosComponent implements OnInit {
     }
   }
 
-  getDeptos(): Observable<Deptos[]> {
+ /* getDeptos(): Observable<Deptos[]> {
     return this.http.get<Deptos[]>("http://localhost:8082/vui-api/departamentos"); 
   }
   getMunis(idDepto: number): Observable<Munis[]> {
     console.log(idDepto);
     return this.http.get<Munis[]>("http://localhost:8082/vui-api/municipios?idDepartamento="+(idDepto-1));
-  }
+  }*/
 /*  getDeptos() {
     this.http.get<Deptos>("http://localhost:8082/vui-api/deptosbenjamin").subscribe(data => {
       dat.foreach(
