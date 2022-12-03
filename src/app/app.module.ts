@@ -48,6 +48,7 @@ import { ModalMostrarUbicacionComponent } from './modales/parquesIndustriales/mo
 import { ModalInformacionUbicacionComponent } from './modales/parquesIndustriales/modal-informacion-ubicacion/modal-informacion-ubicacion.component';
 import { InformacionDepartamentosComponent } from './vistas/informacion-departamentos/informacion-departamentos.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { IndicadoresLogisticosComponent } from './vistas/indicadores-logisticos/indicadores-logisticos.component';
 
 
 registerLocaleData(localerGt, 'es-GT');
@@ -86,7 +87,8 @@ registerLocaleData(localerGt, 'es-GT');
     ParquesIndustrialesComponent,
     ModalMostrarUbicacionComponent,
     ModalInformacionUbicacionComponent,
-    InformacionDepartamentosComponent
+    InformacionDepartamentosComponent,
+    IndicadoresLogisticosComponent
   ],
   imports: [
     NgbPaginationModule,

@@ -12,6 +12,7 @@ import { ParquesIndustrialesComponent } from './vistas/parques-industriales/parq
 import { QuienesSomosComponent } from './vistas/quienes-somos/quienes-somos.component';
 import { TramitesDisercomiComponent } from './vistas/tramites-disercomi/tramites-disercomi.component';
 import { InformacionDepartamentosComponent } from './vistas/informacion-departamentos/informacion-departamentos.component';
+import { IndicadoresLogisticosComponent } from './vistas/indicadores-logisticos/indicadores-logisticos.component';
 const routes: Routes = [
   { path : '', component : InicioComponent, canActivate:[GuardAuth]},
   { path : 'datosGenerales', component : DatosGeneralesComponent, canActivate:[GuardAuth]},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path : 'parquesIndustriales', component : ParquesIndustrialesComponent, canActivate:[GuardAuth]},
   { path : 'error', component : ErrorPageComponent},
   { path : 'informacionDepartamentos', component : InformacionDepartamentosComponent, canActivate:[GuardAuth]},
+  { path : 'indicadoresLogisticos', component : IndicadoresLogisticosComponent, canActivate:[GuardAuth]},
   
 ];
 
