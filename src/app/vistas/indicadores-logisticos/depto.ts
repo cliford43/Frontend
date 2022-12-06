@@ -1,14 +1,16 @@
-export interface Deptos {
+export interface Aereo {
+  [x: string]: any;
+    
+    idLogistica: number;
     idDepartamento: number;
-    nomDepartamento: string;
-    descripcionDepartamento: string;
-    longitudDepartamento:number;
-    latitudDepartamento:number;
+    nomOrigen: string;
+    idDestino: number;    
+    nomDestino:string;
+    idMedioTransporte: number;    
+    nomMedioTrasporte:string;
+    video:string;
   }
   
-  export interface Munis {
-    idDepartamento: number;    
-    idMunicipio: number;
-    nomMunicipio: string;
-  }
+
+  
   
