@@ -28,37 +28,37 @@
      height: 100vh;
      width:100%;">
   <div class="container-fluid">
-    
+
     <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 5em;">
-      
+
       <h1 class="blue-title text-uppercase">Indicadores Aerero</h1>
       <h3 class="blue-title text-uppercase fs-5" (click)="menuLogistica( $event );">Regresar al menu</h3>
       <div class="col-lg-8 col-md-8 col-sm-12">
-      <select class="form-select form-aereo" id ="seleccionador" aria-label="Default select example">
-        <option selected>Seleccione destino</option>
-        <option value="16">Miami, Estados Unidos (MIA)</option>
-        <option value="17">Los Ángeles, Estados Unidos (LAX)</option>
-        <option value="18">Panamá (PTY)</option>
-        <option value="19">Londres</option>
-        <option value="20">Ámsterdam</option>
-        <option value="21">Japón</option>
-        <option value="22">Corea</option>
-        <option value="23">Ciudad de México, México</option>
-        <option value="24">Houston, Estados Unidos</option>
-      </select>
-      
+        <select class="form-select form-aereo" id="seleccionador" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="16">Miami, Estados Unidos (MIA)</option>
+          <option value="17">Los Ángeles, Estados Unidos (LAX)</option>
+          <option value="18">Panamá (PTY)</option>
+          <option value="19">Londres</option>
+          <option value="20">Ámsterdam</option>
+          <option value="21">Japón</option>
+          <option value="22">Corea</option>
+          <option value="23">Ciudad de México, México</option>
+          <option value="24">Houston, Estados Unidos</option>
+        </select>
+
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
         <button type="button" class="btn btn-primary btn-lg" (click)="buscar(1);">Buscar</button>
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
-        
-       <div style="height: 1000vh;" id="cargaVideo"></div>
-        
-    </div>
-       
-       
-     
+
+        <div style="height: 1000vh;" id="cargaVideo"></div>
+
+      </div>
+
+
+
     </div>
   </div>
   <br><br><br><br><br><br><br><br><br>
@@ -71,48 +71,48 @@
      height: 100vh;
      width:100%;">
   <div class="container-fluid">
-    
+
     <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 5em;">
-      
+
       <h1 class="blue-title text-uppercase">Indicadores Maritimo</h1>
       <h3 class="blue-title text-uppercase fs-5" (click)="menuLogistica( $event );">Regresar al menu</h3>
       <div class="col-lg-8 col-md-8 col-sm-12">
-      <select class="form-select form-maritimo" id ="seleccionador" aria-label="Default select example">
-        <option selected>Seleccione destino</option>
-        <option value="25">Puerto Quetzal---Los Ángeles, EEUU</option>
-        <option value="26">Puerto Quetzal---Busan, Corea </option>
-        <option value="27">Puerto Quetzal---Shangai, China</option>
-        <option value="28">Puerto Quetzal---Mumbai, India</option>
-        <option value="29">Puerto Quetzal---Puerto Buenaventura, Colombia</option>
-        <option value="30">Puerto Quetzal---Manzanillo, México</option>
-        <option value="31">Puerto Santo Tomas de Castilla---Miami, EEUU</option>
-        <option value="32">Puerto Santo Tomas de Castilla---Galveston, Texas EEUU</option>
-        <option value="33">Puerto Santo Tomas de Castilla---Philadelphia, EEUU</option>
-        <option value="34">Puerto Santo Tomas de Castilla---Pto. Caucedo, Rep. Dominicana</option>
-        <option value="35">Puerto Santo Tomas de Castilla---San Antonio, Chile</option>
-        <option value="36">Puerto Santo Tomas de Castilla---Rotterdam, Países Bajos</option>
-        <option value="37">Puerto Santo Tomas de Castilla---Barcelona, España</option>
-        <option value="38">Puerto Santo Tomas de Castilla---Brake, Alemania</option>
-        <option value="39">Puerto Santo Tomas de Castilla---Altamira, México</option>
-      </select>
-      
+        <select class="form-select form-maritimo" id="seleccionadorm" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="25">Puerto Quetzal---Los Ángeles, EEUU</option>
+          <option value="26">Puerto Quetzal---Busan, Corea </option>
+          <option value="27">Puerto Quetzal---Shangai, China</option>
+          <option value="28">Puerto Quetzal---Mumbai, India</option>
+          <option value="29">Puerto Quetzal---Puerto Buenaventura, Colombia</option>
+          <option value="30">Puerto Quetzal---Manzanillo, México</option>
+          <option value="31">Puerto Santo Tomas de Castilla---Miami, EEUU</option>
+          <option value="32">Puerto Santo Tomas de Castilla---Galveston, Texas EEUU</option>
+          <option value="33">Puerto Santo Tomas de Castilla---Philadelphia, EEUU</option>
+          <option value="34">Puerto Santo Tomas de Castilla---Pto. Caucedo, Rep. Dominicana</option>
+          <option value="35">Puerto Santo Tomas de Castilla---San Antonio, Chile</option>
+          <option value="36">Puerto Santo Tomas de Castilla---Rotterdam, Países Bajos</option>
+          <option value="37">Puerto Santo Tomas de Castilla---Barcelona, España</option>
+          <option value="38">Puerto Santo Tomas de Castilla---Brake, Alemania</option>
+          <option value="39">Puerto Santo Tomas de Castilla---Altamira, México</option>
+        </select>
+
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
         <button type="button" class="btn btn-primary btn-lg" (click)="buscar(2);">Buscar</button>
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
-        
-       <div style="height: 1000vh;" id="cargaVideo2"></div>
-        
-    </div>
-       
-       
-     
+
+        <div style="height: 1000vh;" id="cargaVideo2"></div>
+
+      </div>
+
+
+
     </div>
   </div>
-  <br><br><br><br><br><br><br><br><br> 
+  <br><br><br><br><br><br><br><br><br>
 </div>
-<div class="bg-terrestre" style=" background: url(assets/images/esp/menuBack.png) no-repeat center center fixed; 
+<div class="bg-terrestre" style=" background: url(assets/images/esp/terrestreBack.png) no-repeat center center fixed; 
      -webkit-background-size: cover;
      -moz-background-size: cover;
      -o-background-size: cover;
@@ -120,11 +120,115 @@
      height: 100vh;
      width:100%;">
   <div class="container-fluid">
-    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 10em;">
-      <h1 class="blue-title text-uppercase">Indicadores terrestre</h1>
-     
+
+    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 5em;">
+
+      <h1 class="blue-title text-uppercase">Indicadores Terrestre</h1>
+      <h3 class="blue-title text-uppercase fs-5" (click)="menuLogistica( $event );">Regresar al menu</h3>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <select class="form-select form-terrestre" id="seleccionadort" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="1">Cd. Hidalgo, México</option>
+          <option value="2">Cd. Panamá</option>
+          <option value="3">San José, Costa Rica</option>
+          <option value="4">Managua, Nicaragua</option>
+          <option value="5">Tegucigalpa, Honduras</option>
+          <option value="6">San Pedro Sula, Honduras</option>
+          <option value="7">San Salvador, El Salvador</option>
+        </select>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
+        <button type="button" class="btn btn-primary btn-lg" (click)="buscar(3);">Buscar</button>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
+
+        <div style="" id="cargaVideo3"></div>
+
+      </div>
     </div>
+
+
+
+
+    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 0em;">
+
+      <h1 class="blue-title text-uppercase">Indicadores Terrestre</h1>
+      <h3 class="blue-title text-uppercase fs-5" (click)="menuLogistica( $event );">Regresar al menu</h3>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <select class="form-select form-terrestregt" id="seleccionadort" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="8">Ciudad de Guatemala---Puerto Quetzal</option>
+          <option value="9">Ciudad de Guatemala---Puerto Santo Tomás</option>
+          <option value="10">Ciudad de Guatemala---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="11">Ciudad de Guatemala---Corinto, Frontera con Honduras</option>
+          <option value="12">Ciudad de Guatemala---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="13">Escuintla---Ciudad de Guatemala</option>
+          <option value="14">Escuintla---Puerto Quetzal</option>
+          <option value="15">Escuintla---Puerto Santo Tomás</option>
+          <option value="16">Escuintla---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="17">Escuintla---Corinto, Frontera con Honduras</option>
+          <option value="18">Escuintla---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="19">Quetzaltenango---Ciudad de Guatemala</option>
+          <option value="20">Quetzaltenango---Puerto Quetzal</option>
+          <option value="21">Quetzaltenango---Puerto Santo Tomás</option>
+          <option value="22">Quetzaltenango---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="23">Quetzaltenango---Corinto, Frontera con Honduras</option>
+          <option value="24">Quetzaltenango---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="25">San Marcos---Ciudad de Guatemala</option>
+          <option value="26">San Marcos---Puerto Quetzal</option>
+          <option value="27">San Marcos---Puerto Santo Tomás</option>
+          <option value="28">San Marcos---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="29">San Marcos---Corinto, Frontera con Honduras</option>
+          <option value="30">San Marcos---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="31">Izabal---Ciudad de Guatemala</option>
+          <option value="32">Izabal---Puerto Quetzal</option>
+          <option value="33">Izabal---Puerto Santo Tomás</option>
+          <option value="34">Izabal---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="35">Izabal---Corinto, Frontera con Honduras</option>
+          <option value="36">Izabal---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="37">Retalhuleu---Ciudad de Guatemala</option>
+          <option value="38">Retalhuleu---Puerto Quetzal</option>
+          <option value="39">Retalhuleu---Puerto Santo Tomás</option>
+          <option value="40">Retalhuleu---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="41">Retalhuleu---Corinto, Frontera con Honduras</option>
+          <option value="42">Retalhuleu---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="43">Zacapa---Ciudad de Guatemala</option>
+          <option value="44">Zacapa---Puerto Quetzal</option>
+          <option value="45">Zacapa---Puerto Santo Tomás</option>
+          <option value="46">Zacapa---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="47">Zacapa---Corinto, Frontera con Honduras</option>
+          <option value="48">Zacapa---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="49">Santa Rosa---Ciudad de Guatemala</option>
+          <option value="50">Santa Rosa---Puerto Quetzal</option>
+          <option value="51">Santa Rosa---Puerto Santo Tomás</option>
+          <option value="52">Santa Rosa---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="53">Santa Rosa---Corinto, Frontera con Honduras</option>
+          <option value="54">Santa Rosa---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="55">Sacatepequez---Ciudad de Guatemala</option>
+          <option value="56">Sacatepequez---Puerto Quetzal</option>
+          <option value="57">Sacatepequez---Puerto Santo Tomás</option>
+          <option value="58">Sacatepequez---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="59">Sacatepequez---Corinto, Frontera con Honduras</option>
+          <option value="60">Sacatepequez---Ciudad Tecún Umán, Frontera con México</option>
+        </select>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
+        <button type="button" class="btn btn-primary btn-lg" (click)="buscar(4);">Buscar</button>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
+
+        <div style="position:absolute;" id="cargaVideo4"></div>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mb-5"></div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mb-5"></div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mb-5"></div>
+    </div>
+
   </div>
+  
 </div>
 
 <!--<div class="contenedor-pagina menuLogistica"  id="titulo" style="overflow: hidden;">

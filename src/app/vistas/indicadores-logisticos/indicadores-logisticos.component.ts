@@ -198,6 +198,16 @@ public buscar(id: number){
     url="http://localhost:8082/vui-api/indicadoresMaritimo?idDestino="+el;
     urlVideo="http://localhost:4200/assets/images/esp/Maritimo/";
   }
+  else if(id==3){
+    el =$( ".form-terrestre" ).val();    
+    url="http://localhost:8082/vui-api/indicadoresTerrestre?idDestino="+el;
+    urlVideo="http://localhost:4200/assets/images/esp/Terrestre/";
+  }
+  else if(id==4){
+    el =$( ".form-terrestregt" ).val();    
+    url="http://localhost:8082/vui-api/indicadoresTerrestreGT?idLogistica="+el;
+    urlVideo="http://localhost:4200/assets/images/esp/Terrestre/GT/";
+  }
  
   	
     this.http.get<Aereo>(url).subscribe(data => {  
@@ -215,6 +225,12 @@ public buscar(id: number){
       }
       else if(id==2){
         $("#cargaVideo2").html(temp);
+      }
+      else if(id==3){
+        $("#cargaVideo3").html(temp); 
+      }
+      else if(id==4){
+        $("#cargaVideo4").html(temp); 
       }
      
      this.toggleVideo(id); 
