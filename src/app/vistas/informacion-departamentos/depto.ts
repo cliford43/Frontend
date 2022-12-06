@@ -61,5 +61,16 @@ export interface Deptos {
     idAnio: number;
     cantidad : string;        
   }
+
+  export interface DeptoIntecap {
+    [x: string]: any;
+    idDepartamento: number;        
+    Anio: number;
+    hombres: string;    
+    mujeres:string;    
+    PorcHombres : string;        
+    PorcMujeres : string;        
+  }
+  
   
   
