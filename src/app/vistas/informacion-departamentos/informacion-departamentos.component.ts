@@ -14,6 +14,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 
 import { environment } from "../../../environments/environment"
 
+import * as am5radar from "@amcharts/amcharts5/radar"
 
 //import * as d3 from 'd3';
 
@@ -31,6 +32,7 @@ export class InformacionDepartamentosComponent implements OnInit {
   conteo=0;
   conteo2=0;
   conteo3=0;
+  conteo4=0;
   poblacionInicio=0;
   hombresTotal=0;
   hombresInicio=0;
@@ -42,6 +44,7 @@ export class InformacionDepartamentosComponent implements OnInit {
   root!:am5.Root;
   root1!:am5.Root;
   root2!:am5.Root;
+  root4!:am5.Root;
 //  private root!: am5.Root;
   departamentos: Deptos[] = [];
   municipios: Munis[] = [];
@@ -575,6 +578,162 @@ public buscarGraficaDeptoIntecap(depto: string) {
 public buscarGraficaDeptoPlantas(depto: string) {
   this.http.get<DeptoIntecap>(environment.API_URL+"indicadoresPlanta?idDepartamento=" + depto).subscribe(datos => {
 console.log(datos);
+if(this.conteo4==0){
+  this.root4= this.raiz.new("chartPlanta");
+  this.conteo4++;      
+}else{
+  
+} 
+this.root4.container.children.clear();
+let chart = this.root4.container.children.push(
+  am5radar.RadarChart.new(this.root4, {
+    panX: false,
+    panY: false,
+    wheelX: "panX",
+    wheelY: "zoomX",
+    innerRadius: am5.p50,
+    layout: this.root4.verticalLayout
+  })
+);
+
+let cursor = chart.set("cursor", am5radar.RadarCursor.new(this.root4, {
+  behavior: "zoomX"
+}));
+
+cursor.lineY.set("visible", false);
+
+
+var xRenderer = am5radar.AxisRendererCircular.new(this.root4, {});
+xRenderer.labels.template.setAll({
+  textType:"adjusted"
+});
+// Define data
+let data: unknown[] = [];
+
+  
+  for ( var j = 0; j < datos['length']; j++ ) {
+  
+      data.push({
+        category: datos[j].nomPlanta,
+      combustible: Number(datos[j].combustible),
+      unidades: Number(datos[j].unidades),
+      potenciamw:Number(datos[j].potenciamw)
+    });
+
+  }
+
+console.log(data);
+
+
+// Create axes
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(this.root4, {
+  maxDeviation: 0,
+  categoryField: "category",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(this.root4, {})
+}));
+/*let yAxis = chart.yAxes.push(
+  am5xy.ValueAxis.new(this.root4, {
+    renderer: am5radar.AxisRendererRadial.new(this.root4, {})
+  })
+);*/
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(this.root4, {
+  renderer: am5radar.AxisRendererRadial.new(this.root4, {})
+}));
+/*let yAxis = chart.yAxes.push(
+  am5xy.CategoryAxis.new(this.root1, {
+    categoryField: "Planta",
+    renderer: am5xy.AxisRendererY.new(this.root1, {
+      inversed: true,
+      cellStartLocation: 0.1,
+      cellEndLocation: 0.9
+    })
+  })
+);*/
+
+// Create series
+let series1 = chart.series.push(
+  am5radar.RadarColumnSeries.new(this.root4, {
+    stacked: true,
+    name: "Combustible",
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: "combustible",
+    categoryXField: "category"
+  })
+);
+//series1.data.setAll(data);
+series1.columns.template.setAll({
+  tooltipText: "{name}: {valueY}"
+});
+series1.data.setAll(data);
+  
+series1.appear(1000);
+
+let series2 = chart.series.push(
+  am5radar.RadarColumnSeries.new(this.root4, {
+    stacked: true,
+    name: "Unidades",
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: "unidades",
+    categoryXField: "category"
+  })
+);
+series2.columns.template.setAll({
+  tooltipText: "{name}: {valueY}"
+});
+series2.data.setAll(data);
+series2.appear(1000);
+let series3 = chart.series.push(
+  am5radar.RadarColumnSeries.new(this.root4, {
+    stacked: true,
+    name: "Potencia MW",
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: "potenciamw",
+    categoryXField: "category"
+  })
+);
+series3.columns.template.setAll({
+  tooltipText: "{name}: {valueY}"
+});
+series3.data.setAll(data);
+series3.appear(1000);
+
+/*chart.set("scrollbarX", am5.Scrollbar.new(this.root4, { orientation: "horizontal" }));
+chart.set("scrollbarY", am5.Scrollbar.new(this.root4, { orientation: "vertical" }));*/
+// Add legend
+let legend = chart.children.push(am5.Legend.new(this.root4, {}));
+legend.data.setAll(chart.series.values);
+
+
+var slider = chart.children.push(
+  am5.Slider.new(this.root4, {
+    orientation: "horizontal",
+    start: 0.5,
+    width: am5.percent(60),
+    centerY: am5.p50,
+    centerX: am5.p50,
+    x: am5.p50
+  })
+);
+slider.events.on("rangechanged", function () {
+  var start = slider.get("start");
+  var startAngle = 270 - start! * 179 - 1;
+  var endAngle = 270 + start! * 179 + 1;
+
+  chart.setAll({ startAngle: startAngle, endAngle: endAngle });
+ // yAxis.get("renderer").set("axisAngle", startAngle);
+});
+this.root4._logo?.dispose();
+
+xAxis.data.setAll(data);
+// Add cursor
+
+
+chart.set("cursor", am5radar.RadarCursor.new(this.root4, {}));
+
   });
 }
 

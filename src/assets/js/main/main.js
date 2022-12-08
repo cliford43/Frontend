@@ -1,6 +1,5 @@
 
   
-alert(1);
     $('.ir-arriba').click();
     $('.ir-arriba').click(function(){
       $('body, html').animate({
