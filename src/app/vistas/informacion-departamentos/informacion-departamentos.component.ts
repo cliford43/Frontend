@@ -118,7 +118,7 @@ public infoDepartamento(event?: any){
   //document.getElementById("infoDepto2").style.visibility='hidden' ;
   this.infoDeptoPanel=true;
 	var departamento: string = (event.target as Element).id;
-  var imagen='<img src="http://localhost:4200/assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block" style="width: 300px;" alt="" />';
+  var imagen='<img src="http://localhost:4200/assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 300px;" alt="" />';
   this.limpiaValores();
   this.nomDeptoh1 = "PERFIL DEPARTAMENTO DE " + this.datosDeptos[departamento][0].nombreDepto;
   

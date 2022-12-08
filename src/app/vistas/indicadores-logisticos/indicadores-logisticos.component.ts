@@ -52,7 +52,7 @@ export class IndicadoresLogisticosComponent implements OnInit {
       //  this.departamentos.forEach(elemento => this.asignar(deptoId,elemento['idDepartamento'],elemento['nomDepartamento']));
         
      //   this.getMunis(deptoId).subscribe(munis => this.municipios = munis);
-        console.log("MUNICIPIOS:");
+        
         
         
         //this.nombreDepartamento = this.departamentos[1].nombre;
@@ -212,14 +212,18 @@ public buscar(id: number){
   	
     this.http.get<Aereo>(url).subscribe(data => {  
       console.log(data);
-      var temp ='<video id="my_video_'+id+'" class="video-js vjs-default-skin" width="640px" height="267px" controls autoplay';
+      var temp ='';
+    /*  var temp ='<video id="my_video_'+id+'" class="video-js vjs-default-skin" width="640px" height="267px" controls autoplay';
       temp+='data-setup=\'{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }\'>';
       for (let index = 0; index < data['length']; index++) {
         console.log(data[index].video);
         temp+='<source src="'+urlVideo+data[index].video+'" type="video/mp4" /> ';
       }
      
-      temp+='</video>';
+      temp+='</video>';*/
+      for (let index = 0; index < data['length']; index++) {
+        temp+='<img src="'+urlVideo+data[index].video+'" alt="Computer man" style="width:640px;height:267px;">';
+      }
       if(id==1){
         $("#cargaVideo").html(temp);
       }
