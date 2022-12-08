@@ -87,20 +87,6 @@ export class IndicadoresLogisticosComponent implements OnInit {
     }
   }
 
- /* getDeptos(): Observable<Deptos[]> {
-    return this.http.get<Deptos[]>("http://localhost:8082/vui-api/departamentos"); 
-  }
-  getMunis(idDepto: number): Observable<Munis[]> {
-    console.log(idDepto);
-    return this.http.get<Munis[]>("http://localhost:8082/vui-api/municipios?idDepartamento="+(idDepto-1));
-  }*/
-/*  getDeptos() {
-    this.http.get<Deptos>("http://localhost:8082/vui-api/deptosbenjamin").subscribe(data => {
-      dat.foreach(
-        address => this.addresses.push(address)
-      )
-    });
-  }*/
   browserOnly(f: () => void) {
     if (isPlatformBrowser(this.platformId)) {
       this.zone.runOutsideAngular(() => {

@@ -13,6 +13,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import * as $ from 'jquery';
 import { html } from 'd3';
+import { environment } from "../../../environments/environment";
 
 //import * as d3 from 'd3';
 
@@ -91,14 +92,14 @@ export class IndicadoresLogisticosComponent implements OnInit {
   }
 
  /* getDeptos(): Observable<Deptos[]> {
-    return this.http.get<Deptos[]>("http://localhost:8082/vui-api/departamentos"); 
+    return this.http.get<Deptos[]>(environment.API_URL+"departamentos"); 
   }
   getMunis(idDepto: number): Observable<Munis[]> {
     console.log(idDepto);
-    return this.http.get<Munis[]>("http://localhost:8082/vui-api/municipios?idDepartamento="+(idDepto-1));
+    return this.http.get<Munis[]>(environment.API_URL+"municipios?idDepartamento="+(idDepto-1));
   }*/
 /*  getDeptos() {
-    this.http.get<Deptos>("http://localhost:8082/vui-api/deptosbenjamin").subscribe(data => {
+    this.http.get<Deptos>(environment.API_URL+"deptosbenjamin").subscribe(data => {
       dat.foreach(
         address => this.addresses.push(address)
       )
@@ -190,23 +191,23 @@ public buscar(id: number){
   urlVideo="";
   if(id==1){
     el =$( ".form-aereo" ).val();
-    url="http://localhost:8082/vui-api/indicadoresAereo?idDestino="+el;
-    urlVideo="http://localhost:4200/assets/images/esp/Aereo/";
+    url=environment.API_URL+"indicadoresAereo?idDestino="+el;
+    urlVideo="assets/images/esp/Aereo/";
   }
   else if(id==2){
     el =$( ".form-maritimo" ).val();
-    url="http://localhost:8082/vui-api/indicadoresMaritimo?idDestino="+el;
-    urlVideo="http://localhost:4200/assets/images/esp/Maritimo/";
+    url=environment.API_URL+"indicadoresMaritimo?idDestino="+el;
+    urlVideo="assets/images/esp/Maritimo/";
   }
   else if(id==3){
     el =$( ".form-terrestre" ).val();    
-    url="http://localhost:8082/vui-api/indicadoresTerrestre?idDestino="+el;
-    urlVideo="http://localhost:4200/assets/images/esp/Terrestre/";
+    url=environment.API_URL+"indicadoresTerrestre?idDestino="+el;
+    urlVideo="assets/images/esp/Terrestre/";
   }
   else if(id==4){
     el =$( ".form-terrestregt" ).val();    
-    url="http://localhost:8082/vui-api/indicadoresTerrestreGT?idLogistica="+el;
-    urlVideo="http://localhost:4200/assets/images/esp/Terrestre/GT/";
+    url=environment.API_URL+"indicadoresTerrestreGT?idLogistica="+el;
+    urlVideo="assets/images/esp/Terrestre/GT/";
   }
  
   	

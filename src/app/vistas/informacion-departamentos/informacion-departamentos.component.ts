@@ -12,6 +12,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 
+import { environment } from "../../../environments/environment"
 
 
 //import * as d3 from 'd3';
@@ -73,7 +74,7 @@ export class InformacionDepartamentosComponent implements OnInit {
   }
 
   getDeptos() {
-    this.http.get<Deptos>("http://localhost:8082/vui-api/departamentos").subscribe(data => {      
+    this.http.get<Deptos>(environment.API_URL+"departamentos").subscribe(data => {      
       for (let index = 0; index < data['length']; index++) {
         const element = data[index];        
         this.datosDeptos[data[index]["nomDepartamento"] ] = [{"nombreDepto":data[index]["nomDepartamento"],"descripcion":data[index]["descripcionPerfil"]+"","url":"ninguna","idDepartamento":data[index]["idDepartamento"]}];
@@ -118,7 +119,7 @@ public infoDepartamento(event?: any){
   //document.getElementById("infoDepto2").style.visibility='hidden' ;
   this.infoDeptoPanel=true;
 	var departamento: string = (event.target as Element).id;
-  var imagen='<img src="http://localhost:4200/assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 300px;" alt="" />';
+  var imagen='<img src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 300px;" alt="" />';
   this.limpiaValores();
   this.nomDeptoh1 = "PERFIL DEPARTAMENTO DE " + this.datosDeptos[departamento][0].nombreDepto;
   
@@ -129,11 +130,12 @@ public infoDepartamento(event?: any){
   this.buscarGraficaPoblacionAnio(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarGraficaPoblacionRango(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarGraficaDeptoIntecap(this.datosDeptos[departamento][0].idDepartamento);
+  this.buscarGraficaDeptoPlantas(this.datosDeptos[departamento][0].idDepartamento);
 	this.buscarUniversidades(this.datosDeptos[departamento][0].idDepartamento); 
   this.buscarDeptoEmpresas(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarIndicadores(this.datosDeptos[departamento][0].idDepartamento); 
   this.buscarDeptoIndicadores(this.datosDeptos[departamento][0].idDepartamento);
-  //console.log(departamento);
+  ////console.log(departamento);
 }
 public limpiaValores (  ) {
 	this.infoDeptoh2='';
@@ -147,8 +149,8 @@ public buscarMunicipios(depto: string){
 	
 	var tempMunis = "";
 	
-      this.http.get<Munis>("http://localhost:8082/vui-api/municipios/?idDepartamento="+depto).subscribe(data => {
-      //console.log(data.idDepartamento);
+      this.http.get<Munis>(environment.API_URL+"municipios/?idDepartamento="+depto).subscribe(data => {
+      ////console.log(data.idDepartamento);
       
         var cantidad=data['length'];
 						if(cantidad%2==0){
@@ -164,7 +166,7 @@ public buscarMunicipios(depto: string){
 					
             for (let index = 0; index < data['length']; index++) {
               const element = data[index];              
-              //console.log(element.nomMunicipio); 
+              ////console.log(element.nomMunicipio); 
               
 							if(index==cantidad){
 								tempMunis+='</div><div class="col-lg-6 col-md-6 col-sm-12 mt-3" >';
@@ -181,7 +183,7 @@ public buscarMunicipios(depto: string){
       });
 }  
 public buscarGraficaPoblacionAnio(depto: string){
-  this.http.get<PoblacionAnio>("http://localhost:8082/vui-api/indicadoresPoblacionAnio?idDepartamento="+depto).subscribe(datos => {
+  this.http.get<PoblacionAnio>(environment.API_URL+"indicadoresPoblacionAnio?idDepartamento="+depto).subscribe(datos => {
      
     
     if(this.conteo==0){
@@ -254,7 +256,7 @@ for ( var i = 0; i < datos['length']; i++ ) {
 // Create series
 // Create series
     const createSeries = (name: string, field: string) => {
-      console.log("Crear serie: "+ name +"  "+field );
+      //console.log("Crear serie: "+ name +"  "+field );
   var series = chart.series.push( 
     am5xy.ColumnSeries.new(this.root, { 
       name: name,
@@ -326,8 +328,8 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
 
  }
  public buscarGraficaPoblacionRango(depto: string) {
-  this.http.get<PoblacionAnio>("http://localhost:8082/vui-api/indicadoresPoblacionRango?idDepartamento=" + depto).subscribe(datos => {
-    //console.log(datos);
+  this.http.get<PoblacionAnio>(environment.API_URL+"indicadoresPoblacionRango?idDepartamento=" + depto).subscribe(datos => {
+    ////console.log(datos);
         if(this.conteo2==0){
       this.root1= this.raiz.new("chartRango");
       this.conteo2++;      
@@ -369,7 +371,7 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
 
       for (var j = i; j < datos['length']; j++) {         
         if (datos[i].idRango == datos[j].idRango) {
-          console.log(+' == '+datos[j].idRango);
+          //console.log(+' == '+datos[j].idRango);
           contador++;
           if(contador==1)
           {
@@ -516,7 +518,7 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root1, {
 }
 
 public buscarGraficaDeptoIntecap(depto: string) {
-  this.http.get<DeptoIntecap>("http://localhost:8082/vui-api/indicadoresDeptoIntecap?idDepartamento=" + depto).subscribe(datos => {
+  this.http.get<DeptoIntecap>(environment.API_URL+"indicadoresDeptoIntecap?idDepartamento=" + depto).subscribe(datos => {
 
 
     if(this.conteo3==0){
@@ -531,15 +533,15 @@ public buscarGraficaDeptoIntecap(depto: string) {
         layout: this.root2.verticalLayout
       })
     );
-    //console.log(datos);
+    ////console.log(datos);
     var canthombres = 0;
     var cantmujeres = 0;
     for (var i = 0; i < datos['length']; i++) {
       canthombres = canthombres + Number(datos[i].hombres | 0);
       cantmujeres = cantmujeres + Number(datos[i].mujeres | 0);
     }
-    //console.log(canthombres);
-    //console.log(cantmujeres);
+    ////console.log(canthombres);
+    ////console.log(cantmujeres);
     // Define data
     let data = [{
       country: "Hombres",
@@ -570,20 +572,26 @@ public buscarGraficaDeptoIntecap(depto: string) {
   });
 }
 
+public buscarGraficaDeptoPlantas(depto: string) {
+  this.http.get<DeptoIntecap>(environment.API_URL+"indicadoresPlanta?idDepartamento=" + depto).subscribe(datos => {
+console.log(datos);
+  });
+}
+
 public buscarUniversidades(depto: string){
 
-  this.http.get<Universidad>("http://localhost:8082/vui-api/indicadoresUniversidad?idDepartamento="+depto).subscribe(data => {  
+  this.http.get<Universidad>(environment.API_URL+"indicadoresUniversidad?idDepartamento="+depto).subscribe(data => {  
   					var universidades='<ul class="list-group list-group-flush">';
 						universidades+='<li class = "list-group-item  justify-content-between align-items-center">';
 						universidades+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PÚBLICA</h3>';
 								
-            universidades+='<img src="http://localhost:4200/assets/images/esp/Universidades/'+data[0].logo+'" class="img-thumbnail" alt="...">';
+            universidades+='<img src="assets/images/esp/Universidades/'+data[0].logo+'" class="img-thumbnail" alt="...">';
             universidades+='<spam class="text-uppercase ml-2">'+data[0].nomUniversidad+'</span>';	
 						universidades+='</li>';
 						universidades+='<li class = "list-group-item  justify-content-between align-items-center">';
 						universidades+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PRIVADAS</h3>';
 						for ( var i = 1; i < data['length']; i++ ) {
-              universidades+='<img src="http://localhost:4200/assets/images/esp/Universidades/'+data[i].logo+'" class="img-thumbnail" width=75vh alt="...">';
+              universidades+='<img src="assets/images/esp/Universidades/'+data[i].logo+'" class="img-thumbnail" width=75vh alt="...">';
               universidades+='<spam class="text-uppercase ml-2">'+data[i].nomUniversidad+'</span><br>';	
             
 							
@@ -596,9 +604,9 @@ public buscarUniversidades(depto: string){
 }
 public buscarDeptoEmpresas(depto: string)  
 {
-  this.http.get<Empresa>("http://localhost:8082/vui-api/indicadorDeptoEmpresa?idDepartamento="+depto).subscribe(data => {  
+  this.http.get<Empresa>(environment.API_URL+"indicadorDeptoEmpresa?idDepartamento="+depto).subscribe(data => {  
   					
-  ////console.log;
+  //////console.log;
   var empresas='<div class="row d-flex justify-content-center ml-3">';
           empresas += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
           empresas += '<div class="box">';
@@ -664,16 +672,16 @@ public buscarDeptoEmpresas(depto: string)
 }
 public buscarIndicadores(depto: string){
   
-  this.http.get<Estimacion>("http://localhost:8082/vui-api/indicadores?idDepartamento="+depto).subscribe(data => {  
+  this.http.get<Estimacion>(environment.API_URL+"indicadores?idDepartamento="+depto).subscribe(data => {  
     var poblacionTotal  : number;
     var porcentajeHombre: number;
     var porcentajeMujer: number;
     poblacionTotal =Number(data[0]['cantidad'].replace(",",""))+Number(data[1]['cantidad'].replace(",",""));
 						porcentajeHombre = (Number(data[0]['cantidad'].replace(",",""))*100) / (poblacionTotal);
 						porcentajeMujer = (Number(data[1]['cantidad'].replace(",",""))*100) / (poblacionTotal);
-            //console.log('poblacionTotal: ');
-            //console.log(data[0].nomGenero);
-            //console.log('porcentajeMujer: '+porcentajeMujer);
+            ////console.log('poblacionTotal: ');
+            ////console.log(data[0].nomGenero);
+            ////console.log('porcentajeMujer: '+porcentajeMujer);
 						var estimacion='<div class="row d-flex justify-content-center ml-3">';
 						estimacion += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
@@ -734,7 +742,7 @@ public buscarIndicadores(depto: string){
         });
 }
 public buscarDeptoIndicadores(depto: string){
-  this.http.get<Indicadores>("http://localhost:8082/vui-api/indicadoresDepto?idDepartamento="+depto).subscribe(data => {  
+  this.http.get<Indicadores>(environment.API_URL+"indicadoresDepto?idDepartamento="+depto).subscribe(data => {  
     var educacion='<div class="row d-flex justify-content-center ml-3">';
     var igss='<div class="row d-flex justify-content-center ml-3">';
     var dinamismo2='<div class="row d-flex justify-content-center ml-3">';
@@ -958,9 +966,9 @@ public buscarDeptoIndicadores(depto: string){
         });
 }
 formatoMiles = (numero:string,tipoDato: string) => {
-  //console.log("FORMATO MILES");
-  //console.log("NUMERO: "+numero);
-  //console.log("TIPO DATO: "+tipoDato);
+  ////console.log("FORMATO MILES");
+  ////console.log("NUMERO: "+numero);
+  ////console.log("TIPO DATO: "+tipoDato);
 	const exp = /(\d)(?=(\d{3})+(?!\d))/g;
 	const rep = '$1,';
 	let arr = numero.split('.');

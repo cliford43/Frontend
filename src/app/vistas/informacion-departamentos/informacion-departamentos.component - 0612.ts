@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { any } from '@amcharts/amcharts5/.internal/core/util/Array';
-
+import { environment } from "../../../environments/environment";
 
 
 //import * as d3 from 'd3';
@@ -102,15 +102,9 @@ export class InformacionDepartamentosComponent implements OnInit {
     }
   }
 
-  /* getDeptos(): Observable<Deptos[]> {
-     return this.http.get<Deptos[]>("http://localhost:8082/vui-api/departamentos"); 
-   }*/
-  /* getMunis(idDepto: number): Observable<Munis[]> {
-     ////console.log(idDepto);
-     return this.http.get<Munis[]>("http://localhost:8082/vui-api/municipios?idDepartamento="+(idDepto-1));
-   }*/
+  
   getDeptos() {
-    this.http.get<Deptos>("http://localhost:8082/vui-api/departamentos").subscribe(data => {
+    this.http.get<Deptos>(environment.API_URL+"departamentos").subscribe(data => {
       ////console.log(data.nomDepartamento);
       for (let index = 0; index < data['length']; index++) {
         const element = data[index];
@@ -178,7 +172,7 @@ export class InformacionDepartamentosComponent implements OnInit {
 
     var tempMunis = "";
 
-    this.http.get<Munis>("http://localhost:8082/vui-api/municipios/?idDepartamento=" + depto).subscribe(data => {
+    this.http.get<Munis>(environment.API_URL+"municipios/?idDepartamento=" + depto).subscribe(data => {
       ////console.log(data.idDepartamento);
 
       var cantidad = data['length'];
@@ -212,7 +206,7 @@ export class InformacionDepartamentosComponent implements OnInit {
     });
   }
   public buscarGraficaDeptoIntecap(depto: string) {
-    this.http.get<DeptoIntecap>("http://localhost:8082/vui-api/indicadoresDeptoIntecap?idDepartamento=" + depto).subscribe(datos => {
+    this.http.get<DeptoIntecap>(environment.API_URL+"indicadoresDeptoIntecap?idDepartamento=" + depto).subscribe(datos => {
 
 
       // Create root and chart
@@ -265,7 +259,7 @@ export class InformacionDepartamentosComponent implements OnInit {
 
 
   public buscarGraficaPoblacionAnio(depto: string) {
-    this.http.get<PoblacionAnio>("http://localhost:8082/vui-api/indicadoresPoblacionAnio?idDepartamento=" + depto).subscribe(datos => {
+    this.http.get<PoblacionAnio>(environment.API_URL+"indicadoresPoblacionAnio?idDepartamento=" + depto).subscribe(datos => {
       ////console.log(data.idDepartamento);
 
       const root = am5.Root.new("chartdiv");
@@ -368,7 +362,7 @@ export class InformacionDepartamentosComponent implements OnInit {
 
   }
   public buscarGraficaPoblacionRango(depto: string) {
-    this.http.get<PoblacionAnio>("http://localhost:8082/vui-api/indicadoresPoblacionRango?idDepartamento=" + depto).subscribe(datos => {
+    this.http.get<PoblacionAnio>(environment.API_URL+"indicadoresPoblacionRango?idDepartamento=" + depto).subscribe(datos => {
       //console.log(datos);
       let root = am5.Root.new("chartRango");
       root.setThemes([
@@ -533,7 +527,7 @@ export class InformacionDepartamentosComponent implements OnInit {
 
   public buscarUniversidades(depto: string) {
 
-    this.http.get<Universidad>("http://localhost:8082/vui-api/indicadoresUniversidad?idDepartamento=" + depto).subscribe(data => {
+    this.http.get<Universidad>(environment.API_URL+"indicadoresUniversidad?idDepartamento=" + depto).subscribe(data => {
       var universidades = '<ul class="list-group list-group-flush">';
       universidades += '<li class = "list-group-item  justify-content-between align-items-center">';
       universidades += '<h3 class = "list-group-item-heading">PÚBLICA</h3>';
@@ -551,7 +545,7 @@ export class InformacionDepartamentosComponent implements OnInit {
     });
   }
   public buscarDeptoEmpresas(depto: string) {
-    this.http.get<Empresa>("http://localhost:8082/vui-api/indicadorDeptoEmpresa?idDepartamento=" + depto).subscribe(data => {
+    this.http.get<Empresa>(environment.API_URL+"indicadorDeptoEmpresa?idDepartamento=" + depto).subscribe(data => {
 
       //////console.log;
       var empresas = '<div class="row d-flex justify-content-center ml-3">';
@@ -619,7 +613,7 @@ export class InformacionDepartamentosComponent implements OnInit {
   }
   public buscarIndicadores(depto: string) {
 
-    this.http.get<Estimacion>("http://localhost:8082/vui-api/indicadores?idDepartamento=" + depto).subscribe(data => {
+    this.http.get<Estimacion>(environment.API_URL+"indicadores?idDepartamento=" + depto).subscribe(data => {
       var poblacionTotal: number;
       var porcentajeHombre: number;
       var porcentajeMujer: number;
@@ -689,7 +683,7 @@ export class InformacionDepartamentosComponent implements OnInit {
     });
   }
   public buscarDeptoIndicadores(depto: string) {
-    this.http.get<Indicadores>("http://localhost:8082/vui-api/indicadoresDepto?idDepartamento=" + depto).subscribe(data => {
+    this.http.get<Indicadores>(environment.API_URL+"indicadoresDepto?idDepartamento=" + depto).subscribe(data => {
       var educacion = '<div class="row d-flex justify-content-center ml-3">';
       var igss = '<div class="row d-flex justify-content-center ml-3">';
       var dinamismo2 = '<div class="row d-flex justify-content-center ml-3">';
