@@ -118,10 +118,54 @@ export class InformacionDepartamentosComponent implements OnInit {
       }
     });
   }
+  public colorInicial(){
+    const etiquetaDescr= document.querySelectorAll( ".deptoGuate svg path" )
+    for ( var i = 0; i < etiquetaDescr.length; i++ ) {
+    //  etiquetaDescr[ i ].style.fill = "#1abc9c";
+    }
+
+  }
+  public  getOffset( el: HTMLElement, nombre: string ) {
+    
+    var _x = 0;
+    var _y = 0;
+    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+          _x += el.offsetLeft - el.scrollLeft;
+          _y += el.offsetTop - el.scrollTop;
+          //el = el.offsetParent;
+    }
+ 
+    
+    const puntero= <HTMLElement>document.querySelector(".puntero");    
+    puntero.setAttribute('style', 'position:absolute; ');
+    puntero.setAttribute('style', 'top:'+_y.toString()+"px;"+' !important');
+    puntero.setAttribute('style', 'left:'+_x.toString()+"px;"+' !important');
+  
+    
+    return { top: _y, left: _x };
+    }
 public infoDepartamento(event?: any){
+  var departamento: string = (event.target as Element).id;
+  var envio =(event.target as Element);
+  const etiquetaDescr= document.querySelectorAll(".deptoGuate svg path");
+  
+ // this.getOffset(<HTMLElement>envio,departamento);
+  
+
+
+  for ( var i = 0; i < etiquetaDescr.length; i++ ) {
+    
+		etiquetaDescr[ i ].setAttribute("style",  "fill: #06A0FF;");
+    etiquetaDescr[ i ].setAttribute("style",  "hover: #681474;");
+	}
+  //this.colorInfo ( envio ,"#000000", "#ffffff" );
   //document.getElementById("infoDepto2").style.visibility='hidden' ;
   this.infoDeptoPanel=true;
-	var departamento: string = (event.target as Element).id;
+  envio.setAttribute("style",  "transition:all .1s ease;");
+  envio.setAttribute("style",  "fill: #681474;");
+  
+  
+	
   var imagen='<img src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 300px;" alt="" />';
   this.limpiaValores();
   this.nomDeptoh1 = "PERFIL DEPARTAMENTO DE " + this.datosDeptos[departamento][0].nombreDepto;

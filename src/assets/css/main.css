@@ -174,11 +174,11 @@ footer label a:visited,footer label a:linked{
 .mapaGuate .deptoGuate svg path{
     transition:all .3s ease;
     cursor:pointer;
-    fill:#1abc9c;
+    fill:#06A0FF;
 }
 .mapaGuate .deptoGuate svg path:hover{
     transition:all .3s ease;
-    fill:#263c82
+    fill:#681474
 }
 .mapaGuate .infoDepto{
     background:#ffffff;
