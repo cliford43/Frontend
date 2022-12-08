@@ -231,7 +231,6 @@ for ( var i = 0; i < datos['length']; i++ ) {
   
   }
 
-
   var yAxis = chart.yAxes.push(
     am5xy.ValueAxis.new(this.root, {    
       extraTooltipPrecision: 1,  
@@ -353,12 +352,12 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
 
     chart.getNumberFormatter().set("numberFormat", "#.#s");
 
-    let legend = chart.children.push(
+    /*let legend = chart.children.push(
       am5.Legend.new(this.root1, {
         centerX: am5.p50,
         x: am5.p50
       })
-    );
+    );*/
     var data: unknown[] = [];
     var tempMasculino=0;
     var tempFemenino=0; 
@@ -390,8 +389,8 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
             }
             data.push({
               age: datos[j].nomRango,
-              Hombres: tempMasculino,
-              Mujeres: -tempFemenino
+              Masculino: tempMasculino,
+              Femenino: -tempFemenino
             });
           }else if(contador==3){
             contador=0;
@@ -423,6 +422,7 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
     const createSeries = ( field: string, labelCenterX: number | am5.Percent, pointerOrientation: any, rangeValue: number) => {
       let series = chart.series.push(
         am5xy.ColumnSeries.new(this.root1, {
+          name: field,
           xAxis: xAxis,
           yAxis: yAxis,
           valueXField: field,
@@ -442,14 +442,16 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
         
       series.bullets.push(() => {
         return am5.Bullet.new(this.root1, {
-          locationX: 0.5,
+          locationX: 1,
           locationY: 0.5,
           sprite: am5.Label.new(this.root1, {
-            text: "{categoryY}: {valueX}",
-            centerX: am5.percent(50),
-            centerY: am5.percent(50),
-            textAlign: "center",
-            populateText: true
+            //text: "{categoryY}: {valueX}",
+            centerY: am5.p50,
+            text: "{valueX}",
+            populateText: true,
+            centerX: labelCenterX,            
+            //textAlign: "center",
+            
           })
         });
       });
@@ -479,20 +481,33 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
         isMeasured: false,
         centerX: labelCenterX
       });
-      label?.adapters.add("dx", function() {
+      label?.adapters.add("dy", function() {
         return -chart.plotContainer.height();
       });
     
       return series;
     }
-    createSeries("Hombres", am5.p100, "right", -3);
-    createSeries("Mujeres", 0, "left", 4);
-    this.root._logo?.dispose();
+    createSeries("Femenino", am5.p100, "right", -3);
+    createSeries("Masculino", 0, "left", 4);
+    this.root1._logo?.dispose();
     let cursor = chart.set("cursor", am5xy.XYCursor.new(this.root1, {
       behavior: "zoomY"
     }));
-    cursor.lineY.set("forceHidden", true);
-    cursor.lineX.set("forceHidden", true);
+    //cursor.lineY.set("forceHidden", true);
+    //cursor.lineX.set("forceHidden", true);
+    
+     var legend = chart.children.push(am5.Legend.new(this.root1, {})); 
+     legend.data.setAll(chart.series.values);
+
+chart.set("cursor", am5xy.XYCursor.new(this.root1, {
+  behavior: "zoomXY",
+  xAxis: xAxis
+}));
+
+
+yAxis.set("tooltip", am5.Tooltip.new(this.root1, {
+  themeTags: ["axis"]
+}));
     chart.appear(1000, 100);
 
 
@@ -543,7 +558,7 @@ public buscarGraficaDeptoIntecap(depto: string) {
       })
     );
     series.data.setAll(data);
-
+    this.root2._logo?.dispose();
     // Add legend
     let legend = chart.children.push(am5.Legend.new(this.root2, {
       centerX: am5.percent(50),

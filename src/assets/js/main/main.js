@@ -1,4 +1,4 @@
-<script>
+
   
 alert(1);
     $('.ir-arriba').click();
@@ -17,4 +17,3 @@ alert(1);
     });
   
   
-</script>
