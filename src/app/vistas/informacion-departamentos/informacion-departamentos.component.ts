@@ -27,7 +27,9 @@ export class InformacionDepartamentosComponent implements OnInit {
   nombreDepartamento = "";
   descripcionDepartamento = "";
   anioDepartamento = 0;
-  
+  conteo=0;
+  conteo2=0;
+  conteo3=0;
   poblacionInicio=0;
   hombresTotal=0;
   hombresInicio=0;
@@ -35,64 +37,33 @@ export class InformacionDepartamentosComponent implements OnInit {
   mujeresTotal=0;
   mujeresInicio=0;
   porcentajeMujeres=0;
-  private root!: am5.Root;
+  private raiz= am5.Root;
+  root!:am5.Root;
+  root1!:am5.Root;
+  root2!:am5.Root;
+//  private root!: am5.Root;
   departamentos: Deptos[] = [];
   municipios: Munis[] = [];
   infoDeptoPanel=false;
   infoDeptoh2='';
+  nomDeptoh1='';
   infoDeptop='';
+  imgDepto='';
   datosDeptos = <Deptos> <unknown>[];
   tablaMunicipios = '';
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute, private http: HttpClient ) { 
     this.activatedRoute.params.subscribe(params => {
-     // let deptoId = params['id'];
+     
      
         this.element = false;
       
         this.element = true;
-        
-      //  this.departamentos.forEach(elemento => this.asignar(deptoId,elemento['idDepartamento'],elemento['nomDepartamento']));
-        
-     //   this.getMunis(deptoId).subscribe(munis => this.municipios = munis);
-        //console.log("MUNICIPIOS:");
-        //console.log(this.municipios);
-        
-        //this.nombreDepartamento = this.departamentos[1].nombre;
-     /*   this.descripcionDepartamento = this.departamentos[depto-1].descripcion;
-        this.anioDepartamento = this.departamentos[depto-1].anio;
-        this.poblacionTotal=this.departamentos[depto-1].poblacionTotal;
-        this.poblacionInicio= this.poblacionTotal-(this.poblacionTotal*0.05);
-        this.hombresTotal=this.departamentos[depto-1].hombreTotal;
-        this.hombresInicio = this.hombresTotal- (this.hombresTotal*0.05);
-        this.mujeresTotal=this.departamentos[depto-1].mujerTotal;
-        this.mujeresInicio = this.mujeresTotal-(this.mujeresTotal*0.05);
-        var tempPorH=((this.hombresTotal*100)/this.poblacionTotal).toFixed(2);
-        this.porcentajeHombres=parseFloat(tempPorH);
-        
-        var tempPorM=((this.mujeresTotal*100)/this.poblacionTotal).toFixed(2);
-        this.porcentajeMujeres=parseFloat(tempPorM);
-        
-        //console.log(this.porcentajeMujeres+"-----"+this.departamentos[depto-1].id+"-----"+this.departamentos[depto-1].nombre);
-        */
-      
-    
-        //this.getDeptos().subscribe(deptos => this.departamentos = deptos);
-        
-        //console.log("DEPARTAMENTOS:");
+     
         this.getDeptos();
-        ////console.log(this.tempDeptos);
+        
         
       });
-      //const temporal =this.getDeptos();
-      
-
-
-
-     // this.departamentos.push({ id: temporalidDepartamento, nombre: temporal.nomDepartamento });
-   
-  
-    
   }
   asignar(idBusca: number,idIter: number,nombreDepto: string){
 
@@ -101,20 +72,10 @@ export class InformacionDepartamentosComponent implements OnInit {
     }
   }
 
- /* getDeptos(): Observable<Deptos[]> {
-    return this.http.get<Deptos[]>("http://localhost:8082/vui-api/departamentos"); 
-  }*/
- /* getMunis(idDepto: number): Observable<Munis[]> {
-    //console.log(idDepto);
-    return this.http.get<Munis[]>("http://localhost:8082/vui-api/municipios?idDepartamento="+(idDepto-1));
-  }*/
   getDeptos() {
-    this.http.get<Deptos>("http://localhost:8082/vui-api/departamentos").subscribe(data => {
-      //console.log(data.nomDepartamento);
+    this.http.get<Deptos>("http://localhost:8082/vui-api/departamentos").subscribe(data => {      
       for (let index = 0; index < data['length']; index++) {
-        const element = data[index];
-        //this.tempDeptos.push(data);
-        ////console.log(element.nomDepartamento); 
+        const element = data[index];        
         this.datosDeptos[data[index]["nomDepartamento"] ] = [{"nombreDepto":data[index]["nomDepartamento"],"descripcion":data[index]["descripcionPerfil"]+"","url":"ninguna","idDepartamento":data[index]["idDepartamento"]}];
         
       }
@@ -148,8 +109,8 @@ export class InformacionDepartamentosComponent implements OnInit {
   ngOnDestroy() {
     // Clean up chart when the component is removed
     this.browserOnly(() => {
-      if (this.root) {
-        this.root.dispose();
+      if (this.raiz) {
+        
       }
     });
   }
@@ -157,7 +118,13 @@ public infoDepartamento(event?: any){
   //document.getElementById("infoDepto2").style.visibility='hidden' ;
   this.infoDeptoPanel=true;
 	var departamento: string = (event.target as Element).id;
+  var imagen='<img src="http://localhost:4200/assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block" style="width: 300px;" alt="" />';
   this.limpiaValores();
+  this.nomDeptoh1 = "PERFIL DEPARTAMENTO DE " + this.datosDeptos[departamento][0].nombreDepto;
+  
+  const imgD =<HTMLElement>document.querySelector( ".imgDepto" );
+  imgD.innerHTML = imagen; 
+  this.infoDeptoh2=this.datosDeptos[departamento][0].descripcion;
   this.buscarMunicipios(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarGraficaPoblacionAnio(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarGraficaPoblacionRango(this.datosDeptos[departamento][0].idDepartamento);
@@ -171,6 +138,9 @@ public infoDepartamento(event?: any){
 public limpiaValores (  ) {
 	this.infoDeptoh2='';
   this.infoDeptop='';
+  this.nomDeptoh1='';
+  this.imgDepto='';
+  
 }
 
 public buscarMunicipios(depto: string){
@@ -212,32 +182,39 @@ public buscarMunicipios(depto: string){
 }  
 public buscarGraficaPoblacionAnio(depto: string){
   this.http.get<PoblacionAnio>("http://localhost:8082/vui-api/indicadoresPoblacionAnio?idDepartamento="+depto).subscribe(datos => {
-    //console.log(data.idDepartamento);
+     
     
-    let root = am5.Root.new("chartdiv");
-    root.setThemes([
-      am5themes_Animated.new(root)
+    if(this.conteo==0){
+      this.root= this.raiz.new("chartdiv");
+      this.conteo++;      
+    }else{
+      
+    }   
+    this.root.setThemes([
+      am5themes_Animated.new( this.root)
   ]);
-  var chart = root.container.children.push( 
-    am5xy.XYChart.new(root, {
-      panX: false,
+  this.root.container.children.clear();
+  
+ 
+  var chart =  this.root.container.children.push( 
+    am5xy.XYChart.new( this.root, {
       panY: false,
-      wheelX: "panX",
       wheelY: "zoomX",
-      layout: root.verticalLayout
+      layout: this.root.verticalLayout,
+      maxTooltipDistance: 0
     }) 
   );
-  var legend = chart.children.push(
-    am5.Legend.new(root, {
+  /*var legend = chart.children.push(
+    am5.Legend.new( this.root, {
       centerX: am5.p50,
       x: am5.p50
     })
-  );
+  );*/
   
 
 // Define data
-console.log(datos);
-let data = [];
+
+let data: unknown[] = [];
 for ( var i = 0; i < datos['length']; i++ ) {
   
   for ( var j = i+1; j < datos['length']; j++ ) {
@@ -254,55 +231,97 @@ for ( var i = 0; i < datos['length']; i++ ) {
   
   }
 
-  var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-    categoryField: "year",
-    renderer: am5xy.AxisRendererX.new(root, {
-      cellStartLocation: 0.1,
-      cellEndLocation: 0.9
-    }),
-    tooltip: am5.Tooltip.new(root, {})
-  }));
-  
+
+  var yAxis = chart.yAxes.push(
+    am5xy.ValueAxis.new(this.root, {    
+      extraTooltipPrecision: 1,  
+      renderer: am5xy.AxisRendererY.new(this.root, {
+        minGridDistance: 20
+      })
+    })
+  );
+
+  var xAxis = chart.xAxes.push(
+    am5xy.CategoryAxis.new(this.root, {   
+      categoryField: "year",   
+      renderer: am5xy.AxisRendererX.new(this.root, {
+        minGridDistance: 20
+      }),
+    })
+  );
+
   xAxis.data.setAll(data);
   
-  var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-    renderer: am5xy.AxisRendererY.new(root, {})
-  }));
-  
 // Create series
-var series1 = chart.series.push( 
-  am5xy.ColumnSeries.new(root, { 
-    name: "Masculino", 
-    xAxis: xAxis, 
-    yAxis: yAxis, 
-    valueYField: "value1", 
-    categoryXField: "year",
-    tooltip: am5.Tooltip.new(root, {labelText: "{valueY}"})
-  }) 
-);
-series1.data.setAll(data);
+// Create series
+    const createSeries = (name: string, field: string) => {
+      console.log("Crear serie: "+ name +"  "+field );
+  var series = chart.series.push( 
+    am5xy.ColumnSeries.new(this.root, { 
+      name: name,
+      xAxis: xAxis, 
+      yAxis: yAxis, 
+      valueYField: field, 
+      categoryXField: "year",
+      //tooltip: am5.Tooltip.new(this.root, {}),
+      
+      maskBullets: true
+    }) 
+  );
 
-var series2 = chart.series.push( 
-  am5xy.ColumnSeries.new(root, { 
-    name: "Femenino", 
-    xAxis: xAxis, 
-    yAxis: yAxis, 
-    valueYField: "value2", 
-    categoryXField: "year" ,
-    tooltip: am5.Tooltip.new(root, { labelText: "{valueY}"})
-  }) 
-);
-series2.data.setAll(data);
+  series.bullets.push(() => {
+    return am5.Bullet.new(this.root, {
+      locationX: 0.5,
+      locationY: 0.5,
+      sprite: am5.Circle.new(this.root, {
+        radius: 25,
+        fill: am5.color(0xffffff)
+      })
+    });
+  });
+
+  series.bullets.push(() => {
+    return am5.Bullet.new(this.root, {
+      locationX: 0.5,
+      locationY: 0.5,
+      sprite: am5.Label.new(this.root, {
+        text: "{valueY}",
+        centerX: am5.percent(50),
+        centerY: am5.percent(50),
+        textAlign: "center",
+        populateText: true
+      })
+    });
+  });
+  series.columns.template.setAll({
+    cornerRadiusTL: 5,
+    cornerRadiusTR: 5
+  });
+  //series.get("tooltip")?.label.set("text", "[bold]{name}[/]\n{valueX.formatDate()}: {valueY}")
+  series.data.setAll(data);
+ 
+}
+createSeries("Masculino", "value1");
+createSeries("Femenino", "value2");
+this.root._logo?.dispose();
 
 // Add legend
-var legend = chart.children.push(am5.Legend.new(root, {})); 
+var legend = chart.children.push(am5.Legend.new(this.root, {})); 
 legend.data.setAll(chart.series.values);
   
-console.log(data);
 
 
-chart.set("cursor", am5xy.XYCursor.new(root, {
-  behavior: "zoomX"
+
+chart.set("cursor", am5xy.XYCursor.new(this.root, {
+  behavior: "zoomXY",
+  xAxis: xAxis
+}));
+xAxis.set("tooltip", am5.Tooltip.new(this.root, {
+  themeTags: ["axis"]
+}));
+
+yAxis.set("tooltip", am5.Tooltip.new(this.root, {
+  themeTags: ["axis"]
 }));
     });
 
@@ -310,18 +329,24 @@ chart.set("cursor", am5xy.XYCursor.new(root, {
  public buscarGraficaPoblacionRango(depto: string) {
   this.http.get<PoblacionAnio>("http://localhost:8082/vui-api/indicadoresPoblacionRango?idDepartamento=" + depto).subscribe(datos => {
     //console.log(datos);
-    let root = am5.Root.new("chartRango");
-    root.setThemes([
-      am5themes_Animated.new(root)
+        if(this.conteo2==0){
+      this.root1= this.raiz.new("chartRango");
+      this.conteo2++;      
+    }else{
+      
+    } 
+    
+    this.root1.setThemes([
+      am5themes_Animated.new(this.root1)
     ]);
-
-    let chart = root.container.children.push(
-      am5xy.XYChart.new(root, {
+    this.root1.container.children.clear();
+    let chart = this.root1.container.children.push(
+      am5xy.XYChart.new(this.root1, {
         panX: false,
         panY: false,
         wheelX: "panX",
         wheelY: "zoomX",
-        layout: root.verticalLayout,
+        layout: this.root1.verticalLayout,
         arrangeTooltips: false
       })
     );
@@ -329,7 +354,7 @@ chart.set("cursor", am5xy.XYCursor.new(root, {
     chart.getNumberFormatter().set("numberFormat", "#.#s");
 
     let legend = chart.children.push(
-      am5.Legend.new(root, {
+      am5.Legend.new(this.root1, {
         centerX: am5.p50,
         x: am5.p50
       })
@@ -365,8 +390,8 @@ chart.set("cursor", am5xy.XYCursor.new(root, {
             }
             data.push({
               age: datos[j].nomRango,
-              male: tempMasculino,
-              female: -tempFemenino
+              Hombres: tempMasculino,
+              Mujeres: -tempFemenino
             });
           }else if(contador==3){
             contador=0;
@@ -376,13 +401,11 @@ chart.set("cursor", am5xy.XYCursor.new(root, {
       }//Termina for.
     }//Termina for
 
-    console.log("ARRAY JSON DATA: ");
-    console.log(data);
-    console.log("ARRAY JSON DATA: ");
+  
     let yAxis = chart.yAxes.push(
-      am5xy.CategoryAxis.new(root, {
+      am5xy.CategoryAxis.new(this.root1, {
         categoryField: "age",
-        renderer: am5xy.AxisRendererY.new(root, {
+        renderer: am5xy.AxisRendererY.new(this.root1, {
           inversed: true,
           cellStartLocation: 0.1,
           cellEndLocation: 0.9
@@ -393,41 +416,46 @@ chart.set("cursor", am5xy.XYCursor.new(root, {
     yAxis.data.setAll(data);
     
     let xAxis = chart.xAxes.push(
-      am5xy.ValueAxis.new(root, {
-        renderer: am5xy.AxisRendererX.new(root, {})
+      am5xy.ValueAxis.new(this.root1, {
+        renderer: am5xy.AxisRendererX.new(this.root1, {})
       })
     );
-    function createSeries(field: string, labelCenterX: number | am5.Percent, pointerOrientation: any, rangeValue: number) {
+    const createSeries = ( field: string, labelCenterX: number | am5.Percent, pointerOrientation: any, rangeValue: number) => {
       let series = chart.series.push(
-        am5xy.ColumnSeries.new(root, {
+        am5xy.ColumnSeries.new(this.root1, {
           xAxis: xAxis,
           yAxis: yAxis,
           valueXField: field,
           categoryYField: "age",
           sequencedInterpolation: true,
           clustered: false,
-          tooltip: am5.Tooltip.new(root, {
+          /*tooltip: am5.Tooltip.new(this.root1, {
             pointerOrientation: pointerOrientation,
             labelText: "{categoryY}: {valueX}"
-          })
+          })*/
         })
       );
     
       series.columns.template.setAll({
         height: am5.p100
       });
-    
-      series.bullets.push(function() {
-        return am5.Bullet.new(root, {
-          locationX: 1,
+        
+      series.bullets.push(() => {
+        return am5.Bullet.new(this.root1, {
+          locationX: 0.5,
           locationY: 0.5,
-          sprite: am5.Label.new(root, {
-            centerY: am5.p50,
-            text: "{valueX}",
-            populateText: true,
-            centerX: labelCenterX
+          sprite: am5.Label.new(this.root1, {
+            text: "{categoryY}: {valueX}",
+            centerX: am5.percent(50),
+            centerY: am5.percent(50),
+            textAlign: "center",
+            populateText: true
           })
         });
+      });
+      series.columns.template.setAll({
+        cornerRadiusTL: 5,
+        cornerRadiusTR: 5
       });
     
       series.data.setAll(data);
@@ -451,15 +479,16 @@ chart.set("cursor", am5xy.XYCursor.new(root, {
         isMeasured: false,
         centerX: labelCenterX
       });
-      label?.adapters.add("dy", function() {
+      label?.adapters.add("dx", function() {
         return -chart.plotContainer.height();
       });
     
       return series;
     }
-    createSeries("male", am5.p100, "right", -3);
-    createSeries("female", 0, "left", 4);
-    let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+    createSeries("Hombres", am5.p100, "right", -3);
+    createSeries("Mujeres", 0, "left", 4);
+    this.root._logo?.dispose();
+    let cursor = chart.set("cursor", am5xy.XYCursor.new(this.root1, {
       behavior: "zoomY"
     }));
     cursor.lineY.set("forceHidden", true);
@@ -475,11 +504,16 @@ public buscarGraficaDeptoIntecap(depto: string) {
   this.http.get<DeptoIntecap>("http://localhost:8082/vui-api/indicadoresDeptoIntecap?idDepartamento=" + depto).subscribe(datos => {
 
 
-    // Create root and chart
-    const toor = am5.Root.new("chartIgss");
-    let chart = toor.container.children.push(
-      am5percent.PieChart.new(toor, {
-        layout: toor.verticalLayout
+    if(this.conteo3==0){
+      this.root2= this.raiz.new("chartIgss");
+      this.conteo3++;      
+    }else{
+      
+    } 
+    this.root2.container.children.clear();
+    let chart = this.root2.container.children.push(
+      am5percent.PieChart.new(this.root2, {
+        layout: this.root2.verticalLayout
       })
     );
     //console.log(datos);
@@ -502,7 +536,7 @@ public buscarGraficaDeptoIntecap(depto: string) {
 
     // Create series
     let series = chart.series.push(
-      am5percent.PieSeries.new(toor, {
+      am5percent.PieSeries.new(this.root2, {
         name: "Series",
         valueField: "sales",
         categoryField: "country"
@@ -511,29 +545,33 @@ public buscarGraficaDeptoIntecap(depto: string) {
     series.data.setAll(data);
 
     // Add legend
-    let legend = chart.children.push(am5.Legend.new(toor, {
+    let legend = chart.children.push(am5.Legend.new(this.root2, {
       centerX: am5.percent(50),
       x: am5.percent(50),
-      layout: toor.horizontalLayout
+      layout: this.root2.horizontalLayout
     }));
 
     legend.data.setAll(series.dataItems);
   });
 }
 
-
 public buscarUniversidades(depto: string){
 
   this.http.get<Universidad>("http://localhost:8082/vui-api/indicadoresUniversidad?idDepartamento="+depto).subscribe(data => {  
   					var universidades='<ul class="list-group list-group-flush">';
 						universidades+='<li class = "list-group-item  justify-content-between align-items-center">';
-						universidades+='<h3 class = "list-group-item-heading">PÚBLICA</h3>';
-						universidades+='<p class = "list-group-item-text text-uppercase">'+data[0].nomUniversidad+'</p>';						
+						universidades+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PÚBLICA</h3>';
+								
+            universidades+='<img src="http://localhost:4200/assets/images/esp/Universidades/'+data[0].logo+'" class="img-thumbnail" alt="...">';
+            universidades+='<spam class="text-uppercase ml-2">'+data[0].nomUniversidad+'</span>';	
 						universidades+='</li>';
 						universidades+='<li class = "list-group-item  justify-content-between align-items-center">';
-						universidades+='<h3 class = "list-group-item-heading">PRIVADAS</h3>';
+						universidades+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PRIVADAS</h3>';
 						for ( var i = 1; i < data['length']; i++ ) {
-							universidades+='<p class = "list-group-item-text text-uppercase">'+data[ i ].nomUniversidad+'</p>';
+              universidades+='<img src="http://localhost:4200/assets/images/esp/Universidades/'+data[i].logo+'" class="img-thumbnail" width=75vh alt="...">';
+              universidades+='<spam class="text-uppercase ml-2">'+data[i].nomUniversidad+'</span><br>';	
+            
+							
 							}
 						universidades+='</li>';
 						universidades+='</ul>';
@@ -626,7 +664,7 @@ public buscarIndicadores(depto: string){
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						estimacion+='<div class="row d-flex justify-content-center align-items-center">';
 						estimacion+='<p style="text-align: center;">';
-						estimacion+='<span class="text-light-blue">';
+						estimacion+='<span class="text-light-blue justify-content-center fs-5 ml-2">';
 						estimacion+='<strong>Estimación población <br>'+data[0]['idAnio'];
 						estimacion+='</strong>';
 						estimacion+='</span>';
@@ -643,7 +681,7 @@ public buscarIndicadores(depto: string){
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						estimacion+='<div class="row d-flex justify-content-center align-items-center">';
 						estimacion+='<p style="text-align: center;">';
-						estimacion+='<span class="text-light-blue">';
+						estimacion+='<span class="text-light-blue justify-content-center fs-5 ml-2">';
 						estimacion+='<strong>'+data[0].nomGenero;
 						estimacion+='</strong>';
 						estimacion+='</span>';
@@ -660,7 +698,7 @@ public buscarIndicadores(depto: string){
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						estimacion+='<div class="row d-flex justify-content-center align-items-center">';
 						estimacion+='<p style="text-align: center;">';
-						estimacion+='<span class="text-light-blue">';
+						estimacion+='<span class="text-light-blue justify-content-center fs-5 ml-2">';
 						estimacion+='<strong>'+data[1].nomGenero;
 						estimacion+='</strong>';
 						estimacion+='</span>';
@@ -699,14 +737,17 @@ public buscarDeptoIndicadores(depto: string){
 						dCh+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						dCh+='<div class="row d-flex justify-content-center align-items-center">';
 						dCh+='<p style="text-align: center;">';
-						dCh+='<span class="text-light-blue" justify-content-center>';
+						dCh+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
 						dCh+='<strong>'+data[index].nomCorto;
 						dCh+='</strong>';
 						dCh+='</span>';
 						dCh+='</p>';
 						dCh+='<div class="col-md-12 d-flex justify-content-center">';
 						dCh+='<h1 class="blue-counter">';
-						dCh+=data[index].valor+"%"
+						dCh+=data[index].valor+"%";
+
+           
+            
             
 						dCh+='</h1>';
 						dCh+='</div>';
@@ -720,7 +761,7 @@ public buscarDeptoIndicadores(depto: string){
         educacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
         educacion+='<div class="row d-flex justify-content-center align-items-center">';
         educacion+='<p style="text-align: center;">';
-        educacion+='<span class="text-light-blue" justify-content-center>';
+        educacion+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
         educacion+='<strong>'+data[index].nomCorto;
         educacion+='</strong>';
         educacion+='</span>';
@@ -740,7 +781,7 @@ public buscarDeptoIndicadores(depto: string){
 						igss+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						igss+='<div class="row d-flex justify-content-center align-items-center">';
 						igss+='<p style="text-align: center;">';
-						igss+='<span class="text-light-blue" justify-content-center>';
+						igss+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
 						igss+='<strong>'+data[index].nomCorto+" "+data[index].anio;
 						igss+='</strong>';
 						igss+='</span>';
@@ -864,7 +905,7 @@ public buscarDeptoIndicadores(depto: string){
 						  costos += '<div class= " imgCostoAgua imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
             } 
             
-            costos += '<h2 class="fs-3 bg-primary">'+data[index].nomCorto+'</h2>';
+            costos += '<h2 class="fs-2 bg-primary">'+data[index].nomCorto+'</h2>';
 						costos += '</div>';
 						costos += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
 						costos += '<div>';
@@ -919,7 +960,10 @@ formatoMiles = (numero:string,tipoDato: string) => {
 	}else if(tipoDato=="dato"){
 		numeroConMiles=numeroConMiles;
 	}
-	
+	let arr2 = numeroConMiles.split('.');
+  if(arr2[1]=="0" || arr2[1]=="00" ){
+    return arr2[0];
+  }
 	return numeroConMiles;
   }
 }
