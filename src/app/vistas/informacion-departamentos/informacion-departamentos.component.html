@@ -1,10 +1,12 @@
+
 <div class="row ir-arriba mt-5" id="titulo"></div>
 <div class="row text-center mt-3 pt-3">
-  <div class="col-lg-5 col-md-6 col-sm-12 mt-3 ">
+  <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
     <!--   <a  routerLink="/informacionDepartamentos/{{deptoF.idDepartamento}}"><img class="rounded-circle" width="204" height="136" src="assets/images/departamentos/{{deptoF.nomDepartamento}}.jpg"></a>-->
     <section class="mapaGuate mt-5 pt-5">
       
       <div class="deptoGuate">
+        <pre> Hacer click en departamento para desplegar información</pre>
         <!--
 			El mapa gracias a esta herramienta lo cree :) "Inkscape (http://www.inkscape.org/)"
 			-->
@@ -49,22 +51,24 @@
       </div>
     </section>
   </div>
-  <div class="col-lg-7 col-md-6 col-sm-12 mt-3">
+  <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
     <div class="infoDepto">
       <div class="row ">
-        <div class="col-lg-10 col-md-10 col-sm-12 mt-3 mb-3 text-center">
-          <h2 class="blue-title text-uppercase">{{nomDeptoh1}}</h2>
-          <div class="imgDepto"></div>
-            <small class="text-uppercase">{{infoDeptoh2}}</small>
-          
+        <div class="col-lg-12 col-md-12 col-sm-12 mt-3 mb-3 text-center">
+          <h1 class="blue-title text-uppercase">{{nomDeptoh1}}</h1>
+          <div class="imgDepto about"></div>                  
+        </div>
+        <div class="offset-lg-2 offset-md-2 col-lg-8  col-md-8 col-sm-12 align-self-center mt-3 mb-3 text-center">          
+            <p class="" style="
+            text-indent: 0rem;
+            text-align: justify;">{{infoDeptoh2}}</p>          
         </div>
         <!--	<div class="col-lg-4 col-md-4 col-sm-12 text-center "><img class="" width="100%" height="100%" src="assets/images/departamentos/{{nombreDepartamento}}.svg"></div>-->
-        <div class="col-lg-12 col-md-8 col-sm-12 mt-3 mb-3 pr-5 text-justify ">
-          <p>{{infoDeptop}}</p>
+        <div class="offset-lg-2 offset-md-2 col-lg-8 col-md-8 col-sm-12 mt-3 mb-3 pr-5  text-justify ">         
           
           <div class="tabla">{{tablaMunicipios}}</div>
         </div>
-        <div class="offset-lg-4  col-lg-8  offset-md-4 col-md-4 col-sm-12 mt-3 mb-3 pr-5 ">
+        <div class="offset-lg-12  col-lg-12  offset-md-4 col-md-4 col-sm-12 mt-3 mb-3 pr-5 ">
           <!--  <table><tr ng-repeat="x in names"><td>{{ x.Name }}</td><td>{{ x.Country }}</td></tr></table>-->
         </div>
       </div>
@@ -73,14 +77,14 @@
 </div>
 <div *ngIf="infoDeptoPanel" class="infoDepto2" id="infoDepto2">
   <div class="text-center  pb-5 bg-white">
-    <h2 class="blue-title text-uppercase">Datos Sociodemográficos</h2>
-    <hr class="ml-auto mr-auto">
+    <h2 class="blue-title text-uppercase mt-5 mb-0 d-flex flex-column  justify-content-center">Datos Sociodemográficos</h2>
+     <span class="mb-5 d-flex flex-column  justify-content-center">*Números expresados en miles</span>
     <div class="container pt-4 ">
       
         <div class="datoSocioPrimero"></div>
         <div class="row d-flex justify-content-center">
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <h3 class="blue-title text-uppercase">Población</h3>
+            <h2 *ngIf="graficaPoblacion" class="blue-title text-uppercase mt-5 mb-5">Población</h2>
             <div class="chartdiv" id="chartdiv" style="width: 100%; height: 500px"></div>.
             
           </div>
@@ -88,48 +92,62 @@
         </div>
         <div class="row d-flex justify-content-center">
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <h3 class="blue-title text-uppercase">Población</h3>
+            <h2 *ngIf="tituloRango" class="blue-title text-uppercase mt-5 mb-5">Población</h2>
+            <select class="form-select form-anio mb-3 pb-3" (change)="poblacionAnio($event)" id="anioPoblacionSelect" aria-label="Default select example">
+              <option disabled >Seleccione año</option>
+              <option value="2021">2021</option>
+              <option selected value="2022">2022 </option>
+              
+            </select>
             <div class="chartRango" id="chartRango" style="width: 100%; height: 500px"></div>
             
           </div>
          
         </div>
       
-    <h1 class="blue-title text-uppercase">Datos Capital Humano</h1>
+    <h2 class="blue-title text-uppercase mt-5 mb-5">Datos Capital Humano</h2>
     <div class="datodCh"></div>
-    <h2 class="blue-title text-uppercase mt-2">Educación</h2>
+    <h2 class="blue-title text-uppercase mt-2 mt-5 mb-5">Educación</h2>
     <div class="datoEducacion"></div>
     
-    <h2 class="blue-title text-uppercase mt-2">Instituto Guatemalteco de Seguridad Social</h2>
+    <h2 class="blue-title text-uppercase mt-2 mt-5 mb-5">Instituto Guatemalteco de Seguridad Social</h2>
     <div class="datoIgss"></div>
     <div class="row d-flex justify-content-center">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <h3 class="blue-title text-uppercase">Instituto Técnico de Capacitación y Productividad</h3>
+        <h2 *ngIf="tituloIntecap" class="blue-title text-uppercase mt-5 mb-5">Instituto Técnico de Capacitación y Productividad</h2>
         <div class="chartIgss" id="chartIgss" style="width: 100%; height: 500px"></div>
         
       </div>
      
     </div>
-    <h2 class="blue-title text-uppercase mt-4">Universidades Establecidas dentro del Departamento</h2>
-    <div class="datoUniversidades"></div>
+    <h2 *ngIf="tituloUniversidades" class="blue-title text-uppercase mt-4 mt-5 mb-5">Universidades Establecidas dentro del Departamento</h2>
+    <div class="row d-flex justify-content-end">
+      <div class="datoUniversidades"></div>
+    </div>
+    
+    
 
-    <h2 class="blue-title text-uppercase">Dinamismo de la Economía</h2>
+    <h2 class="blue-title text-uppercase mt-5 mb-5">Dinamismo de la Economía</h2>
     <p>% Porcentaje de empresas de acuerdo al tamaño dentro de los Departamentos</p>    
     <div class="datoEmpresas"></div>
     <div class="datoDinamismo2"></div>
-
-    <h2 class="blue-title text-uppercase">Uso de Tecnologías de la Información y Comunicación</h2>
+    
+    <h2 class="blue-title text-uppercase mt-5 mb-5">Uso de Tecnologías de la Información y Comunicación</h2>
     <div class="datoTics"></div>
 
-    <h2 class="blue-title text-uppercase">Datos de Infraestructura</h2>
+    <h2 class="blue-title text-uppercase mt-5 mb-5">Datos de Infraestructura</h2>
     <div class="datoInfraestructura"></div>
 
-    <h2 class="blue-title text-uppercase">Costos</h2>
-    <div class="datoCostos"></div>
-    <div class="chartPlanta" id="chartPlanta" style="width: 100%; height: 500px"></div>
+    <h2 *ngIf="tituloCosto" class="blue-title text-uppercase mt-5 mb-5">Costos</h2>
+    <div *ngIf="tituloCosto" class="datoCostos"></div>
+    <div  class="chartPlanta" id="chartPlanta" style="width: 100%; height: 500px"></div>
     
 
         
       
     </div>
+  </div>
+  <div class="row text-center mt-3 pt-3">
+    <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">Fuente:*</div>
+    
   </div>

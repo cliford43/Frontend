@@ -483,8 +483,28 @@ path:hover {
 {
   background-image: url("img/EmpGrande.jpg");
 	background-size: cover;
-}
 
+}
+.imgAereo
+{
+  background-image: url("assets/images/esp/aereoMenu.png");
+	background-size: cover;
+  background-repeat: no-repeat;
+ 
+  
+}
+.imgMaritimo
+{
+  background-image: url("assets/images/esp/maritimoMenu.png");
+	background-size: cover;
+  background-repeat: no-repeat;
+}
+.imgTerrestre
+{
+  background-image: url("assets/images/esp/terrestreMenu.png");
+	background-size: cover;
+  background-repeat: no-repeat;
+}
 .imgDinEmpresas
 {
   background-image: url("img/DinEmpresas.jpg");

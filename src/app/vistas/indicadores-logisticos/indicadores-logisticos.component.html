@@ -6,17 +6,45 @@
      background-size: cover;
      height: 100vh;
      width:100%;">
-  <div class="container-fluid">
-    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 10em;">
+<!--  <div class="container-fluid overflow-hidden">
+    <div class="row d-flex justify-content-center ml-2 text-center " style="padding-top: 10em;">
       <h1 class="blue-title text-uppercase">Indicadores logísticos</h1>
-      <div class="col-lg-4 col-md-4 col-sm-12" style="cursor:pointer">
-        <img class="d-block" src="assets/images/esp/aereoMenu.png" (click)="aereo( $event );">
+      <div class="col-lg-4 col-md-4 col-sm-12 pl-0 ml-0 pr-4 mr-0 imgMaritimo   d-flex flex-column  justify-content-center" style="cursor:pointer; " style=" width:'402px';height:'250px'; " (click)="maritimo( $event );">      
+
+        <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">MARÍTIMO</h2>
+     
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12" style="cursor:pointer">
-        <img class="d-block" src="assets/images/esp/maritimoMenu.png" (click)="maritimo( $event );">
+      <div class="col-lg-4 col-md-4 col-sm-12 pl-0 ml-0 pr-4 mr-0 imgAereo   d-flex flex-column  justify-content-center" style="cursor:pointer; " style=" width:'402px';height:'250px'; " (click)="aereo( $event );">      
+
+        <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%;" >AÉREO</h2>
+     
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12" style="cursor:pointer">
-        <img class="d-block" src="assets/images/esp/terrestreMenu.png" (click)="terrestre( $event );">
+     
+      <div class="col-lg-4 col-md-4 col-sm-12 pl-0 ml-0 pr-4 mr-0 imgTerrestre   d-flex flex-column  justify-content-center" style="cursor:pointer; " style=" width:'402px';height:'250px'; " (click)="terrestre( $event );">      
+
+        <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">TERRESTRE</h2>
+     
+      </div>
+     
+    </div>
+  </div>-->
+  <div class="container-fluid ">
+    <div class="row gx-5 d-flex justify-content-center text-center" style="padding-top: 10em;">
+      <h1 class="blue-title text-uppercase">Indicadores logísticos</h1>
+      <div class="col">
+       <div class="p-3 border bg-light imgAereo d-flex flex-column  justify-content-center" style=" height:'250px'; cursor:pointer;" (click)="aereo( $event );">
+        <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%;" >AÉREO</h2>
+       </div>
+      </div>
+      <div class="col">
+        <div class="p-3 border bg-light imgMaritimo d-flex flex-column  justify-content-center" style=" height:'250px';cursor:pointer; " (click)="maritimo( $event );">
+          <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">MARÍTIMO</h2>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3 border bg-light imgTerrestre d-flex flex-column  justify-content-center" style=" height:'250px'; cursor:pointer;" (click)="terrestre( $event );">
+          <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">TERRESTRE</h2>
+        </div>
       </div>
     </div>
   </div>
@@ -123,9 +151,10 @@
   <div class="container-fluid">
 
     <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 5em;">
-
-      <h1 class="blue-title text-uppercase">Terrestre</h1>
-      <h3 class="blue-title text-uppercase fs-5 text-danger mb-5" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
+      
+      <h1 class="blue-title text-uppercase">Terrestre <h3 class="blue-title">Destinos internacionales</h3></h1>
+      
+      <h3 class="blue-title text-uppercase fs-5 text-danger mt-2 mb-2" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
       <div class="col-lg-8 col-md-8 col-sm-12">
         <select class="form-select form-terrestre" id="seleccionadort" aria-label="Default select example">
           <option selected>Seleccione destino</option>
@@ -154,7 +183,7 @@
 
     <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 0em;">
 
-      <h1 class="blue-title text-uppercase"> Terrestre</h1>
+      <h1 class="blue-title text-uppercase">Terrestre <h3 class="blue-title">Destinos nacionales</h3></h1>
       
       <div class="col-lg-8 col-md-8 col-sm-12">
         <select class="form-select form-terrestregt" id="seleccionadort" aria-label="Default select example">
@@ -231,27 +260,3 @@
   </div>
   
 </div>
-
-<!--<div class="contenedor-pagina menuLogistica"  id="titulo" style="overflow: hidden;">
-  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    
-    <div class="carousel-inner">
-      
-      <div class="carousel-item active">
-        
-        <img class="d-block hide" src="assets/images/esp/menuBack.png">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-4 col-md-4 col-sm-12">
-            <img class="d-block" src="assets/images/esp/aereoMenu.png">
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-12">
-            <img class="d-block" src="assets/images/esp/maritimoMenu.png">
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-12">
-            <img class="d-block" src="assets/images/esp/terrestreMenu.png">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->

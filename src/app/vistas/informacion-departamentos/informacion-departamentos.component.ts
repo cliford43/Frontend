@@ -27,8 +27,10 @@ import * as am5radar from "@amcharts/amcharts5/radar"
 export class InformacionDepartamentosComponent implements OnInit {
   element = false;
   nombreDepartamento = "";
-  descripcionDepartamento = "";
+  idDeptoActual = "";
   anioDepartamento = 0;
+  today = new Date();
+  datosDibujar: any;
   conteo=0;
   conteo2=0;
   conteo3=0;
@@ -48,7 +50,14 @@ export class InformacionDepartamentosComponent implements OnInit {
 //  private root!: am5.Root;
   departamentos: Deptos[] = [];
   municipios: Munis[] = [];
+  graficaPoblacion = false;
   infoDeptoPanel=false;
+  tituloCosto=false;
+  tituloIntecap=false;
+  tituloRango=false;
+  tituloUniversidades=false;
+  tituloEmpresas=false;
+  tituloEstimacion=false;
   infoDeptoh2='';
   nomDeptoh1='';
   infoDeptop='';
@@ -166,7 +175,7 @@ public infoDepartamento(event?: any){
   
   
 	
-  var imagen='<img src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 300px;" alt="" />';
+  var imagen='<img src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 600px;" alt="" />';
   this.limpiaValores();
   this.nomDeptoh1 = "PERFIL DEPARTAMENTO DE " + this.datosDeptos[departamento][0].nombreDepto;
   
@@ -175,6 +184,8 @@ public infoDepartamento(event?: any){
   this.infoDeptoh2=this.datosDeptos[departamento][0].descripcion;
   this.buscarMunicipios(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarGraficaPoblacionAnio(this.datosDeptos[departamento][0].idDepartamento);
+  
+  
   this.buscarGraficaPoblacionRango(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarGraficaDeptoIntecap(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarGraficaDeptoPlantas(this.datosDeptos[departamento][0].idDepartamento);
@@ -200,26 +211,34 @@ public buscarMunicipios(depto: string){
       ////console.log(data.idDepartamento);
       
         var cantidad=data['length'];
-						if(cantidad%2==0){
+						if(cantidad%3==0){
         
-							cantidad=cantidad/2;
+							cantidad=cantidad/3;
 						
 						}else{
-							var temp=(cantidad/2);
+							var temp=(cantidad/3);
 							cantidad=Math.floor(temp)+1;
 							
 						}
-						tempMunis='<div class="row">  <div class="col-lg-6 col-md-6 col-sm-12 mt-3" >'
-					
+						tempMunis='<div class="row">  <div class="col-lg-4 col-md-4 col-sm-12 " >'
+            
+					var indes=0;
             for (let index = 0; index < data['length']; index++) {
+              indes++;
               const element = data[index];              
               ////console.log(element.nomMunicipio); 
               
-							if(index==cantidad){
-								tempMunis+='</div><div class="col-lg-6 col-md-6 col-sm-12 mt-3" >';
+							if(indes==cantidad){
+                cantidad=indes+cantidad;
+                tempMunis+='<li class="">'+(index+1)+') '+data[index]["nomMunicipio"]+'</li>';
+								tempMunis+='</div><div class="col-lg-4 col-md-4 col-sm-12 " >';
 							}
+              else{
+                tempMunis+='<li class="">'+(index+1)+') '+data[index]["nomMunicipio"]+'</li>';
+              }
               
-							tempMunis+=' <button class="btn btn-outline-degree btn-block btn-radius">'+(index+1)+') '+data[index]["nomMunicipio"]+'</button>'
+							//tempMunis+=' <button class="  btn-block btn-radius">'+(index+1)+') '+data[index]["nomMunicipio"]+'</button>'
+              
 							
             }
 						tempMunis+='</div></div>';            
@@ -231,7 +250,9 @@ public buscarMunicipios(depto: string){
 }  
 public buscarGraficaPoblacionAnio(depto: string){
   this.http.get<PoblacionAnio>(environment.API_URL+"indicadoresPoblacionAnio?idDepartamento="+depto).subscribe(datos => {
-     
+    if(datos['length']!=0){
+      this.graficaPoblacion=true;
+      $( ".chartdiv").show();
     
     if(this.conteo==0){
       this.root= this.raiz.new("chartdiv");
@@ -247,32 +268,27 @@ public buscarGraficaPoblacionAnio(depto: string){
  
   var chart =  this.root.container.children.push( 
     am5xy.XYChart.new( this.root, {
+      panX: false,
       panY: false,
+      wheelX: "panX",
       wheelY: "zoomX",
       layout: this.root.verticalLayout,
       maxTooltipDistance: 0
     }) 
   );
-  /*var legend = chart.children.push(
-    am5.Legend.new( this.root, {
-      centerX: am5.p50,
-      x: am5.p50
-    })
-  );*/
   
-
-// Define data
-
 let data: unknown[] = [];
 for ( var i = 0; i < datos['length']; i++ ) {
   
   for ( var j = i+1; j < datos['length']; j++ ) {
     if(datos[i].idAnio==datos[j].idAnio){      
       var suma=Number(datos[i].cantidad.replace(",",""))+Number(datos[j].cantidad.replace(",",""))
-      
-      data.push({year: datos[j].idAnio,
+      let anio = <String>datos[j].idAnio;
+      data.push({
+      datoX:   ""+anio+"",
       value1: Number(datos[i].cantidad.replace(",","")),
-      value2: Number(datos[j].cantidad.replace(",",""))});
+      value2: Number(datos[j].cantidad.replace(",",""))
+    });
     }
     
     
@@ -291,7 +307,7 @@ for ( var i = 0; i < datos['length']; i++ ) {
 
   var xAxis = chart.xAxes.push(
     am5xy.CategoryAxis.new(this.root, {   
-      categoryField: "year",   
+      categoryField: "datoX",   
       renderer: am5xy.AxisRendererX.new(this.root, {
         minGridDistance: 20
       }),
@@ -300,19 +316,16 @@ for ( var i = 0; i < datos['length']; i++ ) {
 
   xAxis.data.setAll(data);
   
-// Create series
-// Create series
+
     const createSeries = (name: string, field: string) => {
-      //console.log("Crear serie: "+ name +"  "+field );
+     
   var series = chart.series.push( 
     am5xy.ColumnSeries.new(this.root, { 
       name: name,
       xAxis: xAxis, 
       yAxis: yAxis, 
       valueYField: field, 
-      categoryXField: "year",
-      //tooltip: am5.Tooltip.new(this.root, {}),
-      
+      categoryXField: "datoX",
       maskBullets: true
     }) 
   );
@@ -356,10 +369,6 @@ this.root._logo?.dispose();
 // Add legend
 var legend = chart.children.push(am5.Legend.new(this.root, {})); 
 legend.data.setAll(chart.series.values);
-  
-
-
-
 chart.set("cursor", am5xy.XYCursor.new(this.root, {
   behavior: "zoomXY",
   xAxis: xAxis
@@ -371,12 +380,41 @@ xAxis.set("tooltip", am5.Tooltip.new(this.root, {
 yAxis.set("tooltip", am5.Tooltip.new(this.root, {
   themeTags: ["axis"]
 }));
+    }else{
+      this.graficaPoblacion=false;
+      $(".chartdiv").hide();
+    }
     });
 
  }
+ public poblacionAnio(anio: any){
+  var hay = false;
+  console.log(this.datosDibujar);
+  for (var i = 0; i < this.datosDibujar['length']; i++) {
+    if(this.datosDibujar[i]==anio){
+      var hay = true;
+      break;
+    }
+  }
+  this.dibujarGraficaPoblacionRango(this.idDeptoActual);
+  //if(hay){$(".chartRango").show(); this.dibujarGraficaPoblacionRango(this.idDeptoActual);}else{$(".chartRango").hide();}
+
+ }
  public buscarGraficaPoblacionRango(depto: string) {
-  this.http.get<PoblacionAnio>(environment.API_URL+"indicadoresPoblacionRango?idDepartamento=" + depto).subscribe(datos => {
-    ////console.log(datos);
+
+    this.http.get<PoblacionAnio>(environment.API_URL+"indicadoresPoblacionRango?idDepartamento=" + depto).subscribe(datos => {
+this.datosDibujar=datos;
+this.dibujarGraficaPoblacionRango(depto);
+  });
+}
+public dibujarGraficaPoblacionRango(depto: string) {
+  //var selectAnio = Number($("#anioPoblacionSelect").val()) | this.today.getFullYear();
+  $("#anioPoblacionSelect").val()
+  var selectAnio = Number($("#anioPoblacionSelect").val());
+  $(".chartRango").hide();
+    if(this.datosDibujar['length']!=0){
+      this.tituloRango=true;
+      $(".chartRango").show();
         if(this.conteo2==0){
       this.root1= this.raiz.new("chartRango");
       this.conteo2++;      
@@ -414,30 +452,32 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
     
   
  
-    for (var i = 0; i < datos['length']; i++) {
-
-      for (var j = i; j < datos['length']; j++) {         
-        if (datos[i].idRango == datos[j].idRango) {
-          //console.log(+' == '+datos[j].idRango);
+    for (var i = 0; i < this.datosDibujar['length']; i++) {
+      
+      if (this.datosDibujar[i].idAnio==selectAnio) {
+      for (var j = i; j < this.datosDibujar['length']; j++) {  
+      
+        if (this.datosDibujar[i].idRango == this.datosDibujar[j].idRango && this.datosDibujar[j].idAnio==selectAnio) {
+      
           contador++;
           if(contador==1)
           {
-            if(datos[j].idGenero==1){
-              tempMasculino=Number(datos[j].cantidad.replace(",", ""));
+            if(this.datosDibujar[j].idGenero==1){
+              tempMasculino=Number(this.datosDibujar[j].cantidad.replace(",", ""));
             }else{
-              tempFemenino=Number(datos[j].cantidad.replace(",", ""));
+              tempFemenino=Number(this.datosDibujar[j].cantidad.replace(",", ""));
             }             
             
           }
           else if(contador==2)
           {
-            if(datos[j].idGenero==1){
-              tempMasculino=Number(datos[j].cantidad.replace(",", ""));
+            if(this.datosDibujar[j].idGenero==1){
+              tempMasculino=Number(this.datosDibujar[j].cantidad.replace(",", ""));
             }else{
-              tempFemenino=Number(datos[j].cantidad.replace(",", ""));
+              tempFemenino=Number(this.datosDibujar[j].cantidad.replace(",", ""));
             }
             data.push({
-              age: datos[j].nomRango,
+              age: this.datosDibujar[j].nomRango,
               Masculino: tempMasculino,
               Femenino: -tempFemenino
             });
@@ -447,6 +487,7 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
           
         }//tERMINA IF
       }//Termina for.
+    }
     }//Termina for
 
   
@@ -559,15 +600,21 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root1, {
 }));
     chart.appear(1000, 100);
 
+}else {
+      this.tituloRango=false;
+      $(".chartRango").hide();
+    }
 
-
-  });
+  
 }
 
 public buscarGraficaDeptoIntecap(depto: string) {
   this.http.get<DeptoIntecap>(environment.API_URL+"indicadoresDeptoIntecap?idDepartamento=" + depto).subscribe(datos => {
-
-
+    if(datos['length']!=0){
+      this.tituloIntecap=true;
+      $(".chartIgss").show();
+   
+     
     if(this.conteo3==0){
       this.root2= this.raiz.new("chartIgss");
       this.conteo3++;      
@@ -616,12 +663,23 @@ public buscarGraficaDeptoIntecap(depto: string) {
     }));
 
     legend.data.setAll(series.dataItems);
+  }
+  else {
+        this.tituloIntecap=true;
+
+    $(".chartIgss").hide();
+    
+    
+  }
   });
 }
 
 public buscarGraficaDeptoPlantas(depto: string) {
   this.http.get<DeptoIntecap>(environment.API_URL+"indicadoresPlanta?idDepartamento=" + depto).subscribe(datos => {
-console.log(datos);
+   if(datos['length']!=0){
+    this.tituloCosto=true;
+    $( ".chartPlanta").show();
+   
 if(this.conteo4==0){
   this.root4= this.raiz.new("chartPlanta");
   this.conteo4++;      
@@ -777,45 +835,79 @@ xAxis.data.setAll(data);
 
 
 chart.set("cursor", am5radar.RadarCursor.new(this.root4, {}));
-
+}else {
+  this.tituloCosto=false;
+  $( ".chartPlanta").hide();
+}
   });
 }
 
 public buscarUniversidades(depto: string){
 
   this.http.get<Universidad>(environment.API_URL+"indicadoresUniversidad?idDepartamento="+depto).subscribe(data => {  
-  					var universidades='<ul class="list-group list-group-flush">';
-						universidades+='<li class = "list-group-item  justify-content-between align-items-center">';
-						universidades+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PÚBLICA</h3>';
-								
-            universidades+='<img src="assets/images/esp/Universidades/'+data[0].logo+'" class="img-thumbnail" alt="...">';
-            universidades+='<spam class="text-uppercase ml-2">'+data[0].nomUniversidad+'</span>';	
-						universidades+='</li>';
-						universidades+='<li class = "list-group-item  justify-content-between align-items-center">';
-						universidades+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PRIVADAS</h3>';
-						for ( var i = 1; i < data['length']; i++ ) {
-              universidades+='<img src="assets/images/esp/Universidades/'+data[i].logo+'" class="img-thumbnail" width=75vh alt="...">';
-              universidades+='<spam class="text-uppercase ml-2">'+data[i].nomUniversidad+'</span><br>';	
+
+    console.log("UNIVERSIDADES: "+data['length'])
+    if(data['length']!=0){
+      this.tituloUniversidades=true;
+      $(".datoUniversidades").show();
+      			var universidadesInicio='<div class="row align-items-center">';
+					
+            var universidadesPu='<div class="col-lg-12 col-md-12 col-sm-12 ">';
+            universidadesPu+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PÚBLICAS</h3>';
+            universidadesPu+='</div>';
+            var universidades='<div class="col-lg-12 col-md-12 col-sm-12 ">';
+						 universidades+='<h3 class = "list-group-item-heading blue-title text-uppercase mt-4">PRIVADAS</h3>';
+            universidades+='</div>';
             
-							
+						for ( var i = 0; i < data['length']; i++ ) {
+              console.log('idUniverdidad: '+data[i].idUniverdidad +"----"+i)
+              if(data[i].idUniverdidad==1 || data[i].idUniverdidad==19 ||data[i].idUniverdidad==20 )
+              {            
+                universidadesPu+='<div class="  col-lg-2 col-md-2 "></div>';
+                universidadesPu+='<div class="col-lg-2 col-md-2 col-sm-12 d-flex justify-content-end ">';
+                universidadesPu+='<img src="assets/images/esp/Universidades/'+data[i].logo+'" class="" width=75vh  alt="...">';
+                universidadesPu+='</div>';
+                universidadesPu+='<div class="col-lg-6 col-md-6 col-sm-12 ">';
+                universidadesPu+='<a href="'+data[i].link+'" target="_blank" class="text-uppercase d-flex justify-content-start">'+data[i].nomUniversidad+'</a>';	
+                universidadesPu+='</div>';
+                universidadesPu+='<div class="  col-lg-2 col-md-2 "></div>';
+              }else{
+              universidades+='<div class="  col-lg-2 col-md-2 "></div>';
+              universidades+='<div class="col-lg-2 col-md-2 col-sm-12 d-flex justify-content-end">';
+              universidades+='<img src="assets/images/esp/Universidades/'+data[i].logo+'" class="" width=75vh alt="...">';
+              universidades+='</div>';
+              
+              universidades+='<div class="col-lg-6 col-md-6 col-sm-12  ">';
+              universidades+='<a href="'+data[i].link+'" target="_blank" class="text-uppercase d-flex justify-content-start ">'+data[i].nomUniversidad+'</a>';	
+              universidades+='</div>';
+              universidades+='<div class="  col-lg-2 col-md-2 "></div>';
+              }
 							}
-						universidades+='</li>';
-						universidades+='</ul>';
+              
+						var total = universidadesInicio+universidadesPu+universidades+"</div>";
     const el =<HTMLElement>document.querySelector( ".datoUniversidades" );
-    el.innerHTML = universidades ;		
+    el.innerHTML = total;	
+            }	
+            else{
+              this.tituloUniversidades=false;
+              $(".datoUniversidades").hide();
+            }
       });
 }
 public buscarDeptoEmpresas(depto: string)  
 {
   this.http.get<Empresa>(environment.API_URL+"indicadorDeptoEmpresa?idDepartamento="+depto).subscribe(data => {  
-  					
+  	if(data['length']!=0){
+      this.tituloEmpresas=true;
+      $(".datoEmpresas").show();				
   //////console.log;
   var empresas='<div class="row d-flex justify-content-center ml-3">';
           empresas += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
           empresas += '<div class="box">';
           empresas += '<div class="body">';
-          empresas += '<div class= " imgEmpMicro imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
-          empresas += '<h2 class="fs-3">MICRO</h2>';
+          
+          empresas += '<div class= " imgEmpMicro imgContainer text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">';
+          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">MICRO</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -828,8 +920,8 @@ public buscarDeptoEmpresas(depto: string)
           empresas += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
           empresas += '<div class="box">';
           empresas += '<div class="body">';
-          empresas += '<div class= " imgEmpPequena imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
-          empresas += '<h2 class="fs-3">PEQUEÑA</h2>';
+          empresas += '<div class= " imgEmpPequena imgContainer text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">';
+          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">PEQUEÑA</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -842,8 +934,8 @@ public buscarDeptoEmpresas(depto: string)
           empresas += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
           empresas += '<div class="box">';
           empresas += '<div class="body">';
-          empresas += '<div class= " imgEmpMediana imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
-          empresas += '<h2 class="fs-3">MEDIANA</h2>';
+          empresas += '<div class= " imgEmpMediana imgContainer text-uppercase bg-secondary text-white d-flex flex-column center justify-content-center">';
+          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">MEDIANA</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -856,8 +948,8 @@ public buscarDeptoEmpresas(depto: string)
           empresas += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
           empresas += '<div class="box">';
           empresas += '<div class="body">';
-          empresas += '<div class= " imgEmpGrande imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
-          empresas += '<h2 class="fs-3">GRANDE</h2>';
+          empresas += '<div class= " imgEmpGrande imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
+          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">GRANDE</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -871,20 +963,25 @@ public buscarDeptoEmpresas(depto: string)
           
     const el =<HTMLElement>document.querySelector( ".datoEmpresas" );
     el.innerHTML = empresas ;		
+    }
+    else{
+      this.tituloEmpresas=false;
+      $(".datoEmpresas").hide();		
+    }
       });
 }
 public buscarIndicadores(depto: string){
   
   this.http.get<Estimacion>(environment.API_URL+"indicadores?idDepartamento="+depto).subscribe(data => {  
+    if(data['length']!=0){
+      this.tituloEstimacion=true;
+      $(".datoSocioPrimero").show();
     var poblacionTotal  : number;
     var porcentajeHombre: number;
     var porcentajeMujer: number;
     poblacionTotal =Number(data[0]['cantidad'].replace(",",""))+Number(data[1]['cantidad'].replace(",",""));
 						porcentajeHombre = (Number(data[0]['cantidad'].replace(",",""))*100) / (poblacionTotal);
-						porcentajeMujer = (Number(data[1]['cantidad'].replace(",",""))*100) / (poblacionTotal);
-            ////console.log('poblacionTotal: ');
-            ////console.log(data[0].nomGenero);
-            ////console.log('porcentajeMujer: '+porcentajeMujer);
+						porcentajeMujer = (Number(data[1]['cantidad'].replace(",",""))*100) / (poblacionTotal);            
 						var estimacion='<div class="row d-flex justify-content-center ml-3">';
 						estimacion += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
@@ -938,10 +1035,12 @@ public buscarIndicadores(depto: string){
 						estimacion+='</div>';
 						estimacion+='</div>';
 						estimacion+='</div>';
-						
-						        
-      const el =<HTMLElement>document.querySelector( ".datoSocioPrimero" );
-      el.innerHTML = estimacion ;		
+      const el =<HTMLElement>document.querySelector(".datoSocioPrimero");
+      el.innerHTML = estimacion ;	
+    }else{
+      this.tituloEstimacion=false;
+      $(".datoSocioPrimero").hide();	
+    }	
         });
 }
 public buscarDeptoIndicadores(depto: string){
@@ -959,6 +1058,7 @@ public buscarDeptoIndicadores(depto: string){
      
       if(data[index].idIndicador==21 || data[index].idIndicador==22 ||data[index].idIndicador==23)
       {  
+        if(data[index].nomCorto!="" || data[index].nomCorto!=null || data[index].nomCorto!=" "){
         dCh += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						dCh+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						dCh+='<div class="row d-flex justify-content-center align-items-center">';
@@ -970,25 +1070,40 @@ public buscarDeptoIndicadores(depto: string){
 						dCh+='</p>';
 						dCh+='<div class="col-md-12 d-flex justify-content-center">';
 						dCh+='<h1 class="blue-counter">';
-						dCh+=data[index].valor+"%";
-
-           
-            
-            
+						dCh+=data[index].valor+"%";            
 						dCh+='</h1>';
 						dCh+='</div>';
 						dCh+='</div>';
 						dCh+='</div>';
 						dCh+='</div>';
+        }
       }
       else if(data[index].idIndicador==8 || data[index].idIndicador==9 ||data[index].idIndicador==10)
       {        
+        if(data[index].nomCorto!="" || data[index].nomCorto!=null || data[index].nomCorto!=" "){
         educacion += '<div class="col-lg-4 col-md-4 col-sm-12">';
         educacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
         educacion+='<div class="row d-flex justify-content-center align-items-center">';
         educacion+='<p style="text-align: center;">';
         educacion+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
-        educacion+='<strong>'+data[index].nomCorto;
+        var tempo = data[index].nomCorto;
+        var tempo1 = tempo.split(' ');
+        var tempo2="";
+        var temp3 = tempo1['length'];
+        var conta=0;
+        for (let index = 0; index < tempo1['length']; index++) {
+          
+          if(conta==1){            
+            tempo2+=tempo1[index]+'<br>';
+            conta=0;
+          }else{
+            tempo2+=tempo1[index]+" ";
+            conta++;
+          }
+          
+          
+        }
+        educacion+='<strong>'+tempo2;
         educacion+='</strong>';
         educacion+='</span>';
         educacion+='</p>';
@@ -1001,8 +1116,10 @@ public buscarDeptoIndicadores(depto: string){
         educacion+='</div>';
         educacion+='</div>'; 
       }
+      }
       else  if(data[index].idIndicador==13 || data[index].idIndicador==14)
       {
+        if(data[index].nomCorto!="" || data[index].nomCorto!=null || data[index].nomCorto!=" "){
             igss += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						igss+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						igss+='<div class="row d-flex justify-content-center align-items-center">';
@@ -1021,36 +1138,38 @@ public buscarDeptoIndicadores(depto: string){
 						igss+='</div>';
 						igss+='</div>';
 						igss+='</div>';
+        }
 						
       }    
       else  if(data[index].idIndicador==27 || data[index].idIndicador==6 || data[index].idIndicador==7
         || data[index].idIndicador==11 || data[index].idIndicador==12 || data[index].idIndicador==15
         || data[index].idIndicador==16 || data[index].idIndicador==17)
       {        
+        if(data[index].nomCorto!="" || data[index].nomCorto!=null || data[index].nomCorto!=" "){
 						dinamismo2 += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
 						dinamismo2 += '<div class="box">';
 						dinamismo2 += '<div class="body">';
             if (data[index].idIndicador==27)
             {
-              dinamismo2 += '<div class= " imgDinEmpresas imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              dinamismo2 += '<div class= " imgDinEmpresas imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==6) {
-              dinamismo2 += '<div class= " imgDinExport imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              dinamismo2 += '<div class= " imgDinExport imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==7) {
-              dinamismo2 += '<div class= " imgDinCrecimientoExp imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              dinamismo2 += '<div class= " imgDinCrecimientoExp imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==11) {
-              dinamismo2 += '<div class= " imgDinPotencial2020 imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              dinamismo2 += '<div class= " imgDinPotencial2020 imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==12) {
-              dinamismo2 += '<div class= " imgDinPotencial2021 imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              dinamismo2 += '<div class= " imgDinPotencial2021 imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==15) {
-              dinamismo2 += '<div class= " imgDinRecaudacion imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              dinamismo2 += '<div class= " imgDinRecaudacion imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==16) {
-              dinamismo2 += '<div class= " imgDinParqueV imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              dinamismo2 += '<div class= " imgDinParqueV imgContainer text-uppercase bg-secondary text-white d-flex flex-column r justify-content-center">';
             } else if (data[index].idIndicador==17) {
-						  dinamismo2 += '<div class= " imgDinRecaudacion imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+						  dinamismo2 += '<div class= " imgDinRecaudacion imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             }
             dinamismo2 += '<h2 class="fs-3 bg-primary">'+data[index].nomCorto+'</h2>';
 						dinamismo2 += '</div>';
-						dinamismo2 += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
+						dinamismo2 += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
 						dinamismo2 += '<div>';
 						dinamismo2 += '<h2>'+this.formatoMiles(Number(data[index].valor).toFixed(2),data[index].nomTipoFormato);+'</h2>';
             dinamismo2 += '<h5 class="fs-6 ">'+data[index].nomIndicador+'</h5>';
@@ -1059,29 +1178,30 @@ public buscarDeptoIndicadores(depto: string){
 						dinamismo2 += '</div>';
 						dinamismo2 += '</div>';
 						dinamismo2 += '</div>';
-
+          }
       }
       else if(data[index].idIndicador==1 || data[index].idIndicador==2 || data[index].idIndicador==3
               || data[index].idIndicador==4 || data[index].idIndicador==5)
               { 
+                if(data[index].nomCorto!="" || data[index].nomCorto!=null || data[index].nomCorto!=" "){
             infraestructura += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
 						infraestructura += '<div class="box">';
 						infraestructura += '<div class="body">';
             if (data[index].idIndicador==1) {
-              infraestructura += '<div class= " imgInfraPuntosAcceso imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              infraestructura += '<div class= " imgInfraPuntosAcceso imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==2) {
-              infraestructura += '<div class= " imgInfraCobElectrica imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              infraestructura += '<div class= " imgInfraCobElectrica imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==3) {
-              infraestructura += '<div class= " imgInfraRadiobases imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              infraestructura += '<div class= " imgInfraRadiobases imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==4) {
-              infraestructura += '<div class= " imgInfraZDEEP imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              infraestructura += '<div class= " imgInfraZDEEP imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==5) {
-              infraestructura += '<div class= " imgInfraOrgJur imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+              infraestructura += '<div class= " imgInfraOrgJur imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             }
 						
 						infraestructura += '<h2 class="bg-primary fs-3">'+data[index].nomCorto+'</h2>';
 						infraestructura += '</div>';
-						infraestructura += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
+						infraestructura += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
 						infraestructura += '<div>';
 						infraestructura += '<h2>'+this.formatoMiles(Number(data[index].valor).toFixed(2),data[index].nomTipoFormato);+'</h2>';
             infraestructura += '<h5 class="fs-6 ">'+data[index].nomIndicador+'</h5>';
@@ -1090,23 +1210,24 @@ public buscarDeptoIndicadores(depto: string){
 						infraestructura += '</div>';
 						infraestructura += '</div>';
 						infraestructura += '</div>';	
-                
+          }
               }
             else if(data[index].idIndicador==18 || data[index].idIndicador==19 || data[index].idIndicador==20)
               { 
+                if(data[index].nomCorto!="" || data[index].nomCorto!=null || data[index].nomCorto!=" "){
                 tics += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
               tics += '<div class="box">';
               tics += '<div class="body">';
               if(data[index].idIndicador==18){
-                tics += '<div class= " imgTICcelular imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+                tics += '<div class= " imgTICcelular imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
               }else if(data[index].idIndicador==19){
-                tics += '<div class= "imgTICcomputadora imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+                tics += '<div class= "imgTICcomputadora imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
               }else if(data[index].idIndicador==20){
-                tics += '<div class= "imgTICinternet imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+                tics += '<div class= "imgTICinternet imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
               }
               tics += '<h2 class="fs-3 bg-primary">'+data[index].nomCorto+'</h2>';
               tics += '</div>';
-              tics += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
+              tics += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
               tics += '<div>';
               tics += '<h2>'+this.formatoMiles(Number(data[index].valor).toFixed(2),data[index].nomTipoFormato);+'</h2>';
               tics += '<h5 class="fs-6 ">'+data[index].nomIndicador+'</h5>';
@@ -1115,25 +1236,26 @@ public buscarDeptoIndicadores(depto: string){
               tics += '</div>';
               tics += '</div>';
               tics += '</div>';	
-
+            }
               }
       
             else if(data[index].idIndicador==24 || data[index].idIndicador==25 || data[index].idIndicador==26)
               { 
+                if(data[index].nomCorto!="" || data[index].nomCorto!=null || data[index].nomCorto!=" "){
                 costos += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
 						costos += '<div class="box">';
 						costos += '<div class="body">';
             if(data[index].idIndicador==24) {
-						  costos += '<div class= " imgCostoInmobiliario imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+						  costos += '<div class= " imgCostoInmobiliario imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==25) {
-						  costos += '<div class= " imgCostoEnergia imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+						  costos += '<div class= " imgCostoEnergia imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } else if (data[index].idIndicador==26) {
-						  costos += '<div class= " imgCostoAgua imgContainer text-uppercase bg-secondary text-white d-flex flex-column align-items-center justify-content-center">';
+						  costos += '<div class= " imgCostoAgua imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } 
             
             costos += '<h2 class="fs-2 bg-primary">'+data[index].nomCorto+'</h2>';
 						costos += '</div>';
-						costos += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
+						costos += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
 						costos += '<div>';
 						costos += '<h2>'+this.formatoMiles(Number(data[index].valor).toFixed(2),data[index].nomTipoFormato);+'</h2>';
             costos += '<h5 class="fs-6 ">'+data[index].nomIndicador+'</h5>';
@@ -1142,6 +1264,7 @@ public buscarDeptoIndicadores(depto: string){
 						costos += '</div>';
 						costos += '</div>';
 						costos += '</div>';	
+          }
               }
     }
     educacion+='</div>';
@@ -1157,15 +1280,17 @@ public buscarDeptoIndicadores(depto: string){
       const el =<HTMLElement>document.querySelector( ".datoEducacion" );
       el.innerHTML = educacion;      
       const el1 =<HTMLElement>document.querySelector( ".datoIgss" );
-      el1.innerHTML = igss ;
+      if(this.tituloIntecap){el1.innerHTML = igss ; $( ".chartIgss").show();}else{ $( ".chartIgss").hide();}
+      
       const el2 =<HTMLElement>document.querySelector( ".datoDinamismo2" );
       el2.innerHTML = dinamismo2 ;
       const el3 =<HTMLElement>document.querySelector( ".datoInfraestructura" );
       el3.innerHTML = infraestructura ;
       const el4 =<HTMLElement>document.querySelector( ".datoTics" );
       el4.innerHTML = tics ;
-      const el5 =<HTMLElement>document.querySelector( ".datoCostos" );
-      el5.innerHTML = costos ;
+      const el5 =<HTMLElement>document.querySelector( ".datoCostos" );      
+      el5.innerHTML = costos ; 
+      
         });
 }
 formatoMiles = (numero:string,tipoDato: string) => {
