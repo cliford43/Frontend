@@ -212,7 +212,7 @@ public buscar(id: number){
  
   	
     this.http.get<Aereo>(url).subscribe(data => {  
-      console.log(data);
+      
       var temp ='';
     /*  var temp ='<video id="my_video_'+id+'" class="video-js vjs-default-skin" width="640px" height="267px" controls autoplay';
       temp+='data-setup=\'{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }\'>';

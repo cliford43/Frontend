@@ -157,7 +157,8 @@ public infoDepartamento(event?: any){
   var departamento: string = (event.target as Element).id;
   var envio =(event.target as Element);
   const etiquetaDescr= document.querySelectorAll(".deptoGuate svg path");
-  
+  document.getElementById("imaDepto")?.focus();
+  document.getElementById("imgDepto")?.focus();
  // this.getOffset(<HTMLElement>envio,departamento);
   
 
@@ -175,8 +176,9 @@ public infoDepartamento(event?: any){
   
   
 	
-  var imagen='<img src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 600px;" alt="" />';
+  var imagen='<img id="imaDepto" src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 600px;" alt="" />';
   this.limpiaValores();
+  //<div class="focus"
   this.nomDeptoh1 = "PERFIL DEPARTAMENTO DE " + this.datosDeptos[departamento][0].nombreDepto;
   
   const imgD =<HTMLElement>document.querySelector( ".imgDepto" );
@@ -268,7 +270,7 @@ public buscarGraficaPoblacionAnio(depto: string){
  
   var chart =  this.root.container.children.push( 
     am5xy.XYChart.new( this.root, {
-      panX: false,
+      panX: true,
       panY: false,
       wheelX: "panX",
       wheelY: "zoomX",
@@ -299,8 +301,10 @@ for ( var i = 0; i < datos['length']; i++ ) {
   var yAxis = chart.yAxes.push(
     am5xy.ValueAxis.new(this.root, {    
       extraTooltipPrecision: 1,  
+      min: 0,
       renderer: am5xy.AxisRendererY.new(this.root, {
-        minGridDistance: 20
+        minGridDistance: 50,
+        
       })
     })
   );
@@ -308,8 +312,12 @@ for ( var i = 0; i < datos['length']; i++ ) {
   var xAxis = chart.xAxes.push(
     am5xy.CategoryAxis.new(this.root, {   
       categoryField: "datoX",   
+      
+      
+      
       renderer: am5xy.AxisRendererX.new(this.root, {
-        minGridDistance: 20
+        minGridDistance: 100,
+        
       }),
     })
   );
@@ -326,7 +334,8 @@ for ( var i = 0; i < datos['length']; i++ ) {
       yAxis: yAxis, 
       valueYField: field, 
       categoryXField: "datoX",
-      maskBullets: true
+      maskBullets: true,
+      
     }) 
   );
 
@@ -336,7 +345,7 @@ for ( var i = 0; i < datos['length']; i++ ) {
       locationY: 0.5,
       sprite: am5.Circle.new(this.root, {
         radius: 25,
-        fill: am5.color(0xffffff)
+        //fill: am5.color(0xffffff)
       })
     });
   });
@@ -347,6 +356,7 @@ for ( var i = 0; i < datos['length']; i++ ) {
       locationY: 0.5,
       sprite: am5.Label.new(this.root, {
         text: "{valueY}",
+        fontSize:15,
         centerX: am5.percent(50),
         centerY: am5.percent(50),
         textAlign: "center",
@@ -356,7 +366,10 @@ for ( var i = 0; i < datos['length']; i++ ) {
   });
   series.columns.template.setAll({
     cornerRadiusTL: 5,
-    cornerRadiusTR: 5
+    cornerRadiusTR: 5,
+    fillOpacity: 0.9,
+    
+    width: am5.percent(100)
   });
   //series.get("tooltip")?.label.set("text", "[bold]{name}[/]\n{valueX.formatDate()}: {valueY}")
   series.data.setAll(data);
@@ -369,9 +382,10 @@ this.root._logo?.dispose();
 // Add legend
 var legend = chart.children.push(am5.Legend.new(this.root, {})); 
 legend.data.setAll(chart.series.values);
+
 chart.set("cursor", am5xy.XYCursor.new(this.root, {
-  behavior: "zoomXY",
-  xAxis: xAxis
+ // behavior: "zoomXY",
+  //xAxis: xAxis
 }));
 xAxis.set("tooltip", am5.Tooltip.new(this.root, {
   themeTags: ["axis"]
@@ -868,7 +882,7 @@ public buscarUniversidades(depto: string){
                 universidadesPu+='<img src="assets/images/esp/Universidades/'+data[i].logo+'" class="" width=75vh  alt="...">';
                 universidadesPu+='</div>';
                 universidadesPu+='<div class="col-lg-6 col-md-6 col-sm-12 ">';
-                universidadesPu+='<a href="'+data[i].link+'" target="_blank" class="text-uppercase d-flex justify-content-start">'+data[i].nomUniversidad+'</a>';	
+                universidadesPu+='<a href="'+data[i].link+'" target="_blank" class=" d-flex justify-content-start">'+data[i].nomUniversidad+'</a>';	
                 universidadesPu+='</div>';
                 universidadesPu+='<div class="  col-lg-2 col-md-2 "></div>';
               }else{
@@ -878,7 +892,7 @@ public buscarUniversidades(depto: string){
               universidades+='</div>';
               
               universidades+='<div class="col-lg-6 col-md-6 col-sm-12  ">';
-              universidades+='<a href="'+data[i].link+'" target="_blank" class="text-uppercase d-flex justify-content-start ">'+data[i].nomUniversidad+'</a>';	
+              universidades+='<a href="'+data[i].link+'" target="_blank" class=" d-flex justify-content-start ">'+data[i].nomUniversidad+'</a>';	
               universidades+='</div>';
               universidades+='<div class="  col-lg-2 col-md-2 "></div>';
               }
@@ -1064,7 +1078,29 @@ public buscarDeptoIndicadores(depto: string){
 						dCh+='<div class="row d-flex justify-content-center align-items-center">';
 						dCh+='<p style="text-align: center;">';
 						dCh+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
-						dCh+='<strong>'+data[index].nomCorto;
+						
+            var tempo = data[index].nomCorto;
+            var tempo1 = tempo.split(' ');
+            var tempo2="";            
+            var conta=0;
+            for (let index = 0; index < tempo1['length']; index++) {
+              
+              if(conta==0){            
+                tempo2+=tempo1[index]+'<br>';
+                conta=0;
+              }  
+              else if (conta==1){
+                tempo2+=tempo1[index]+'<br>';
+                conta++;
+              
+              }else{
+                tempo2+=tempo1[index]+" ";
+                conta++;
+              }
+              
+              
+            }
+            dCh+='<strong>'+tempo2;
 						dCh+='</strong>';
 						dCh+='</span>';
 						dCh+='</p>';
