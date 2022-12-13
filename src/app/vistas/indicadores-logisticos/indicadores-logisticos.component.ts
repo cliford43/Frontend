@@ -223,7 +223,7 @@ public buscar(id: number){
      
       temp+='</video>';*/
       for (let index = 0; index < data['length']; index++) {
-        temp+='<img src="'+urlVideo+data[index].video+'" alt="Computer man" style="width:640px;height:267px;">';
+        temp+='<img src="'+urlVideo+data[index].video+'" alt="Computer man" style="width:875px;height:500px;">';
       }
       if(id==1){
         $("#cargaVideo").html(temp);

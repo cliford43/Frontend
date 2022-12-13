@@ -33,6 +33,7 @@ import { HistorialComponent } from './configuracion-aplicacion/componentes/histo
 import { MapaComponent } from './configuracion-aplicacion/componentes/mapa/mapa.component';
 import { ContadorComponent } from './configuracion-aplicacion/componentes/contador/contador.component';
 import { ModalVideoComponent } from './modales/varios/modal-video/modal-video.component';
+import { ModalFuentesComponent } from './modales/varios/modal-fuentes/modal-fuentes.component';
 import { HoverClassDirective } from './configuracion-aplicacion/directivas/hover-class.directive';
 import { ModalDescargaArchivoComponent } from './modales/varios/modal-descarga-archivo/modal-descarga-archivo.component';
 import { DatosGeneralesComponent } from './vistas/datos-generales/datos-generales.component';
@@ -49,6 +50,7 @@ import { ModalInformacionUbicacionComponent } from './modales/parquesIndustriale
 import { InformacionDepartamentosComponent } from './vistas/informacion-departamentos/informacion-departamentos.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { IndicadoresLogisticosComponent } from './vistas/indicadores-logisticos/indicadores-logisticos.component';
+
 
 
 registerLocaleData(localerGt, 'es-GT');
@@ -72,6 +74,7 @@ registerLocaleData(localerGt, 'es-GT');
     MapaComponent,
     ContadorComponent,
     ModalVideoComponent,
+    ModalFuentesComponent,
     HoverClassDirective,
     HoverClassDirective,
     ModalDescargaArchivoComponent,
@@ -88,7 +91,8 @@ registerLocaleData(localerGt, 'es-GT');
     ModalMostrarUbicacionComponent,
     ModalInformacionUbicacionComponent,
     InformacionDepartamentosComponent,
-    IndicadoresLogisticosComponent
+    IndicadoresLogisticosComponent,
+    
   ],
   imports: [
     NgbPaginationModule,

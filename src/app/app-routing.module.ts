@@ -13,6 +13,8 @@ import { QuienesSomosComponent } from './vistas/quienes-somos/quienes-somos.comp
 import { TramitesDisercomiComponent } from './vistas/tramites-disercomi/tramites-disercomi.component';
 import { InformacionDepartamentosComponent } from './vistas/informacion-departamentos/informacion-departamentos.component';
 import { IndicadoresLogisticosComponent } from './vistas/indicadores-logisticos/indicadores-logisticos.component';
+
+import { ModalFuentesComponent } from './modales/varios/modal-fuentes/modal-fuentes.component';
 const routes: Routes = [
   { path : '', component : InicioComponent, canActivate:[GuardAuth]},
   { path : 'datosGenerales', component : DatosGeneralesComponent, canActivate:[GuardAuth]},
@@ -26,6 +28,8 @@ const routes: Routes = [
   { path : 'error', component : ErrorPageComponent},
   { path : 'informacionDepartamentos', component : InformacionDepartamentosComponent, canActivate:[GuardAuth]},
   { path : 'indicadoresLogisticos', component : IndicadoresLogisticosComponent, canActivate:[GuardAuth]},
+  { path : 'modalFuente', component : ModalFuentesComponent},
+  
   
 ];
 

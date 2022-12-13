@@ -11,10 +11,15 @@ import { Munis } from "./depto";
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
+import { ModalFuentesComponent } from 'src/app/modales/varios/modal-fuentes/modal-fuentes.component';
+
 
 import { environment } from "../../../environments/environment"
 
 import * as am5radar from "@amcharts/amcharts5/radar"
+import { ModalVideoComponent } from 'src/app/modales/varios/modal-video/modal-video.component';
+import { ModalService } from 'src/app/configuracion-aplicacion/servicios/modal.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //import * as d3 from 'd3';
 
@@ -65,7 +70,8 @@ export class InformacionDepartamentosComponent implements OnInit {
   datosDeptos = <Deptos> <unknown>[];
   tablaMunicipios = '';
   
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute, private http: HttpClient ) { 
+  
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute, private http: HttpClient, private modalService:NgbModal ) { 
     this.activatedRoute.params.subscribe(params => {
      
      
@@ -576,7 +582,7 @@ public dibujarGraficaPoblacionRango(depto: string) {
         stroke: series.get("stroke")
       });
     
-      let label = rangeDataItem.get("label") ;
+    /*  let label = rangeDataItem.get("label") ;
       label?.setAll({
         text: field.toUpperCase(),
         fontSize: "1.1em",
@@ -587,7 +593,7 @@ public dibujarGraficaPoblacionRango(depto: string) {
       });
       label?.adapters.add("dy", function() {
         return -chart.plotContainer.height();
-      });
+      });*/
     
       return series;
     }
@@ -1353,4 +1359,41 @@ formatoMiles = (numero:string,tipoDato: string) => {
   }
 	return numeroConMiles;
   }
+
+
+openBackDropCustomClass(fuentesInfo: any) {
+  this.modalService.open(fuentesInfo, { backdropClass: 'light-blue-backdrop' });
+}
+
+openWindowCustomClass(fuentesInfo: any) {
+  this.modalService.open(fuentesInfo, { windowClass: 'dark-modal' });
+}
+
+openSm(fuentesInfo: any) {
+  this.modalService.open(fuentesInfo, { size: 'sm' });
+}
+
+openLg(fuentesInfo: any) {
+  this.modalService.open(fuentesInfo, { size: 'lg' });
+}
+
+openXl(fuentesInfo: any) {
+  this.modalService.open(fuentesInfo, { size: 'xl' });
+}
+
+
+openVerticallyCentered(fuentesInfo: any) {
+  this.modalService.open(fuentesInfo, { centered: true });
+}
+
+openScrollablefuentesInfo(longfuentesInfo: any) {
+  this.modalService.open(longfuentesInfo, { scrollable: true ,size: 'xl'});
+}
+
+openModalDialogCustomClass(fuentesInfo: any) {
+  this.modalService.open(fuentesInfo, { modalDialogClass: 'dark-modal' });
+}
+cerrarModal = (usuario?: any):void => {
+this.modalService.dismissAll(usuario);
+}
 }

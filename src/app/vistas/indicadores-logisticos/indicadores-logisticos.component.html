@@ -4,7 +4,7 @@
      -moz-background-size: cover;
      -o-background-size: cover;
      background-size: cover;
-     height: 100vh;
+     height: 120vh;
      width:100%;">
 
   <div class="container ">
@@ -26,6 +26,14 @@
         </div>
       </div>
     </div>
+    <div class="row d-flex justify-content-center text-center">
+      
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="border bg-light imgTerrestre d-flex flex-column  justify-content-center" style=" height:'250px'; cursor:pointer;" (click)="terrestre( $event );">
+          <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">Información de aduanas y puertos</h2>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="bg-aereo" style=" background: url(assets/images/esp/aereoBack.png) no-repeat center center fixed; 
@@ -33,16 +41,16 @@
      -moz-background-size: cover;
      -o-background-size: cover;
      background-size: cover;
-     height: 100vh;
+     height: 140vh;
      width:100%;">
   <div class="container-fluid">
 
-    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 5em;">
+    <div class="row d-flex justify-content-center  text-center " style="padding-top: 5em;">
 
       <h1 class="blue-title text-uppercase"> Aéreo</h1>
       <h3 class="blue-title text-uppercase fs-5 text-danger mb-5" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
-      <div class="col-lg-8 col-md-8 col-sm-12">
-        <select class="form-select form-aereo" id="seleccionador" aria-label="Default select example">
+      <div class="col-lg-8 col-md-8 col-sm-12 ">
+        <select class="form-select form-aereo  " id="seleccionador" aria-label="Default select example">
           <option selected>Seleccione destino</option>
           <option value="16">Miami, Estados Unidos (MIA)</option>
           <option value="17">Los Ángeles, Estados Unidos (LAX)</option>
@@ -58,15 +66,15 @@
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
         <button type="button" class="btn btn-primary btn-lg" (click)="buscar(1);">Buscar</button>
+      </div>  
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-12 mt-2 "></div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-2 ">
+
+        <div style="" id="cargaVideo"></div>
+
       </div>
-      <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
-
-        <div style="height: 1000vh;" id="cargaVideo"></div>
-
-      </div>
-
-
-
     </div>
   </div>
   <br><br><br><br><br><br><br><br><br>
@@ -76,7 +84,7 @@
      -moz-background-size: cover;
      -o-background-size: cover;
      background-size: cover;
-     height: 100vh;
+     height: 140vh;
      width:100%;">
   <div class="container-fluid">
 
@@ -110,7 +118,7 @@
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
 
-        <div style="height: 1000vh;" id="cargaVideo2"></div>
+        <div style="height: 100vh;" id="cargaVideo2"></div>
 
       </div>
 
@@ -125,7 +133,7 @@
      -moz-background-size: cover;
      -o-background-size: cover;
      background-size: cover;
-     height: 100vh;
+     height: 140vh;
      width:100%;   overflow: scroll;" >
   <div class="container-fluid">
 
