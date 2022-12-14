@@ -124,6 +124,8 @@ export class IndicadoresLogisticosComponent implements OnInit {
     e3.style.display = 'none';		
     const e4 =<HTMLElement>document.querySelector( ".bg-aereo" );
     e4.style.display = 'none';		
+    const e5 =<HTMLElement>document.querySelector( ".bg-puertos" );
+    e5.style.display = 'none';		
 
     } catch (e) { }
   }
@@ -148,7 +150,9 @@ export class IndicadoresLogisticosComponent implements OnInit {
     const e3 =<HTMLElement>document.querySelector( ".bg-terrestre" );
     e3.style.display = 'none';		
     const e4 =<HTMLElement>document.querySelector( ".bg-aereo" );
-    e4.style.display = 'block';		
+    e4.style.display = 'block';
+    const e5 =<HTMLElement>document.querySelector( ".bg-puertos" );
+    e5.style.display = 'none';			
 
   }
   public maritimo(event?: any){
@@ -160,6 +164,8 @@ export class IndicadoresLogisticosComponent implements OnInit {
     e3.style.display = 'none';		
     const e4 =<HTMLElement>document.querySelector( ".bg-aereo" );
     e4.style.display = 'none';		
+    const e5 =<HTMLElement>document.querySelector( ".bg-puertos" );
+    e5.style.display = 'none';	
 
   }
   public terrestre(event?: any){
@@ -171,6 +177,20 @@ export class IndicadoresLogisticosComponent implements OnInit {
   e3.style.display = 'block';		
   const e4 =<HTMLElement>document.querySelector( ".bg-aereo" );
   e4.style.display = 'none';	
+  const e5 =<HTMLElement>document.querySelector( ".bg-puertos" );
+  e5.style.display = 'none';	
+}
+public puertos(event?: any){
+  const el =<HTMLElement>document.querySelector( ".bg-image" );
+  el.style.display = 'none';		
+  const e2 =<HTMLElement>document.querySelector( ".bg-maritimo" );
+  e2.style.display = 'none';		
+  const e3 =<HTMLElement>document.querySelector( ".bg-terrestre" );
+  e3.style.display = 'none';		
+  const e4 =<HTMLElement>document.querySelector( ".bg-aereo" );
+  e4.style.display = 'none';	
+  const e5 =<HTMLElement>document.querySelector( ".bg-puertos" );
+  e5.style.display = 'block';	
 }
 public menuLogistica(event?: any){
   const el =<HTMLElement>document.querySelector( ".bg-image" );
@@ -181,6 +201,8 @@ public menuLogistica(event?: any){
   e3.style.display = 'none';		
   const e4 =<HTMLElement>document.querySelector( ".bg-aereo" );
   e4.style.display = 'none';	
+  const e5 =<HTMLElement>document.querySelector( ".bg-puertos" );
+  e5.style.display = 'none';	
 }
 public buscar(id: number){
 

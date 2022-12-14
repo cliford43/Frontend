@@ -1,18 +1,20 @@
 <div class="row bg-degree align-items-end page-title-single ir-arriba " id="titulo"></div>
 <div class="row ir-arriba mt-0" id="titulo"></div>
-<div class="row text-center mt-3 pt-0">
+<div class="row  mt-0 pt-0">
   <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
     <!--   <a  routerLink="/informacionDepartamentos/{{deptoF.idDepartamento}}"><img class="rounded-circle" width="204" height="136" src="assets/images/departamentos/{{deptoF.nomDepartamento}}.jpg"></a>-->
-    <section class="mapaGuate mt-0 pt-0">
+    <section class="mapaGuate  mt-0 pt-0 d-flex flex-column  justify-content-center">
       
-      <div class="deptoGuate">
-        <pre> Hacer click en departamento para desplegar información</pre>
+      <div class="deptoGuate   ">
+        <p>Guatemala es el mercado más grande de la región centroamericana en términos de población, consumo final de los hogares y producto interno bruto (US $85,970.5 millones en el 2021). Gracias a su histórica estabilidad macroeconómica, es reconocido como la fábrica de Centroamérica (de cada 10 productos manufacturados en Centroamérica, 4 son elaborados en Guatemala). Se cuenta con una posición geoestratégica, con acceso a los Océanos Atlántico y Pacífico, en menos de 24 horas. Esto lo ha consolidado como la plataforma logística en la región.</p>
+        <p> continuación se presenta información de 9 departamentos que después de ser analizados, presentan potencial para recibir inversión:</p>
+        <pre class="text-center"> Hacer click en departamento para desplegar información</pre>
         <!--
 			El mapa gracias a esta herramienta lo cree :) "Inkscape (http://www.inkscape.org/)"
 			-->
      <!-- <div id="divimg"><img src="assets\images\varios\iconoLocalizacion.gif" id="puntero" class="img-fluid puntero" style="max-width: 25px;" ></div>-->
       
-        <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="490" height="513" id="svg2" version="1.1" inkscape:version="0.48.4 r9939" sodipodi:docname="New document 1">
+        <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="490" height="553" id="svg2" version="1.1" inkscape:version="0.48.4 r9939" class="imgFondoMapaGT" sodipodi:docname="New document 1">
           <defs id="defs4" />
           <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.98994949" inkscape:cx="27.870373" inkscape:cy="256.30341" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1366" inkscape:window-height="705" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" />
           <metadata id="metadata7">
@@ -159,6 +161,8 @@
   <ng-template #fuentesInfo let-modal>
     <div class="modal-header">
         <h4 class="modal-title blue-title">Fuentes de Información</h4>
+        
+        
         <button class="close" aria-label="close" type="button" (click)="cerrarModal()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -406,6 +410,7 @@
         </table>
     </div>
     <div class="modal-footer">
+        <a target="_blank" class="btn btn-success" href="assets\images\varios\INFORMACIÓN_VUI.pdf">Descargar</a>
         <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cerrar</button>
     </div>
 </ng-template>
