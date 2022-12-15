@@ -255,24 +255,60 @@
      background-size: cover;
      height: 160vh;
      width:100%;">
-  <div class="container-fluid">
-
-    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 0em;">
-
+  <div class="container ">
+    
+    <div class="row text-center " style="padding-top: 0em;">
       <h1 class="blue-title text-uppercase">aduanas y puertos</h1>
-      <h3 class="blue-title text-uppercase fs-5 text-danger mb-1" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
-      <div class="col-lg-8 col-md-12 col-sm-12">
-        <div class="container ">
-          <img  src="assets/images/varios/aduanas.png" usemap="#workmap" width="100%" class="img-fluid">
-          <map name="workmap" id="ImageMapsCom-image-maps-2022-12-13-211159">
-            <area  alt="" title="" href="http://www.image-maps.com/" shape="rect" coords="898,665,1050,796" style="outline:none;" target="_blank" onclick="modalAduana"    />
-            <area shape="rect" coords="2678,2766,2680,2768" alt="Image Map" style="outline:none;" title="Image Map" href="https://www.image-maps.com/" />
-            </map>
+    <h3 class="blue-title text-uppercase fs-5 text-danger mb-1" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
+    <div class="col-lg-2 col-md-2 col-sm-12"></div>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <img  src="assets/images/varios/aduanas.png" usemap="#workmap" width="" class="img">
+        <map name="workmap" id="workmap">
+          <area id="1" alt="Aduana El Ceibo" title="Aduana El Ceibo"  shape="rect" coords="205,124,255,174" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(1)"    />
+          <area  alt="Aduana Pedro De Alvarado" title="Aduana Pedro De Alvarado"  shape="rect" coords="333,591,370,630" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(3)"    />
+          <area  alt="Aduana Integrada El Florido" title="Aduana Integrada El Florido"  shape="rect" coords="458,480,495,519" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(4)"    />
+          <area id="Aduana Integrada Agua Caliente" alt="Aduana Integrada Agua Caliente" title="Aduana Integrada Agua Caliente"  shape="rect" coords="452,437,489,476" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(5)"    />
+          <area  alt="Aduana Integrada Corinto" title="Aduana Integrada Corinto"  shape="rect" coords="551,355,588,394" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(7)"    />
+          <area  alt="Aduana Valle Nuevo" title="Aduana Valle Nuevo"  shape="rect" coords="360,558,397,597" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(8)"    />
+          <area  alt="Aduana Santo Tomas De Castilla" title="Aduana Santo Tomas De Castilla"  shape="rect" coords="500,312,537,351" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(9)"    />
+          <area  alt="Aduana Tecun Uman I" title="Aduana Tecun Uman I"  shape="rect" coords="58,482,95,521" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(10)"    />
+          <area  alt="Aduana Puerto Barrios" title="Aduana Puerto Barrios"  shape="rect" coords="537,315,574,354" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(11)"    />
+          <area  alt="Aduana Express Aereo" title="Aduana Express Aereo"  shape="rect" coords="261,481,297,516" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(12)"    />
+          <area  alt="Aduana Melchor De Mencos" title="Aduana Melchor De Mencos"  shape="rect" coords="436,169,481,216" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(13)"    />
+          <area  alt="Aduana El Carmen" title="Aduana El Carmen"  shape="rect" coords="55,390,101,437" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(14)"    />
+          <area  alt="Aduana Puerto Quetzal" title="Aduana Puerto Quetzal"  shape="rect" coords="191,565,223,610" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(15)"    />
+          <area id="Aduana Central" alt="Aduana Central" title="Aduana Central"  shape="rect" coords="309,476,338,516" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(16)"    />
+          <area  alt="Aduana La Mesilla" title="Aduana La Mesilla"  shape="rect" coords="109,298,153,359" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(17)"    />
+          <area  alt="Aduana Tikal" title="Aduana Tikal"  shape="rect" coords="360,179,404,240" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(18)"    />
+          <area  alt="Aduana Fardos Postales" title="Aduana Fardos Postales"  shape="rect" coords="257,518,291,558" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(19)"    />
+          <area  alt="Aduana Central De Aviacion" title="Aduana Central De Aviacion"  shape="rect" coords="295,519,329,559" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(20)"    />
+          <area  alt="Aduana Tecun Umán II" title="Aduana Tecun Umán II"  shape="rect" coords="54,449,102,485" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(21)"    />
+          <area shape="rect" coords="657,678,659,680" alt="Image Map" style="outline:none; cursor: pointer;" title="Image Map" href="https://www.image-maps.com/" />
+          <area  alt="Aduana San Cristobal" title="Aduana San Cristobal"  shape="poly" coords="426,580,442,570,440,554,407,530,394,554" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(2)"    />
+          <area  alt="Aduana La Ermita" title="Aduana La Ermita"  shape="poly" coords="422,502,419,515,422,529,426,543,439,548,446,545,442,529,438,521,436,513,434,506" style="outline:none; cursor: pointer;" target="_blank" (click)="infoAduana(6)"    />
+          
+        </map>
       </div>
-      </div>
-     
-
+      
     </div>
+    
   </div>
-  <br><br><br><br><br><br><br><br><br>
 </div>
+<ng-template #Infoaduana let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title blue-title">Fuentes de Información</h4>
+      
+      
+      <button class="close" aria-label="close" type="button" (click)="cerrarModal()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+
+  </div>
+  <div class="modal-body">
+      
+  </div>
+  <div class="modal-footer">
+      <a target="_blank" class="btn btn-success" href="assets\images\varios\INFORMACIÓN_VUI.pdf">Descargar</a>
+      <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cerrar</button>
+  </div>
+</ng-template>

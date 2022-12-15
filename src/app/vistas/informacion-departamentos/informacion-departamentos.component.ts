@@ -1396,4 +1396,5 @@ openModalDialogCustomClass(fuentesInfo: any) {
 cerrarModal = (usuario?: any):void => {
 this.modalService.dismissAll(usuario);
 }
+
 }
