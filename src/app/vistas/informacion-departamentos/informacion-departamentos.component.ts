@@ -219,18 +219,18 @@ public buscarMunicipios(depto: string){
       ////console.log(data.idDepartamento);
       
         var cantidad=data['length'];
-						if(cantidad%3==0){
+						if(cantidad%2==0){
         
-							cantidad=cantidad/3;
+							cantidad=cantidad/2;
 						
 						}else{
-							var temp=(cantidad/3);
+							var temp=(cantidad/2);
 							cantidad=Math.floor(temp)+1;
 							
 						}
-						tempMunis='<div class="row">  <div class="col-lg-4 col-md-4 col-sm-12 " >'
+						tempMunis='<div class="row">  <div class="col-lg-6 col-md-6 col-sm-12 " >'
             
-					var indes=0;
+            var indes=0;
             for (let index = 0; index < data['length']; index++) {
               indes++;
               const element = data[index];              
@@ -238,11 +238,16 @@ public buscarMunicipios(depto: string){
               
 							if(indes==cantidad){
                 cantidad=indes+cantidad;
-                tempMunis+='<li class="">'+(index+1)+') '+data[index]["nomMunicipio"]+'</li>';
-								tempMunis+='</div><div class="col-lg-4 col-md-4 col-sm-12 " >';
+                tempMunis+=//'<li class="">'+
+                (index+1)+') '+data[index]["nomMunicipio"]+'<br>';
+                //+'</li>';
+								tempMunis+='</div><div class="col-lg-6 col-md-6 col-sm-12 " >';
+                
 							}
               else{
-                tempMunis+='<li class="">'+(index+1)+') '+data[index]["nomMunicipio"]+'</li>';
+                tempMunis+=//'<li class="">'+
+                (index+1)+') '+data[index]["nomMunicipio"]+'<br>';
+                //+'</li>';
               }
               
 							//tempMunis+=' <button class="  btn-block btn-radius">'+(index+1)+') '+data[index]["nomMunicipio"]+'</button>'
@@ -409,7 +414,7 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
  }
  public poblacionAnio(anio: any){
   var hay = false;
-  console.log(this.datosDibujar);
+  //console.log(this.datosDibujar);
   for (var i = 0; i < this.datosDibujar['length']; i++) {
     if(this.datosDibujar[i]==anio){
       var hay = true;
@@ -647,32 +652,61 @@ public buscarGraficaDeptoIntecap(depto: string) {
         layout: this.root2.verticalLayout
       })
     );
-    ////console.log(datos);
+     
+    console.log(datos);
     var canthombres = 0;
     var cantmujeres = 0;
+    var porchombres = '';
+    var porcmujeres = '';
+    
     for (var i = 0; i < datos['length']; i++) {
       canthombres = canthombres + Number(datos[i].hombres | 0);
       cantmujeres = cantmujeres + Number(datos[i].mujeres | 0);
+      porchombres = datos[i].porcHombres;
+      porcmujeres =datos[i].porcMujeres;
     }
     ////console.log(canthombres);
     ////console.log(cantmujeres);
     // Define data
     let data = [{
-      country: "Hombres",
-      sales: canthombres
+      labelColor: "0x5aaa95",
+      genero: "Hombres",
+      porcentaje: canthombres,
+      porc_hombres:porchombres,
+      
     }, {
-      country: "Mujeres",
-      sales: cantmujeres
+      labelColor: "0xbb9f06",
+      genero: "Mujeres",
+      porcentaje: cantmujeres,
+      
+      porc_mujeres:porcmujeres,
     }];
 
     // Create series
     let series = chart.series.push(
       am5percent.PieSeries.new(this.root2, {
-        name: "Series",
-        valueField: "sales",
-        categoryField: "country"
+        name: "Series",        
+        valueField: "porcentaje",
+        categoryField: "genero"
       })
     );
+   /* series.labels.template.setAll({
+      fontSize: 20,
+      fill: am5.color(0x67B7DC),
+    /      text: "{porcentaje}"
+    });*/
+
+    series.labels.template.setAll({
+      fontSize: 20,
+   /*   colors:  chart.get("colors")?.set("colors", [
+        am5.color("#000000"),
+        am5.color('#000000'),      
+      ]),*/
+      text: "[bold]{category}:{porc_hombres}{porc_mujeres}%[/]",
+      textType: "adjusted",
+      radius: 10
+    })
+    
     series.data.setAll(data);
     this.root2._logo?.dispose();
     // Add legend
@@ -866,7 +900,7 @@ public buscarUniversidades(depto: string){
 
   this.http.get<Universidad>(environment.API_URL+"indicadoresUniversidad?idDepartamento="+depto).subscribe(data => {  
 
-    console.log("UNIVERSIDADES: "+data['length'])
+    
     if(data['length']!=0){
       this.tituloUniversidades=true;
       $(".datoUniversidades").show();
@@ -880,7 +914,7 @@ public buscarUniversidades(depto: string){
             universidades+='</div>';
             
 						for ( var i = 0; i < data['length']; i++ ) {
-              console.log('idUniverdidad: '+data[i].idUniverdidad +"----"+i)
+              
               if(data[i].idUniverdidad==1 || data[i].idUniverdidad==19 ||data[i].idUniverdidad==20 )
               {            
                 universidadesPu+='<div class="  col-lg-2 col-md-2 "></div>';
@@ -927,7 +961,7 @@ public buscarDeptoEmpresas(depto: string)
           empresas += '<div class="body">';
           
           empresas += '<div class= " imgEmpMicro imgContainer text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">';
-          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">MICRO</h2>';
+          empresas += '<h2 style="background-color:#1A4386;" class="fs-3 text-uppercase   text-white d-flex flex-column  justify-content-center">MICRO</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -941,7 +975,7 @@ public buscarDeptoEmpresas(depto: string)
           empresas += '<div class="box">';
           empresas += '<div class="body">';
           empresas += '<div class= " imgEmpPequena imgContainer text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">';
-          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">PEQUEÑA</h2>';
+          empresas += '<h2 style="background-color:#1A4386;" class="fs-3 text-uppercase  text-white d-flex flex-column  justify-content-center">PEQUEÑA</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -955,7 +989,7 @@ public buscarDeptoEmpresas(depto: string)
           empresas += '<div class="box">';
           empresas += '<div class="body">';
           empresas += '<div class= " imgEmpMediana imgContainer text-uppercase bg-secondary text-white d-flex flex-column center justify-content-center">';
-          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">MEDIANA</h2>';
+          empresas += '<h2 style="background-color:#1A4386;" class="fs-3 text-uppercase  text-white d-flex flex-column  justify-content-center">MEDIANA</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -969,7 +1003,7 @@ public buscarDeptoEmpresas(depto: string)
           empresas += '<div class="box">';
           empresas += '<div class="body">';
           empresas += '<div class= " imgEmpGrande imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
-          empresas += '<h2 class="fs-3 text-uppercase bg-primary text-white d-flex flex-column  justify-content-center">GRANDE</h2>';
+          empresas += '<h2 style="background-color:#1A4386;" class="fs-3 text-uppercase  text-white d-flex flex-column  justify-content-center">GRANDE</h2>';
           empresas += '</div>';
           empresas += '<div class="content text-uppercase text-white d-flex flex-column align-items-center justify-content-center">';
           empresas += '<div>';
@@ -1006,12 +1040,13 @@ public buscarIndicadores(depto: string){
 						estimacion += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						estimacion+='<div class="row d-flex justify-content-center align-items-center">';
-						estimacion+='<p style="text-align: center;">';
+						estimacion+='<span style="text-align: center;">';
+            estimacion+='<br><br>'
 						estimacion+='<span class="text-light-blue justify-content-center fs-5 ml-2">';
 						estimacion+='<strong>Estimación población <br>'+data[0]['idAnio'];
 						estimacion+='</strong>';
 						estimacion+='</span>';
-						estimacion+='</p>';
+						estimacion+='</span>';
 						estimacion+='<div class="col-md-12 d-flex justify-content-center">';
 						estimacion+='<h1 class="blue-counter">';
 						estimacion+=this.formatoMiles(Number(poblacionTotal).toFixed(2),data[0].nomTipoFormato);
@@ -1023,12 +1058,13 @@ public buscarIndicadores(depto: string){
 						estimacion += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						estimacion+='<div class="row d-flex justify-content-center align-items-center">';
-						estimacion+='<p style="text-align: center;">';
-						estimacion+='<span class="text-light-blue justify-content-center fs-5 ml-2">';
+						estimacion+='<span style="text-align: center;">';
+						estimacion+='<br><br>'
+            estimacion+='<span class="text-light-blue justify-content-center fs-5 ml-2">';
 						estimacion+='<strong>'+data[0].nomGenero;
 						estimacion+='</strong>';
 						estimacion+='</span>';
-						estimacion+='</p>';
+						estimacion+='</span>';
 						estimacion+='<div class="col-md-12 d-flex justify-content-center">';
 						estimacion+='<h1 class="blue-counter">';
 						estimacion+=this.formatoMiles(Number(data[0]['cantidad'].replace(",","")).toFixed(2),"dato")+" <br> "+Number(porcentajeHombre).toFixed(2)+"%";
@@ -1040,12 +1076,13 @@ public buscarIndicadores(depto: string){
 						estimacion += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						estimacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						estimacion+='<div class="row d-flex justify-content-center align-items-center">';
-						estimacion+='<p style="text-align: center;">';
+						estimacion+='<span style="text-align: center;">';
+            estimacion+='<br><br>'
 						estimacion+='<span class="text-light-blue justify-content-center fs-5 ml-2">';
 						estimacion+='<strong>'+data[1].nomGenero;
 						estimacion+='</strong>';
 						estimacion+='</span>';
-						estimacion+='</p>';
+						estimacion+='</span>';
 						estimacion+='<div class="col-md-12 d-flex justify-content-center">';
 						estimacion+='<h1 class="blue-counter">';
 						estimacion+=this.formatoMiles(Number(data[1]['cantidad'].replace(",","")).toFixed(2),"dato") +" <br> "+Number(porcentajeMujer).toFixed(2)+"%";
@@ -1072,7 +1109,7 @@ public buscarDeptoIndicadores(depto: string){
     var tics='<div class="row d-flex justify-content-center ml-3">';
     var costos='<div class="row d-flex justify-content-center ml-3">';
     var dCh='<div class="row d-flex justify-content-center ml-3">';
-    
+
     for (let index = 0; index < data['length']; index++) 
     {
      
@@ -1082,8 +1119,9 @@ public buscarDeptoIndicadores(depto: string){
         dCh += '<div class="col-lg-4 col-md-4 col-sm-12">';
 						dCh+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
 						dCh+='<div class="row d-flex justify-content-center align-items-center">';
-						dCh+='<p style="text-align: center;">';
-						dCh+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
+						dCh+='<span style="text-align: center;">';
+            dCh+='<br><br>';
+            dCh+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
 						
             var tempo = data[index].nomCorto;
             var tempo1 = tempo.split(' ');
@@ -1109,7 +1147,7 @@ public buscarDeptoIndicadores(depto: string){
             dCh+='<strong>'+tempo2;
 						dCh+='</strong>';
 						dCh+='</span>';
-						dCh+='</p>';
+						dCh+='</span>';
 						dCh+='<div class="col-md-12 d-flex justify-content-center">';
 						dCh+='<h1 class="blue-counter">';
 						dCh+=data[index].valor+"%";            
@@ -1126,8 +1164,9 @@ public buscarDeptoIndicadores(depto: string){
         educacion += '<div class="col-lg-4 col-md-4 col-sm-12">';
         educacion+='<div class="card  mr-4  d-flex justify-content-center align-items-center border shadow card-rounded">';
         educacion+='<div class="row d-flex justify-content-center align-items-center">';
-        educacion+='<p style="text-align: center;">';
-        educacion+='<span class="text-light-blue justify-content-center fs-5 ml-2" >';
+        educacion+='<span style="text-align: center;">';
+        educacion+='<br><br>';
+        educacion+='<span class="text-light-blue justify-content-center fs-5 " >';
         var tempo = data[index].nomCorto;
         var tempo1 = tempo.split(' ');
         var tempo2="";
@@ -1145,10 +1184,10 @@ public buscarDeptoIndicadores(depto: string){
           
           
         }
-        educacion+='<strong>'+tempo2;
+        educacion+='<strong>'+tempo2; 
         educacion+='</strong>';
         educacion+='</span>';
-        educacion+='</p>';
+        educacion+='</span>';
         educacion+='<div class="col-md-12 d-flex justify-content-center">';
         educacion+='<h1 class="blue-counter">';
         educacion+=data[index].valor+"%"
@@ -1209,7 +1248,7 @@ public buscarDeptoIndicadores(depto: string){
             } else if (data[index].idIndicador==17) {
 						  dinamismo2 += '<div class= " imgDinRecaudacion imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             }
-            dinamismo2 += '<h2 class="fs-3 bg-primary">'+data[index].nomCorto+'</h2>';
+            dinamismo2 += '<h2 style="background-color:#1A4386;" class="fs-3 ">'+data[index].nomCorto+'</h2>';
 						dinamismo2 += '</div>';
 						dinamismo2 += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
 						dinamismo2 += '<div>';
@@ -1241,7 +1280,7 @@ public buscarDeptoIndicadores(depto: string){
               infraestructura += '<div class= " imgInfraOrgJur imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             }
 						
-						infraestructura += '<h2 class="bg-primary fs-3">'+data[index].nomCorto+'</h2>';
+						infraestructura += '<h2 style="background-color:#1A4386;" class=" fs-3">'+data[index].nomCorto+'</h2>';
 						infraestructura += '</div>';
 						infraestructura += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
 						infraestructura += '<div>';
@@ -1267,12 +1306,12 @@ public buscarDeptoIndicadores(depto: string){
               }else if(data[index].idIndicador==20){
                 tics += '<div class= "imgTICinternet imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
               }
-              tics += '<h2 class="fs-3 bg-primary">'+data[index].nomCorto+'</h2>';
+              tics += '<h2 style="background-color:#1A4386;" class="fs-3 ">'+data[index].nomCorto+'</h2>';
               tics += '</div>';
               tics += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
-              tics += '<div>';
+              tics += '<div class="">';
               tics += '<h2>'+this.formatoMiles(Number(data[index].valor).toFixed(2),data[index].nomTipoFormato);+'</h2>';
-              tics += '<h5 class="fs-6 ">'+data[index].nomIndicador+'</h5>';
+              tics += '<h5 class="fs-6 d-flex flex-column align-items-center justify-content-center ">'+data[index].nomIndicador+'</h5>';
               tics += '</div>';
               tics += '</div>';
               tics += '</div>';
@@ -1295,7 +1334,7 @@ public buscarDeptoIndicadores(depto: string){
 						  costos += '<div class= " imgCostoAgua imgContainer text-uppercase bg-secondary text-white d-flex flex-column  justify-content-center">';
             } 
             
-            costos += '<h2 class="fs-2 bg-primary">'+data[index].nomCorto+'</h2>';
+            costos += '<h2 style="background-color:#1A4386;" class="fs-2 ">'+data[index].nomCorto+'</h2>';
 						costos += '</div>';
 						costos += '<div class="content  text-white d-flex flex-column align-items-center justify-content-center">';
 						costos += '<div>';

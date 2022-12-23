@@ -1,0 +1,318 @@
+<div class="row bg-degree align-items-end page-title-single ir-arriba " id="titulo"></div>
+<div class="contenedor-pagina bg-image" style="  overflow: hidden; background: url(assets/images/esp/menuBack.png) no-repeat center center fixed; 
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+     height: 120vh;
+     width:100%;">
+
+  <div class="container ">
+    <div class="row gx-5 d-flex justify-content-center text-center" style="padding-top: 7em;">
+      <h1 class="blue-title text-uppercase">Indicadores logísticos</h1>
+      <div class="col">
+       <div class="border bg-light imgAereo d-flex flex-column  justify-content-center" style=" height:'250px'; cursor:pointer;" (click)="aereo( $event );">
+        <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%;" >AÉREO</h2>
+       </div>
+      </div>
+      <div class="col">
+        <div class="border bg-light imgMaritimo d-flex flex-column  justify-content-center" style=" height:'250px';cursor:pointer; " (click)="maritimo( $event );">
+          <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">MARÍTIMO</h2>
+        </div>
+      </div>
+      <div class="col">
+        <div class="border bg-light imgTerrestre d-flex flex-column  justify-content-center" style=" height:'250px'; cursor:pointer;" (click)="terrestre( $event );">
+          <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">TERRESTRE</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center text-center">
+      
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="border bg-light imgTerrestre d-flex flex-column  justify-content-center" style=" height:'250px'; cursor:pointer;" (click)="puertos( $event );">
+          <h2 class=" fs-3 text-uppercase bg-primary text-white " style="width:100%; ">aduanas y puertos</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-aereo" style=" background: url(assets/images/esp/aereoBack.png) no-repeat center center fixed; 
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+     height: 140vh;
+     width:100%;">
+  <div class="container-fluid">
+
+    <div class="row d-flex justify-content-center  text-center " style="padding-top: 5em;">
+
+      <h1 class="blue-title text-uppercase"> Aéreo</h1>
+      <h3 class="blue-title text-uppercase fs-5 text-danger mb-5" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
+      <div class="col-lg-8 col-md-8 col-sm-12 ">
+        <select class="form-select form-aereo  " id="seleccionador" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="16">Miami, Estados Unidos (MIA)</option>
+          <option value="17">Los Ángeles, Estados Unidos (LAX)</option>
+          <option value="18">Panamá (PTY)</option>
+          <option value="19">Londres</option>
+          <option value="20">Ámsterdam</option>
+          <option value="21">Japón</option>
+          <option value="22">Corea</option>
+          <option value="23">Ciudad de México, México</option>
+          <option value="24">Houston, Estados Unidos</option>
+        </select>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
+        <button type="button" class="btn btn-primary btn-lg" (click)="buscar(1);">Buscar</button>
+      </div>  
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-12 mt-2 "></div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-2 ">
+
+        <div style="" id="cargaVideo"></div>
+
+      </div>
+    </div>
+  </div>
+  <br><br><br><br><br><br><br><br><br>
+</div>
+<div class="bg-maritimo" style=" background: url(assets/images/esp/maritimoBack.png) no-repeat center center fixed; 
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+     height: 140vh;
+     width:100%;">
+  <div class="container-fluid">
+
+    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 5em;">
+
+      <h1 class="blue-title text-uppercase">Marítimo</h1>
+      <h3 class="blue-title text-uppercase fs-5 text-danger mb-5" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <select class="form-select form-maritimo" id="seleccionadorm" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="25">Puerto Quetzal---Los Ángeles, EEUU</option>
+          <option value="26">Puerto Quetzal---Busan, Corea </option>
+          <option value="27">Puerto Quetzal---Shangai, China</option>
+          <option value="28">Puerto Quetzal---Mumbai, India</option>
+          <option value="29">Puerto Quetzal---Puerto Buenaventura, Colombia</option>
+          <option value="30">Puerto Quetzal---Manzanillo, México</option>
+          <option value="31">Puerto Santo Tomas de Castilla---Miami, EEUU</option>
+          <option value="32">Puerto Santo Tomas de Castilla---Galveston, Texas EEUU</option>
+          <option value="33">Puerto Santo Tomas de Castilla---Philadelphia, EEUU</option>
+          <option value="34">Puerto Santo Tomas de Castilla---Pto. Caucedo, Rep. Dominicana</option>
+          <option value="35">Puerto Santo Tomas de Castilla---San Antonio, Chile</option>
+          <option value="36">Puerto Santo Tomas de Castilla---Rotterdam, Países Bajos</option>
+          <option value="38">Puerto Santo Tomas de Castilla---Barcelona, España</option>
+          <option value="37">Puerto Santo Tomas de Castilla---Brake, Alemania</option>
+          <option value="39">Puerto Santo Tomas de Castilla---Altamira, México</option>
+        </select>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
+        <button type="button" class="btn btn-primary btn-lg" (click)="buscar(2);">Buscar</button>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
+
+        <div style="height: 100vh;" id="cargaVideo2"></div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+  <br><br><br><br><br><br><br><br><br>
+</div>
+<div class="bg-terrestre" style=" background: url(assets/images/esp/terrestreBack.png) no-repeat center center fixed; 
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+     height: 140vh;
+     width:100%;   overflow: scroll;" >
+  <div class="container-fluid">
+
+    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 5em;">
+      
+      <h1 class="blue-title text-uppercase">Terrestre <h3 class="blue-title">Destinos internacionales</h3></h1>
+      
+      <h3 class="blue-title text-uppercase fs-5 text-danger mt-2 mb-2" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <select class="form-select form-terrestre" id="seleccionadort" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="1">Cd. Hidalgo, México</option>
+          <option value="2">Cd. Panamá</option>
+          <option value="3">San José, Costa Rica</option>
+          <option value="4">Managua, Nicaragua</option>
+          <option value="5">Tegucigalpa, Honduras</option>
+          <option value="6">San Pedro Sula, Honduras</option>
+          <option value="7">San Salvador, El Salvador</option>
+        </select>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
+        <button type="button" class="btn btn-primary btn-lg" (click)="buscar(3);">Buscar</button>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
+
+        <div style="" id="cargaVideo3"></div>
+
+      </div>
+    </div>
+
+
+
+
+    <div class="row d-flex justify-content-center ml-2 text-center" style="padding-top: 0em;">
+
+      <h1 class="blue-title text-uppercase">Terrestre <h3 class="blue-title">Destinos nacionales</h3></h1>
+      
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <select class="form-select form-terrestregt" id="seleccionadort" aria-label="Default select example">
+          <option selected>Seleccione destino</option>
+          <option value="8">Ciudad de Guatemala---Puerto Quetzal</option>
+          <option value="9">Ciudad de Guatemala---Puerto Santo Tomás</option>
+          <option value="10">Ciudad de Guatemala---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="11">Ciudad de Guatemala---Corinto, Frontera con Honduras</option>
+          <option value="12">Ciudad de Guatemala---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="13">Escuintla---Ciudad de Guatemala</option>
+          <option value="14">Escuintla---Puerto Quetzal</option>
+          <option value="15">Escuintla---Puerto Santo Tomás</option>
+          <option value="16">Escuintla---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="17">Escuintla---Corinto, Frontera con Honduras</option>
+          <option value="18">Escuintla---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="19">Quetzaltenango---Ciudad de Guatemala</option>
+          <option value="20">Quetzaltenango---Puerto Quetzal</option>
+          <option value="21">Quetzaltenango---Puerto Santo Tomás</option>
+          <option value="22">Quetzaltenango---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="23">Quetzaltenango---Corinto, Frontera con Honduras</option>
+          <option value="24">Quetzaltenango---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="25">San Marcos---Ciudad de Guatemala</option>
+          <option value="26">San Marcos---Puerto Quetzal</option>
+          <option value="27">San Marcos---Puerto Santo Tomás</option>
+          <option value="28">San Marcos---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="29">San Marcos---Corinto, Frontera con Honduras</option>
+          <option value="30">San Marcos---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="31">Izabal---Ciudad de Guatemala</option>
+          <option value="32">Izabal---Puerto Quetzal</option>
+          <option value="33">Izabal---Puerto Santo Tomás</option>
+          <option value="34">Izabal---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="35">Izabal---Corinto, Frontera con Honduras</option>
+          <option value="36">Izabal---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="37">Retalhuleu---Ciudad de Guatemala</option>
+          <option value="38">Retalhuleu---Puerto Quetzal</option>
+          <option value="39">Retalhuleu---Puerto Santo Tomás</option>
+          <option value="40">Retalhuleu---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="41">Retalhuleu---Corinto, Frontera con Honduras</option>
+          <option value="42">Retalhuleu---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="43">Zacapa---Ciudad de Guatemala</option>
+          <option value="44">Zacapa---Puerto Quetzal</option>
+          <option value="45">Zacapa---Puerto Santo Tomás</option>
+          <option value="46">Zacapa---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="47">Zacapa---Corinto, Frontera con Honduras</option>
+          <option value="48">Zacapa---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="49">Santa Rosa---Ciudad de Guatemala</option>
+          <option value="50">Santa Rosa---Puerto Quetzal</option>
+          <option value="51">Santa Rosa---Puerto Santo Tomás</option>
+          <option value="52">Santa Rosa---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="53">Santa Rosa---Corinto, Frontera con Honduras</option>
+          <option value="54">Santa Rosa---Ciudad Tecún Umán, Frontera con México</option>
+          <option value="55">Sacatepequez---Ciudad de Guatemala</option>
+          <option value="56">Sacatepequez---Puerto Quetzal</option>
+          <option value="57">Sacatepequez---Puerto Santo Tomás</option>
+          <option value="58">Sacatepequez---Pedro de Alvarado, Frontera con El Salvador</option>
+          <option value="59">Sacatepequez---Corinto, Frontera con Honduras</option>
+          <option value="60">Sacatepequez---Ciudad Tecún Umán, Frontera con México</option>
+        </select>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-1">
+        <button type="button" class="btn btn-primary btn-lg" (click)="buscar(4);">Buscar</button>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mt-2">
+
+        <div id="cargaVideo4"></div>
+
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mb-5"></div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mb-5"></div>
+      <div class="col-lg-8 col-md-8 col-sm-12 mb-5"></div>
+    </div>
+
+  </div>
+  
+</div>
+
+<div class="bg-puertos" style=" background: url(assets/images/esp/maritimoBack.png) no-repeat center center fixed; 
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+     height: 160vh;
+     width:100%;">
+  <div class="container ">
+    
+    <div class="row text-center " style="padding-top: 0em;">
+      <h1 class="blue-title text-uppercase">aduanas y puertos</h1>
+    <h3 class="blue-title text-uppercase fs-5 text-danger mb-1" style="cursor: pointer;" (click)="menuLogistica( $event );">Regresar al menú</h3>
+    <div class="col-lg-2 col-md-2 col-sm-12"></div>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <img  src="assets/images/varios/aduanas.png" usemap="#workmap" width="" class="img">
+        <map name="workmap" id="workmap">
+          <area id="1" alt="Aduana El Ceibo" title="Aduana El Ceibo"  shape="rect" coords="205,124,255,174" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,1)"    />
+          <area  alt="Aduana Pedro De Alvarado" title="Aduana Pedro De Alvarado"  shape="rect" coords="333,591,370,630" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,3)"    />
+          <area  alt="Aduana Integrada El Florido" title="Aduana Integrada El Florido"  shape="rect" coords="458,480,495,519" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,4)"    />
+          <area id="Aduana Integrada Agua Caliente" alt="Aduana Integrada Agua Caliente" title="Aduana Integrada Agua Caliente"  shape="rect" coords="452,437,489,476" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,5)"    />
+          <area  alt="Aduana Integrada Corinto" title="Aduana Integrada Corinto"  shape="rect" coords="551,355,588,394" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,7)"    />
+          <area  alt="Aduana Valle Nuevo" title="Aduana Valle Nuevo"  shape="rect" coords="360,558,397,597" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,8)"    />
+          <area  alt="Aduana Santo Tomas De Castilla" title="Aduana Santo Tomas De Castilla"  shape="rect" coords="500,312,537,351" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,9)"    />
+          <area  alt="Aduana Tecun Uman I" title="Aduana Tecun Uman I"  shape="rect" coords="58,482,95,521" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,10)"    />
+          <area  alt="Aduana Puerto Barrios" title="Aduana Puerto Barrios"  shape="rect" coords="537,315,574,354" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,11)"    />
+          <area  alt="Aduana Express Aereo" title="Aduana Express Aereo"  shape="rect" coords="261,481,297,516" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,12)"    />
+          <area  alt="Aduana Melchor De Mencos" title="Aduana Melchor De Mencos"  shape="rect" coords="436,169,481,216" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,13)"    />
+          <area  alt="Aduana El Carmen" title="Aduana El Carmen"  shape="rect" coords="55,390,101,437" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,14)"    />
+          <area  alt="Aduana Puerto Quetzal" title="Aduana Puerto Quetzal"  shape="rect" coords="191,565,223,610" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,15)"    />
+          <area id="Aduana Central" alt="Aduana Central" title="Aduana Central"  shape="rect" coords="309,476,338,516" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,16)"    />
+          <area  alt="Aduana La Mesilla" title="Aduana La Mesilla"  shape="rect" coords="109,298,153,359" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,17)"    />
+          <area  alt="Aduana Tikal" title="Aduana Tikal"  shape="rect" coords="360,179,404,240" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,18)"    />
+          <area  alt="Aduana Fardos Postales" title="Aduana Fardos Postales"  shape="rect" coords="257,518,291,558" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,19)"    />
+          <area  alt="Aduana Central De Aviacion" title="Aduana Central De Aviacion"  shape="rect" coords="295,519,329,559" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,20)"    />
+          <area  alt="Aduana Tecun Umán II" title="Aduana Tecun Umán II"  shape="rect" coords="54,449,102,485" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,21)"    />
+          <area shape="rect" coords="657,678,659,680" alt="Image Map" style="outline:none; cursor: pointer;" title="Image Map" href="https://www.image-maps.com/" />
+          <area  alt="Aduana San Cristobal" title="Aduana San Cristobal"  shape="poly" coords="426,580,442,570,440,554,407,530,394,554" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,2)"    />
+          <area  alt="Aduana La Ermita" title="Aduana La Ermita"  shape="poly" coords="422,502,419,515,422,529,426,543,439,548,446,545,442,529,438,521,436,513,434,506" style="outline:none; cursor: pointer;" target="_blank" (click)="openVerticallyCentered(Infoaduana,6)"    />
+          
+        </map>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+<ng-template #Infoaduana let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title blue-title">Información de Aduana</h4>
+      
+      
+      <button class="close" aria-label="close" type="button" (click)="cerrarModal()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+
+  </div>
+  <div class="modal-body">
+      <p>Nombre: {{nombremodal}}</p>
+      <p>Departamento: {{deptomodal}}</p>
+      <p>Tipo: {{tipomodal}}</p>
+      <p>Dirección: {{direccionmodal}}</p>
+      
+  </div>
+  <div class="modal-footer">
+      
+      <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cerrar</button>
+  </div>
+</ng-template>

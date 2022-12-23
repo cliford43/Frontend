@@ -1,0 +1,664 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import url("https://fonts.googleapis.com/css?family=Montserrat:4 00,700");
+/* You can add global styles to this file, and also import other style files */
+
+/*Se agrega animacion del modal*/
+.modal-content{
+    animation-name: modalAnimacion;
+    animation-duration: 0.3s;
+  }
+  
+  @keyframes modalAnimacion {
+    0%   {transform: scale(0.5)}
+    75%  {transform: scale(1.1)}
+    100% {transform: scale(1)}
+  }
+
+  /*Se corrige modal footer y modal header */
+.modal-footer {
+    padding: 0.45rem;
+}
+
+.modal-header {
+    padding: 0.65rem;
+}
+/* Css para componentes output */
+.input-read-only{
+    border-bottom: 1px dotted grey;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 14px;
+    padding-left: 14px;
+}
+/* Se corrige el agrupamiento de los formcontrol en los sidebar*/
+.sidebar .form-group:last-child {
+    margin-bottom: 1.25rem;
+}
+/*Se corrige espacio vertical entre el menu y contenido del page-header*/
+.page-title {
+    padding: 1.1rem 0;
+}
+/*Se agrega footer*/
+.footer {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+/*Se corrige el zindex en el sidebar*/
+.sidebar {
+    z-index: 0;
+}
+
+
+/* -- Clase que coloca el fondo bloqueado al momento de mostrar un mensaje */
+body:not(.swal2-no-backdrop) .swal2-container.swal2-shown {
+    background-color: rgba(0,0,0,.5);
+}
+.swal2-container {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    align-items: flex-start;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 1070;
+}
+/*Se agrega animacion al mostrar mensaje*/
+.alert {
+    animation-name: modalAnimacion;
+    animation-duration: 0.3s;
+}
+
+.rotate {
+    animation: rotation 3s infinite linear;
+}
+  
+@keyframes rotation {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(359deg);
+}
+}
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+.eje-content{
+    min-height: 25vh; 
+    max-height: 25vh; 
+    min-width: 15vh;
+    border-radius: 25px;
+}
+
+.bg-red {
+    background-color: rgb(230, 2, 2);
+}
+.bg-green {
+  background-color: rgba(36, 230, 29, 0.925);
+}
+.bg-yellow{
+    background-color: yellow;
+}
+.bg-degree{
+  background: linear-gradient(to right, #0b4b8a , #5b1e74 );
+}
+
+ngb-datepicker {
+transform: none !important;
+}
+
+body {
+    font-family: 'Montserrat' !important;
+}
+.modal-body{
+    font-size: 14px !important;
+}
+
+
+
+.nav-link{
+  
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+}
+
+.dropdown-menu{
+  background: linear-gradient(to right, #0b4b8a , #5b1e74 );
+  
+}
+.dropdown-item{
+  color: white!important; 
+  
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.1px;
+  min-height:50px ;
+  display: flex;
+  justify-content: center;
+}
+.dropdown-item:hover {
+  background-color: #0f559b;
+}
+.logo-desktop{
+  height: 5.8em;
+}
+.logo-movil{
+  height: 3em;
+}
+.p-14{ 
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+.p-16{ 
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.p-17{ 
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.p-18{ 
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.blue-title{
+  color: #0067A0;
+  
+  font-weight: 600;
+  mix-blend-mode: multiply;
+}
+.white-title{
+  color: white;
+  
+  font-weight: 600;
+}
+.text-blue{
+  color:#0067A0;
+  
+}
+hr{
+  width: 2%!important;
+  background-color: #5b1e74;
+  border: none;
+  opacity: 1 !important;
+  min-height: 3px;
+}
+.fondo-textura{
+  background-image: url(assets/images/varios/textura.jpg); 
+  opacity: 0.33; 
+  z-index: -1; 
+  min-height: 600px; 
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+.imagen-redonda{
+  opacity: 1;
+  filter: brightness( 106% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+  transition-duration: 0s;
+  border-radius: 300px 50px 400px 126px;
+  box-shadow: 1px 15px 23px -11px rgb(0 84 139 / 54%);
+}
+.imagen-redonda-full{
+  opacity: 1;
+  filter: brightness( 106% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+  transition-duration: 0s;
+  border-radius: 50%;
+}
+.btn-outline-degree:hover {
+  background: linear-gradient(to right, #0b4b8a , #5b1e74 );
+  color: white;
+}
+.btn-outline-degree {
+  color:  #1e3c74;
+  border-color:  #5b1e74;
+}
+.btn-degree {
+  color:  white!important;
+  background: linear-gradient(to right, #0b4b8a , #5b1e74 );
+}
+.btn-radius{
+  border-radius: 20px;
+  
+  font-size: 16px;
+}
+.fondo-textura-2{
+  background-image: url(http://www.investinguatemala.org/wp-content/uploads/2021/10/mapa-Guatemal-Pronacom.png);
+  background-size: 100% 100%;
+  
+}
+.text-light-blue{
+  color: #00b0f0;
+}
+
+.rebote:hover img {
+  position: relative;
+  -webkit-animation-name: rebote; /* Chrome, Safari, Opera */
+  -webkit-animation-duration: 0.2s; /* Chrome, Safari, Opera */
+  -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+  -webkit-animation-direction: reverse; /* Chrome, Safari, Opera */
+  animation-name: rebote;
+  animation-duration: 0.3s;
+  animation-iteration-count: 2;
+  animation-direction: reverse;
+  animation-timing-function: ease-out;
+}
+
+/* Standard syntax */
+@keyframes rebote {
+  0%   {left:0px; top:0px;}
+  25%  {left:0px; top:-7px;}
+  50%  {left:0px; top:-6px;}
+  75%  {left:0px; top:-5px;}
+  100% {left:0px; top:0px;}
+}
+
+.bg-video{
+  transition: opacity 1s;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  direction: ltr;
+  height: 130%;
+  margin-top: -16%;
+}
+.seccion{
+  position: relative;
+  display: block; 
+  min-height:500px;
+}
+
+.icono{
+  height:6em;
+  width: 10em;
+  cursor: pointer;
+}
+
+.blue-counter{
+  color: #00548B;
+  
+  font-size: 45px;
+  font-weight: 500;
+  line-height: 1;
+}
+.card-cifras{
+  box-shadow:none !important;
+  width: 18rem; 
+  min-height: 13rem;  
+}
+.card-rounded{
+  border-radius:100px 0px 100px  0px;
+  width: 18rem; 
+  min-height: 13rem;  
+}
+
+.card-rounded-medium{
+  border-radius:50px 50px 50px  50px;
+  min-height: 10rem;  
+}
+
+.text-blue-600{
+  color:#0067A0;
+  
+  font-weight: 600;
+}
+
+html body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+  
+}
+html body{
+  min-height: 100vh;
+}
+
+.fondo-textura-3{
+  background-image: url(http://www.investinguatemala.org/wp-content/uploads/2021/11/estadisticas-biblioteca.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 1;
+  mix-blend-mode: multiply;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index:-1 ;
+  filter: brightness(50%);
+}
+
+.text-600{
+  font-weight: 600; 
+}
+.text-500{
+  font-weight: 500; 
+}
+.card-degree{
+  width:340px; 
+  color: #681474; 
+  min-height:250px; 
+  max-height:250px; 
+  border-radius:20px;
+  font-size: 14px;
+  color: #681474!important; 
+}
+
+.card-degree:hover{
+  background: linear-gradient(to right, #0b4b8a , #5b1e74);
+  color: white!important; 
+}
+
+.text-purple{
+  color: #681474!important; 
+}
+
+.page-title-desktop{
+  min-height: 30vh;
+  max-width: 100.5%;
+  margin: 0!important;
+}
+
+.page-title-movil{
+  min-height: 10vh;
+}
+.page-title-single{
+  min-height: 16vh;
+  max-width: 100.5%;
+  margin: 0!important;
+}
+
+.text-corinto{
+  color: #960404;
+}
+.rounded-bottom-25{
+  border-radius: 0 0 25% 25%; 
+}
+path:hover {
+  fill: #681474;
+}
+.marca-localizacion{
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  max-width: none !important;
+}
+.text-purple-bold{
+  color: #333399 !important;
+}
+
+#navDisercomi::after{
+  transform: rotate(-90deg);
+}
+
+.fondo-casos{
+    background-image: url(http://www.investinguatemala.org/wp-content/uploads/2021/11/eventos-3.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.carousel-control-prev{
+  justify-content: start!important;
+  padding-left: 20px!important;
+  width: 5%!important;
+}
+.carousel-control-next{
+  justify-content: end;
+  padding-right: 20px!important;
+  width: 5%!important;
+}
+.contains-ubicacion {
+  fill: #681474!important;
+  cursor: pointer;
+}
+
+.btn-outline-degree:not([disabled]):not(.disabled).active{
+  color:  white!important;
+  background: linear-gradient(to right, #0b4b8a , #5b1e74 );
+}
+
+.mapouter {
+  position: relative;
+  text-align: right;
+  width: 600px;
+  height: 400px;
+}
+
+.gmap_canvas {
+  overflow: hidden;
+  background: none !important;
+  width: 470px;
+  height: 400px;
+}
+
+.gmap_iframe {
+  width: 600px !important;
+  height: 400px !important;
+}
+
+.introduccion
+{
+   background-color: #ffff99;
+   border-radius:25px;
+   padding: 10px 10px;
+   font-size: 20px;
+   text-align: justify;
+   color: darkblue;
+}
+
+.imgEmpMicro
+{
+  background-image: url("img/EmpMicro.jpg");
+	background-size: cover;
+}
+
+.imgEmpPequena
+{
+  background-image: url("img/EmpPequena.jpg");
+	background-size: cover;
+}
+
+.imgEmpMediana
+{
+  background-image: url("img/EmpMediana.jpg");
+	background-size: cover;
+}
+
+.imgEmpGrande
+{
+  background-image: url("img/EmpGrande.jpg");
+	background-size: cover;
+
+}
+.imgAereo
+{
+  background-image: url("assets/images/esp/aereoMenu.png");
+	background-size: cover;
+  background-repeat: no-repeat;
+ 
+  
+}
+.imgMaritimo
+{
+  background-image: url("assets/images/esp/maritimoMenu.png");
+	background-size: cover;
+  background-repeat: no-repeat;
+}
+.imgTerrestre
+{
+  background-image: url("assets/images/esp/terrestreMenu.png");
+	background-size: cover;
+  background-repeat: no-repeat;
+}
+.imgDinEmpresas
+{
+  background-image: url("img/DinEmpresas.jpg");
+	background-size: cover;
+}
+
+.imgDinExport
+{
+  background-image: url("img/DinExport.jpg");
+	background-size: cover;
+}
+
+.imgDinCrecimientoExp
+{
+  background-image: url("img/DinCrecimientoExp.jpg");
+	background-size: cover;
+}
+
+.imgDinPotencial2020
+{
+  background-image: url("img/DinPotencial2020.jpg");
+	background-size: cover;
+}
+
+.imgDinPotencial2021
+{
+  background-image: url("img/DinPotencial2021.jpg");
+	background-size: cover;
+}
+
+
+.imgDinRecaudacion
+{
+  background-image: url("img/DinRecaudacion.jpg");
+	background-size: cover;
+}
+
+.imgDinParqueV
+{
+  background-image: url("img/DinParqueV.jpg");
+	background-size: cover;
+}
+
+.imgDinCartera
+{
+  background-image: url("img/DinCartera.jpg");
+	background-size: cover;
+}
+
+.imgInfraCobElectrica
+{
+  background-image: url("img/InfraCobElectrica.jpg");
+	background-size: cover;
+}
+
+.imgInfraRadiobases
+{
+  background-image: url("img/InfraRadiobases.jpg");
+	background-size: cover;
+}
+
+.imgInfraZDEEP
+{
+  background-image: url("img/InfraZDEEP.jpg");
+	background-size: cover;
+}
+
+.imgInfraOrgJur
+{
+  background-image: url("img/InfraOrgJur.jpg");
+	background-size: cover;
+}
+
+.imgInfraPuntosAcceso
+{
+  background-image: url("img/InfraPuntosAcceso.jpg");
+	background-size: cover;
+}
+
+
+.imgTICcelular
+{
+  background-image: url("img/TICcelular.jpg");
+	background-size: cover;
+}
+
+.imgTICcomputadora
+{
+  background-image: url("img/TICcomputadora.jpg");
+	background-size: cover;
+}
+
+.imgTICinternet
+{
+  background-image: url("img/TICinternet.jpg");
+	background-size: cover;
+}
+
+
+
+.imgCobElectrica
+{
+  background-image: url("img/cobertura_electrica.jpg");
+	background-size: cover;
+
+}
+
+.imgUsoInternet
+{
+  background-image: url("img/internet.jpg");
+	background-size: cover;
+
+}
+
+
+.imgCostoInmobiliario
+{
+  background-image: url("img/CostoInmobiliario.jpg");
+	background-size: cover;
+
+}
+
+.imgCostoEnergia
+{
+  background-image: url("img/CostoEnergia.jpg");
+	background-size: cover;
+
+}
+
+.imgCostoAgua
+{
+  background-image: url("img/CostoAgua.jpg");
+	background-size: cover;
+
+}
+
+.imgFondoMapaGT
+{
+  background-image: url("img/FondoMapaGT.jpg");
+	background-size: auto;
+  padding-top: 94px;
+  padding-left: 4px;
+  margin: auto;
+  height: auto;
+  width: auto;
+  
+}

@@ -461,6 +461,16 @@ path:hover {
   height: 400px !important;
 }
 
+.introduccion
+{
+   background-color: white;
+   border-radius:25px;
+   padding: 10px 10px;
+   font-size: 20px;
+   text-align: justify;
+   color: darkblue;
+}
+
 .imgEmpMicro
 {
   background-image: url("img/EmpMicro.jpg");
@@ -502,6 +512,12 @@ path:hover {
 .imgTerrestre
 {
   background-image: url("assets/images/esp/terrestreMenu.png");
+	background-size: cover;
+  background-repeat: no-repeat;
+}
+.imgAduana
+{
+  background-image: url("assets/images/esp/menuaduanasypuertos.png");
 	background-size: cover;
   background-repeat: no-repeat;
 }

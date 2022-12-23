@@ -190,10 +190,7 @@ export class IndicadoresLogisticosComponent implements OnInit {
   private root!: am5.Root;
   @ViewChild("videoPlayer", { static: false })
   videoplayer!: ElementRef;
-  public nombremodal="";
-  public deptomodal="";
-  public tipomodal="";
-  public direccionmodal="";
+  
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute, private http: HttpClient, private modalService:NgbModal ) { 
     this.activatedRoute.params.subscribe(params => {
@@ -434,17 +431,12 @@ public infoAduana(id:number){
   console.log(this.aduanasInfo[index].depto);
   console.log(this.aduanasInfo[index].tipo);
   console.log(this.aduanasInfo[index].direccion);
-  var informacion ="Nombre:"+ this.aduanasInfo[index].nombre;
-  informacion +="Departamento:"+ this.aduanasInfo[index].depto;
-  informacion +="Tipo:"+ this.aduanasInfo[index].tipo;
-  informacion +="Direccion:"+ this.aduanasInfo[index].direccion;
-
-  this.nombremodal=this.aduanasInfo[index].nombre;
-  this.deptomodal=this.aduanasInfo[index].depto;
-  this.tipomodal=this.aduanasInfo[index].tipo;
-  this.direccionmodal= this.aduanasInfo[index].direccion;
+  //var informacion = this.aduanasInfo[index].nombre;
+  //informacion +="Departamento: "+ this.aduanasInfo[index].depto;
+  //informacion +="Tipo: "+ this.aduanasInfo[index].tipo;
+  var informacion ="Direccion: "+ this.aduanasInfo[index].direccion;
   
-  
+  this.openVerticallyCentered(informacion)
 }
 
 openBackDropCustomClass(Infoaduana: any) {
@@ -468,24 +460,7 @@ openXl(Infoaduana: any) {
 }
 
 
-openVerticallyCentered(Infoaduana: any,numero:number) {
-  var index =numero-1;
-  console.log(numero);
-  console.log(this.aduanasInfo[0]);
-  console.log(this.aduanasInfo[index].id);
-  console.log(this.aduanasInfo[index].nombre);
-  console.log(this.aduanasInfo[index].depto);
-  console.log(this.aduanasInfo[index].tipo);
-  console.log(this.aduanasInfo[index].direccion);
-  var informacion ="Nombre:"+ this.aduanasInfo[index].nombre;
-  informacion +="Departamento:"+ this.aduanasInfo[index].depto;
-  informacion +="Tipo:"+ this.aduanasInfo[index].tipo;
-  informacion +="Direccion:"+ this.aduanasInfo[index].direccion;
-
-  this.nombremodal=this.aduanasInfo[index].nombre;
-  this.deptomodal=this.aduanasInfo[index].depto;
-  this.tipomodal=this.aduanasInfo[index].tipo;
-  this.direccionmodal= this.aduanasInfo[index].direccion;
+openVerticallyCentered(Infoaduana: any) {
   this.modalService.open(Infoaduana, { centered: true });
 }
 
