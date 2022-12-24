@@ -698,15 +698,12 @@ public buscarGraficaDeptoIntecap(depto: string) {
 
     series.labels.template.setAll({
       fontSize: 20,
-   /*   colors:  chart.get("colors")?.set("colors", [
-        am5.color("#000000"),
-        am5.color('#000000'),      
-      ]),*/
+      fill: am5.color(0x000000),
       text: "[bold]{category}:{porc_hombres}{porc_mujeres}%[/]",
       textType: "adjusted",
       radius: 10
     })
-    
+   
     series.data.setAll(data);
     this.root2._logo?.dispose();
     // Add legend

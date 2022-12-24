@@ -305,3 +305,18 @@ body{
 .container .box .body .content div h3{
     letter-spacing: 1px;
 }
+
+.cmn-divfloat {
+    position: fixed !important;
+    bottom: 50%;
+    right: 15px;
+    display: inline-block;
+  }
+  .cmn-btncircle {
+    width: auto !important;
+    height: 40px !important;
+    padding: 6px 2px;
+    border-radius: 15px;
+    font-size: 18px;
+    text-align: center;
+  }
