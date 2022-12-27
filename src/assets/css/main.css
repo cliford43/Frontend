@@ -162,24 +162,17 @@ footer label a:visited,footer label a:linked{
 }
 .mapaGuate{
     margin:0 auto;
-    width:95%;
+    width:100%;
 }
 .mapaGuate .deptoGuate,.mapaGuate .infoDepto{
     display:inline-block;
     vertical-align:top
 }
-.mapaGuate .deptoGuate{
-    /*width:59%;*/
+.deptoGuate{
+    margin:0 auto;
+    width:85%;
 }
-.mapaGuate .deptoGuate svg path{
-    transition:all .3s ease;
-    cursor:pointer;
-    fill:#06A0FF;
-}
-.mapaGuate .deptoGuate svg path:hover{
-    transition:all .3s ease;
-    fill:#681474
-}
+
 .mapaGuate .infoDepto{
     background:#ffffff;
     border-radius:0 0 .5em .5em;

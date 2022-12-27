@@ -93,9 +93,17 @@ export class InformacionDepartamentosComponent implements OnInit {
 
   getDeptos() {
     this.http.get<Deptos>(environment.API_URL+"departamentos").subscribe(data => {      
+
       for (let index = 0; index < data['length']; index++) {
+        
         const element = data[index];        
-        this.datosDeptos[data[index]["nomDepartamento"] ] = [{"nombreDepto":data[index]["nomDepartamento"],"descripcion":data[index]["descripcionPerfil"]+"","url":"ninguna","idDepartamento":data[index]["idDepartamento"]}];
+        this.datosDeptos[data[index]["nomDepartamento"] ] = [{"nombreDepto":data[index]["nomDepartamento"],"descripcion":data[index]["descripcionPerfil"]+"","url":"ninguna","idDepartamento":data[index]["idDepartamento"],"priorizado":data[index]["priorizado"]}];
+        if(data[index]["priorizado"]=="1"){
+          this.colorInicialEsp(data[index]["nomDepartamento"]);
+        }else{
+          this.colorInicial(data[index]["nomDepartamento"]);
+        }
+        
         
       }
    
@@ -103,6 +111,7 @@ export class InformacionDepartamentosComponent implements OnInit {
         
       
     });
+    
   }
   browserOnly(f: () => void) {
     if (isPlatformBrowser(this.platformId)) {
@@ -133,12 +142,22 @@ export class InformacionDepartamentosComponent implements OnInit {
       }
     });
   }
-  public colorInicial(){
-    const etiquetaDescr= document.querySelectorAll( ".deptoGuate svg path" )
-    for ( var i = 0; i < etiquetaDescr.length; i++ ) {
-    //  etiquetaDescr[ i ].style.fill = "#1abc9c";
-    }
-
+  public colorInicialEsp(_nombre: string){
+    
+    var newstr = _nombre.replace(" ", "_"); 
+    $("#"+newstr).attr("fill", "#2038fb");    
+    $("#"+newstr).attr("cursor", "pointer");
+    //$("#"+newstr).attr("title", _nombre);
+    $("#"+newstr).attr('data-bs-toggle', 'tooltip');
+    $("#"+newstr).attr('title', newstr);
+    
+    document.getElementById(newstr)?.setAttribute('data-bs-toggle', 'tooltip');
+    document.getElementById(newstr)?.setAttribute('title', 'New Tooltip Title');
+    ($("."+newstr) as any).tooltip( "option", "content", "Awesome title!" );
+  }
+  public colorInicial(_nombre: string){
+    var newstr = _nombre.replace(" ", "_"); 
+    $("#"+newstr).attr("fill", "#00aae4 ");
   }
   public  getOffset( el: HTMLElement, nombre: string ) {
     
@@ -159,21 +178,33 @@ export class InformacionDepartamentosComponent implements OnInit {
     
     return { top: _y, left: _x };
     }
+
 public infoDepartamento(event?: any){
-  var departamento: string = (event.target as Element).id;
+  var departamento: string = (event.target as Element).id.replace("_"," ");
+
+  console.log(departamento);
+  console.log(this.datosDeptos[departamento]);
+  if(this.datosDeptos[departamento][0].priorizado==1){
+  
   var envio =(event.target as Element);
-  const etiquetaDescr= document.querySelectorAll(".deptoGuate svg path");
+  const etiquetaDescr= document.querySelectorAll(".deptoGuate svg polygon");
   document.getElementById("imaDepto")?.focus();
   document.getElementById("imgDepto")?.focus();
  // this.getOffset(<HTMLElement>envio,departamento);
   
 
 
-  for ( var i = 0; i < etiquetaDescr.length; i++ ) {
+  for ( var i = 0; i < etiquetaDescr.length; i++ ) 
+  {
     
-		etiquetaDescr[ i ].setAttribute("style",  "fill: #06A0FF;");
-    etiquetaDescr[ i ].setAttribute("style",  "hover: #681474;");
+    
+    var envio2 =(etiquetaDescr[ i ] as Element);
+    envio2.setAttribute("style",  "transition:all .1s ease;");
+		envio2.setAttribute("style",  "fill: blue;");
+    envio2.setAttribute("style",  "hover: white;");
 	}
+
+  
   //this.colorInfo ( envio ,"#000000", "#ffffff" );
   //document.getElementById("infoDepto2").style.visibility='hidden' ;
   this.infoDeptoPanel=true;
@@ -201,7 +232,9 @@ public infoDepartamento(event?: any){
   this.buscarDeptoEmpresas(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarIndicadores(this.datosDeptos[departamento][0].idDepartamento); 
   this.buscarDeptoIndicadores(this.datosDeptos[departamento][0].idDepartamento);
-  ////console.log(departamento);
+}else{
+  this.openScrollablefuentesInfo2("<div class='row'><div class='col-lg-6 col-md-6 col-sm-12'>NO HAY INFORMACIÓN</div></div>");
+}
 }
 public limpiaValores (  ) {
 	this.infoDeptoh2='';
@@ -216,7 +249,7 @@ public buscarMunicipios(depto: string){
 	var tempMunis = "";
 	
       this.http.get<Munis>(environment.API_URL+"municipios/?idDepartamento="+depto).subscribe(data => {
-      ////console.log(data.idDepartamento);
+      
       
         var cantidad=data['length'];
 						if(cantidad%2==0){
@@ -234,7 +267,7 @@ public buscarMunicipios(depto: string){
             for (let index = 0; index < data['length']; index++) {
               indes++;
               const element = data[index];              
-              ////console.log(element.nomMunicipio); 
+              
               
 							if(indes==cantidad){
                 cantidad=indes+cantidad;
@@ -414,7 +447,7 @@ yAxis.set("tooltip", am5.Tooltip.new(this.root, {
  }
  public poblacionAnio(anio: any){
   var hay = false;
-  //console.log(this.datosDibujar);
+  
   for (var i = 0; i < this.datosDibujar['length']; i++) {
     if(this.datosDibujar[i]==anio){
       var hay = true;
@@ -653,7 +686,7 @@ public buscarGraficaDeptoIntecap(depto: string) {
       })
     );
      
-    console.log(datos);
+    
     var canthombres = 0;
     var cantmujeres = 0;
     var porchombres = '';
@@ -665,8 +698,7 @@ public buscarGraficaDeptoIntecap(depto: string) {
       porchombres = datos[i].porcHombres;
       porcmujeres =datos[i].porcMujeres;
     }
-    ////console.log(canthombres);
-    ////console.log(cantmujeres);
+    
     // Define data
     let data = [{
       labelColor: "0x5aaa95",
@@ -775,7 +807,7 @@ let data: unknown[] = [];
 
   }
 
-console.log(data);
+
 
 
 // Create axes
@@ -951,7 +983,7 @@ public buscarDeptoEmpresas(depto: string)
   	if(data['length']!=0){
       this.tituloEmpresas=true;
       $(".datoEmpresas").show();				
-  //////console.log;
+  
   var empresas='<div class="row d-flex justify-content-center ml-3">';
           empresas += '<div class="col-lg-4 col-md-4 col-sm-12 ">';
           empresas += '<div class="box">';
@@ -1372,9 +1404,7 @@ public buscarDeptoIndicadores(depto: string){
         });
 }
 formatoMiles = (numero:string,tipoDato: string) => {
-  ////console.log("FORMATO MILES");
-  ////console.log("NUMERO: "+numero);
-  ////console.log("TIPO DATO: "+tipoDato);
+ 
 	const exp = /(\d)(?=(\d{3})+(?!\d))/g;
 	const rep = '$1,';
 	let arr = numero.split('.');
@@ -1423,6 +1453,9 @@ openVerticallyCentered(fuentesInfo: any) {
 }
 
 openScrollablefuentesInfo(longfuentesInfo: any) {
+  this.modalService.open(longfuentesInfo, { scrollable: true ,size: 'xl'});
+}
+openScrollablefuentesInfo2(longfuentesInfo: any) {
   this.modalService.open(longfuentesInfo, { scrollable: true ,size: 'xl'});
 }
 
