@@ -189,8 +189,8 @@ export class IndicadoresLogisticosComponent implements OnInit {
   porcentajeMujeres=0;
   private root!: am5.Root;
   @ViewChild("videoPlayer", { static: false })
-  videoplayer!: ElementRef;
-  
+  videoplayer!: ElementRef;  
+  rutasAereo: Aereo[] = [];
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone ,private activatedRoute: ActivatedRoute, private http: HttpClient, private modalService:NgbModal ) { 
     this.activatedRoute.params.subscribe(params => {
@@ -199,40 +199,16 @@ export class IndicadoresLogisticosComponent implements OnInit {
         this.element = false;
       
         this.element = true;
+       let url=environment.API_URL+"rutasAereo";
+        this.http.get<Aereo>(url).subscribe(data => {  
+          this.rutasAereo.push(data);
+          console.log(this.rutasAereo);
+        });
         
-      //  this.departamentos.forEach(elemento => this.asignar(deptoId,elemento['idDepartamento'],elemento['nomDepartamento']));
-        
-     //   this.getMunis(deptoId).subscribe(munis => this.municipios = munis);
-        
-        
-        
-        //this.nombreDepartamento = this.departamentos[1].nombre;
-     /*   this.descripcionDepartamento = this.departamentos[depto-1].descripcion;
-        this.anioDepartamento = this.departamentos[depto-1].anio;
-        this.poblacionTotal=this.departamentos[depto-1].poblacionTotal;
-        this.poblacionInicio= this.poblacionTotal-(this.poblacionTotal*0.05);
-        this.hombresTotal=this.departamentos[depto-1].hombreTotal;
-        this.hombresInicio = this.hombresTotal- (this.hombresTotal*0.05);
-        this.mujeresTotal=this.departamentos[depto-1].mujerTotal;
-        this.mujeresInicio = this.mujeresTotal-(this.mujeresTotal*0.05);
-        var tempPorH=((this.hombresTotal*100)/this.poblacionTotal).toFixed(2);
-        this.porcentajeHombres=parseFloat(tempPorH);
-        
-        var tempPorM=((this.mujeresTotal*100)/this.poblacionTotal).toFixed(2);
-        this.porcentajeMujeres=parseFloat(tempPorM);
-        
-        console.log(this.porcentajeMujeres+"-----"+this.departamentos[depto-1].id+"-----"+this.departamentos[depto-1].nombre);
-        */
-      
     
       
       });
-   //   const temporal =this.getDeptos();
-
-
-
-     // this.departamentos.push({ id: temporalidDepartamento, nombre: temporal.nomDepartamento });
- //   this.getDeptos().subscribe(deptos => this.departamentos = deptos);
+ 
   }
   asignar(idBusca: number,idIter: number,nombreDepto: string){
 
@@ -241,20 +217,6 @@ export class IndicadoresLogisticosComponent implements OnInit {
     }
   }
 
- /* getDeptos(): Observable<Deptos[]> {
-    return this.http.get<Deptos[]>(environment.API_URL+"departamentos"); 
-  }
-  getMunis(idDepto: number): Observable<Munis[]> {
-    console.log(idDepto);
-    return this.http.get<Munis[]>(environment.API_URL+"municipios?idDepartamento="+(idDepto-1));
-  }*/
-/*  getDeptos() {
-    this.http.get<Deptos>(environment.API_URL+"deptosbenjamin").subscribe(data => {
-      dat.foreach(
-        address => this.addresses.push(address)
-      )
-    });
-  }*/
   browserOnly(f: () => void) {
     if (isPlatformBrowser(this.platformId)) {
       this.zone.runOutsideAngular(() => {

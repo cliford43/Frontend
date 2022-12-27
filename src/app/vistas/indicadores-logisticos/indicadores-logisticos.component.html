@@ -66,7 +66,9 @@
       <div class="col-lg-8 col-md-8 col-sm-12 ">
         <select class="form-select form-aereo  " id="seleccionador" aria-label="Default select example">
           <option selected>Seleccione destino</option>
-          <option value="16">Miami, Estados Unidos (MIA)</option>
+          <option *ngFor="let item of rutasAereo" [value]="item" >{{item.nomDestino}}</option>
+          
+        <!--  <option value="16">Miami, Estados Unidos (MIA)</option>
           <option value="17">Los Ángeles, Estados Unidos (LAX)</option>
           <option value="18">Panamá (PTY)</option>
           <option value="19">Londres</option>
@@ -74,7 +76,7 @@
           <option value="21">Japón</option>
           <option value="22">Corea</option>
           <option value="23">Ciudad de México, México</option>
-          <option value="24">Houston, Estados Unidos</option>
+          <option value="24">Houston, Estados Unidos</option>-->
         </select>
 
       </div>

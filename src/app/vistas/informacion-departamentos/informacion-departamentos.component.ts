@@ -184,7 +184,7 @@ public infoDepartamento(event?: any){
 
   console.log(departamento);
   console.log(this.datosDeptos[departamento]);
-  if(this.datosDeptos[departamento][0].priorizado==1){
+  //if(this.datosDeptos[departamento][0].priorizado==1){
   
   var envio =(event.target as Element);
   const etiquetaDescr= document.querySelectorAll(".deptoGuate svg polygon");
@@ -202,6 +202,9 @@ public infoDepartamento(event?: any){
     envio2.setAttribute("style",  "transition:all .1s ease;");
 		envio2.setAttribute("style",  "fill: blue;");
     envio2.setAttribute("style",  "hover: white;");
+    envio2.setAttribute("style",  "stroke: #000000;");
+    
+    
 	}
 
   
@@ -232,9 +235,9 @@ public infoDepartamento(event?: any){
   this.buscarDeptoEmpresas(this.datosDeptos[departamento][0].idDepartamento);
   this.buscarIndicadores(this.datosDeptos[departamento][0].idDepartamento); 
   this.buscarDeptoIndicadores(this.datosDeptos[departamento][0].idDepartamento);
-}else{
+/*}else{
   this.openScrollablefuentesInfo2("<div class='row'><div class='col-lg-6 col-md-6 col-sm-12'>NO HAY INFORMACIÓN</div></div>");
-}
+}*/
 }
 public limpiaValores (  ) {
 	this.infoDeptoh2='';
