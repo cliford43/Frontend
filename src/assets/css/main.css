@@ -302,14 +302,14 @@ body{
 .cmn-divfloat {
     position: fixed !important;
     bottom: 50%;
-    right: 15px;
+    right: 5px;
     display: inline-block;
   }
   .cmn-btncircle {
     width: auto !important;
     height: 40px !important;
-    padding: 6px 2px;
+    padding: 9px 2px;
     border-radius: 15px;
-    font-size: 18px;
+    font-size: 12px;
     text-align: center;
   }

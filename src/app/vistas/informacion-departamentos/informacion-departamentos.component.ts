@@ -216,7 +216,7 @@ public infoDepartamento(event?: any){
   
   
 	
-  var imagen='<img id="imaDepto" src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 600px;" alt="" />';
+  var imagen='<img id="imaDepto" src="assets/images/departamentos/'+this.datosDeptos[departamento][0].nombreDepto.toUpperCase()+'.jpg" class="img-fluid mx-auto d-block mb-5" style="width: 600px;" alt="" />';
   this.limpiaValores();
   //<div class="focus"
   this.nomDeptoh1 = "PERFIL DEPARTAMENTO DE " + this.datosDeptos[departamento][0].nombreDepto;

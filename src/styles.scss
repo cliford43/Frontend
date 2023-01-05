@@ -397,7 +397,7 @@ html body{
   border-radius: 0 0 25% 25%; 
 }
 path:hover {
-  fill: #681474;
+/*  fill: #681474;*/
 }
 .marca-localizacion{
   cursor: pointer;
@@ -475,30 +475,35 @@ path:hover {
 {
   background-image: url("img/EmpMicro.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgEmpPequena
 {
   background-image: url("img/EmpPequena.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgEmpMediana
 {
   background-image: url("img/EmpMediana.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgEmpGrande
 {
   background-image: url("img/EmpGrande.jpg");
 	background-size: cover;
+  background-position:center;
 
 }
 .imgAereo
 {
   background-image: url("assets/images/esp/aereoMenu.png");
 	background-size: cover;
+  background-position:center;
   background-repeat: no-repeat;
  
   
@@ -507,12 +512,14 @@ path:hover {
 {
   background-image: url("assets/images/esp/maritimoMenu.png");
 	background-size: cover;
+  background-position:center;
   background-repeat: no-repeat;
 }
 .imgTerrestre
 {
   background-image: url("assets/images/esp/terrestreMenu.png");
 	background-size: cover;
+  background-position:center;
   background-repeat: no-repeat;
 }
 .imgAduana
@@ -525,30 +532,35 @@ path:hover {
 {
   background-image: url("img/DinEmpresas.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgDinExport
 {
   background-image: url("img/DinExport.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgDinCrecimientoExp
 {
   background-image: url("img/DinCrecimientoExp.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgDinPotencial2020
 {
   background-image: url("img/DinPotencial2020.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgDinPotencial2021
 {
   background-image: url("img/DinPotencial2021.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 
@@ -556,48 +568,56 @@ path:hover {
 {
   background-image: url("img/DinRecaudacion.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgDinParqueV
 {
   background-image: url("img/DinParqueV.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgDinCartera
 {
   background-image: url("img/DinCartera.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgInfraCobElectrica
 {
   background-image: url("img/InfraCobElectrica.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgInfraRadiobases
 {
   background-image: url("img/InfraRadiobases.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgInfraZDEEP
 {
   background-image: url("img/InfraZDEEP.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgInfraOrgJur
 {
   background-image: url("img/InfraOrgJur.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgInfraPuntosAcceso
 {
   background-image: url("img/InfraPuntosAcceso.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 
@@ -605,18 +625,21 @@ path:hover {
 {
   background-image: url("img/TICcelular.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgTICcomputadora
 {
   background-image: url("img/TICcomputadora.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 .imgTICinternet
 {
   background-image: url("img/TICinternet.jpg");
 	background-size: cover;
+  background-position:center;
 }
 
 
@@ -625,6 +648,7 @@ path:hover {
 {
   background-image: url("img/cobertura_electrica.jpg");
 	background-size: cover;
+  background-position:center;
 
 }
 
@@ -632,6 +656,7 @@ path:hover {
 {
   background-image: url("img/internet.jpg");
 	background-size: cover;
+  background-position:center;
 
 }
 
@@ -640,6 +665,7 @@ path:hover {
 {
   background-image: url("img/CostoInmobiliario.jpg");
 	background-size: cover;
+  background-position:center;
 
 }
 
@@ -647,6 +673,7 @@ path:hover {
 {
   background-image: url("img/CostoEnergia.jpg");
 	background-size: cover;
+  background-position:center;
 
 }
 
@@ -654,13 +681,14 @@ path:hover {
 {
   background-image: url("img/CostoAgua.jpg");
 	background-size: cover;
+  background-position:center;
 
 }
 
 .imgFondoMapaGT
 {
   background-image: url("img/FondoMapaGT.jpg");
-	background-size: auto;
+	background-size: cover;
   padding-top: 94px;
   padding-left: 4px;
   margin: auto;

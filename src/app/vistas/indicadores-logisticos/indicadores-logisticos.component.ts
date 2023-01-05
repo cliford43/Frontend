@@ -385,7 +385,7 @@ export class IndicadoresLogisticosComponent implements OnInit {
        
         temp+='</video>';*/
       for (let index = 0; index < data['length']; index++) {
-        temp += '<img src="' + urlVideo + data[index].video + '" alt="Computer man" style="width:875px;height:500px;">';
+        temp += '<img src="' + urlVideo + data[index].video + '" alt="Computer man" style="">';
       }
       if (id == 1) {
         $("#cargaVideo").html(temp);
